@@ -16,6 +16,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
     alias: {
       "react-native": "react-native-web",
+      "@improbable-eng/grpc-web-node-http-transport": "@improbable-eng/grpc-web",
     },
   },
   module: {
