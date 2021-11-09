@@ -24,7 +24,7 @@ export class SpotMarketStore {
 
   constructor(@inject(Settings) private _settings: Settings) {
     this._spotMarketChronosConsumer = new SpotMarketChronosConsumer(this._settings.appUrlEndpoint.baseUrl);
-    this._spotMarketConsumer = new SpotMarketConsumer(this._settings.appUrlEndpoint.baseUrl);
+    this._spotMarketConsumer = new SpotMarketConsumer(this._settings.appUrlEndpoint.exchangeUrl);
 
     makeObservable(this);
   }

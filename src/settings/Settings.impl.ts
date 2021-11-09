@@ -6,7 +6,7 @@ import { Settings } from "./Settings";
 @injectable()
 export class _SettingsImpl implements Settings {
   @observable
-  network = Network.Public;
+  network = Network.Testnet;
 
   @computed
   get appUrlEndpoint(): UrlEndpoint {
