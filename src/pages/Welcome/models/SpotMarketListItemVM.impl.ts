@@ -10,12 +10,17 @@ export class SpotMarketListItemVMImpl implements SpotMarketListItemVM {
 
   @computed
   get ticker() {
-    return this._spotMarket.ticker;
+    return this._spotMarket.baseToken?.name ?? "";
+  }
+
+  @computed
+  get imageUrl() {
+    return this._spotMarket.baseToken?.logo;
   }
 
   @computed
   get pair() {
-    return `${this._spotMarket.quoteToken?.symbol}/${this._spotMarket.baseToken?.symbol}`;
+    return this._spotMarket.ticker;
   }
 
   @computed
