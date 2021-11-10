@@ -1,50 +1,34 @@
 import { observer } from "mobx-react";
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { SpotMarketListItemVM } from "./SpotMarketListItemVM";
-import { Spacer } from "../../Spacer";
+import { StackView } from "../../StackView";
+import { Logo } from "../../Logo";
+import { Typography } from "../../Typography";
 
 type Props = {
   model: SpotMarketListItemVM;
 };
 
-const IMAGE_SIZE = 36;
+const IMAGE_SIZE = 64;
 
 export const SpotMarketListItem = observer(({ model }: Props) => {
   return (
     <TouchableOpacity>
-      <View style={styles.root}>
-        <View style={styles.image}>
-          <Image
-            source={{
-              uri: model.imageUrl,
-              width: IMAGE_SIZE,
-              height: IMAGE_SIZE,
-            }}
-          />
-        </View>
-        <View>
-          <Text>{model.pair}</Text>
-          <Text>{model.ticker}</Text>
-        </View>
-        <Spacer />
-        <View style={styles.right}>
-          <Text>{model.lastPrice}</Text>
-          <Text>{model.change}</Text>
-        </View>
-      </View>
+      <StackView direction={"row"} alignItems={"center"} pt={8} pb={8}>
+        <StackView mr={24}>
+          <Logo size={IMAGE_SIZE} sourceUri={model.imageUrl} />
+        </StackView>
+        <StackView flex>
+          <StackView direction={"row"} justifyContent={"space-between"}>
+            <Typography>{model.pair}</Typography>
+            <Typography>{model.lastPrice}</Typography>
+          </StackView>
+          <StackView direction={"row"} justifyContent={"space-between"} pt={8}>
+            <Typography variant={"subhead"}>{model.ticker}</Typography>
+            <Typography variant={"subhead"}>{model.change}</Typography>
+          </StackView>
+        </StackView>
+      </StackView>
     </TouchableOpacity>
   );
-});
-
-const styles = StyleSheet.create({
-  root: {
-    flexDirection: "row",
-    paddingVertical: 8,
-  },
-  image: {
-    marginRight: 16,
-  },
-  right: {
-    alignItems: "flex-end",
-  },
 });
