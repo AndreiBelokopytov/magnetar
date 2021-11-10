@@ -28,6 +28,11 @@ module.exports = {
           loader: "babel-loader",
         },
       },
+
+      {
+        test: /\.(png|jpeg|jpg|gif)/,
+        type: "asset/resource",
+      },
     ],
   },
   plugins: [
