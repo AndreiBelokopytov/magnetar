@@ -5,19 +5,28 @@ import {
   SpotMarketConsumer,
   SpotTransformer,
 } from "@injectivelabs/spot-consumer";
-import { makeObservable, observable, runInAction } from "mobx";
+import { computed, makeObservable, observable, runInAction } from "mobx";
 import { inject, injectable } from "inversify";
 import { Settings } from "../settings";
+import { IndexedArray } from "../utils";
 
 @injectable()
 export class SpotMarketStore {
   static readonly TYPE = Symbol("MarketsStoreInjective");
 
   @observable
-  spotMarketSummaries: AllChronosSpotMarketSummary[] = [];
+  marketSummaries = IndexedArray.empty<AllChronosSpotMarketSummary>();
 
   @observable
-  spotMarkets: SpotMarket[] = [];
+  markets: SpotMarket[] = [];
+
+  @computed
+  get activeMarkets() {
+    return this.markets.filter((el) => el.marketStatus === "active");
+  }
+
+  @observable
+  private _marketSummaries: AllChronosSpotMarketSummary[] = [];
 
   private _spotMarketChronosConsumer: SpotMarketChronosConsumer;
   private _spotMarketConsumer: SpotMarketConsumer;
@@ -34,8 +43,11 @@ export class SpotMarketStore {
     const allSpotMarketInfo = await this._spotMarketConsumer.fetchMarkets();
 
     runInAction(() => {
-      this.spotMarketSummaries = allChronosSpotMarketSummary;
-      this.spotMarkets = SpotTransformer.grpcMarketsToMarkets(allSpotMarketInfo);
+      this.marketSummaries = new IndexedArray<AllChronosSpotMarketSummary>(
+        allChronosSpotMarketSummary,
+        (el) => el.marketId
+      );
+      this.markets = SpotTransformer.grpcMarketsToMarkets(allSpotMarketInfo);
     });
   }
 }

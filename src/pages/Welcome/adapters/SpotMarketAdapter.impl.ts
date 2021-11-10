@@ -9,16 +9,19 @@ import { SpotMarketListItemVMImpl } from "../models";
 export class SpotMarketAdapterImpl implements SpotMarketAdapter {
   @computed
   get marketListItems(): SpotMarketListItemVM[] {
-    return this._marketsStore.spotMarkets.map((el) => new SpotMarketListItemVMImpl(el));
+    return this._spotMarketStore.activeMarkets.map((market) => {
+      const marketSummary = this._spotMarketStore.marketSummaries.index[market.marketId];
+      return new SpotMarketListItemVMImpl(market, marketSummary);
+    });
   }
 
-  constructor(@inject(SpotMarketStore.TYPE) private _marketsStore: SpotMarketStore) {
+  constructor(@inject(SpotMarketStore.TYPE) private _spotMarketStore: SpotMarketStore) {
     makeObservable(this);
   }
 
   async refresh(): Promise<void> {
     try {
-      await this._marketsStore.refresh();
+      await this._spotMarketStore.refresh();
     } catch (e) {
       console.log("Error loading spot markets:", e);
     }

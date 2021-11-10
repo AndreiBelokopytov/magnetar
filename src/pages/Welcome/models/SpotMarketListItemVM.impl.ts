@@ -1,4 +1,4 @@
-import { SpotMarket } from "@injectivelabs/spot-consumer";
+import { AllChronosSpotMarketSummary, SpotMarket } from "@injectivelabs/spot-consumer";
 import { computed, makeObservable } from "mobx";
 import { SpotMarketListItemVM } from "../../../components";
 
@@ -25,15 +25,21 @@ export class SpotMarketListItemVMImpl implements SpotMarketListItemVM {
 
   @computed
   get lastPrice() {
-    return "0";
+    if (this._marketSummary) {
+      return `${this._marketSummary.price.toFixed(2)} ${this._spotMarket.quoteToken?.symbol}`;
+    }
+    return "no data";
   }
 
   @computed
   get change() {
-    return "0";
+    if (this._marketSummary) {
+      return `${this._marketSummary?.change.toFixed(2)}%`;
+    }
+    return "no data";
   }
 
-  constructor(private _spotMarket: SpotMarket) {
+  constructor(private _spotMarket: SpotMarket, private _marketSummary?: AllChronosSpotMarketSummary) {
     makeObservable(this);
   }
 }
