@@ -1,5 +1,5 @@
 import { SpotMarketAdapter } from "./SpotMarketAdapter";
-import { computed, makeObservable } from "mobx";
+import { computed, makeObservable, observable, runInAction } from "mobx";
 import { injectable, inject } from "inversify";
 import { SpotMarketListItemVM } from "../../../components";
 import { SpotMarketStore } from "../../../stores";
@@ -7,6 +7,9 @@ import { SpotMarketListItemVMImpl } from "../models";
 
 @injectable()
 export class SpotMarketAdapterImpl implements SpotMarketAdapter {
+  @observable
+  isLoading = false;
+
   @computed
   get marketListItems(): SpotMarketListItemVM[] {
     return this._spotMarketStore.activeMarkets.map((market) => {
@@ -20,10 +23,13 @@ export class SpotMarketAdapterImpl implements SpotMarketAdapter {
   }
 
   async refresh(): Promise<void> {
+    this.isLoading = true;
     try {
       await this._spotMarketStore.refresh();
     } catch (e) {
       console.log("Error loading spot markets:", e);
+    } finally {
+      runInAction(() => (this.isLoading = false));
     }
   }
 }

@@ -15,7 +15,7 @@ export const WelcomePage = observer(() => {
   return (
     <StackView alignItems={"center"} height={"100%"}>
       <StackView flex width={600} style={styles.content}>
-        <SpotMarketList items={adapter?.marketListItems ?? []} />
+        <SpotMarketList loading={adapter?.isLoading} items={adapter?.marketListItems ?? []} />
       </StackView>
     </StackView>
   );
