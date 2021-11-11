@@ -1,9 +1,6 @@
 import { observer } from "mobx-react";
 import { TouchableOpacity } from "react-native";
-import { SpotMarketListItemVM } from "./SpotMarketListItemVM";
-import { StackView } from "../../StackView";
-import { Logo } from "../../Logo";
-import { Typography } from "../../Typography";
+import { StackView, Logo, Typography, SpotMarketListItemVM } from "~/components";
 
 type Props = {
   model: SpotMarketListItemVM;

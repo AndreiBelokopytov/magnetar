@@ -1,5 +1,5 @@
 import { Image, ImageProps } from "react-native";
-import emptyLogo from "../../assets/empty_logo.png";
+import emptyLogo from "~/assets/empty_logo.png";
 
 type Props = {
   size: number;

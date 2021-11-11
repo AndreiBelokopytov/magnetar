@@ -1,6 +1,6 @@
 import { AllChronosSpotMarketSummary, SpotMarket } from "@injectivelabs/spot-consumer";
 import { computed, makeObservable } from "mobx";
-import { SpotMarketListItemVM } from "../../../components";
+import { SpotMarketListItemVM } from "~/components";
 
 export class SpotMarketListItemVMImpl implements SpotMarketListItemVM {
   @computed

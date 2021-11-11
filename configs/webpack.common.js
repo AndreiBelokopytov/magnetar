@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const { TsconfigPathsPlugin } = require("tsconfig-paths-webpack-plugin");
 
 const APP_STRUCTURE = {
   src: path.resolve(__dirname, "../src"),
@@ -18,6 +19,7 @@ module.exports = {
       "react-native": "react-native-web",
       "@improbable-eng/grpc-web-node-http-transport": "@improbable-eng/grpc-web",
     },
+    plugins: [new TsconfigPathsPlugin()],
   },
   module: {
     rules: [

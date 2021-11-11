@@ -8,7 +8,7 @@ import {
 import { computed, makeObservable, observable, runInAction } from "mobx";
 import { inject, injectable } from "inversify";
 import { Settings } from "../settings";
-import { IndexedArray } from "../utils";
+import { IndexedArray } from "~/utils";
 
 @injectable()
 export class SpotMarketStore {

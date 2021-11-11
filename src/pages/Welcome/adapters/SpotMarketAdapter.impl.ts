@@ -1,8 +1,8 @@
 import { SpotMarketAdapter } from "./SpotMarketAdapter";
 import { computed, makeObservable, observable, runInAction } from "mobx";
 import { injectable, inject } from "inversify";
-import { SpotMarketListItemVM } from "../../../components";
-import { SpotMarketStore } from "../../../stores";
+import { SpotMarketListItemVM } from "~/components";
+import { SpotMarketStore } from "~/stores";
 import { SpotMarketListItemVMImpl } from "../models";
 
 @injectable()

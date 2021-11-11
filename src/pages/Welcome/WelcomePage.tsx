@@ -1,5 +1,5 @@
 import { SpotMarketList, StackView } from "../../components";
-import { useDependency } from "../../DIContainer";
+import { useDependency } from "~/DIContainer";
 import { SpotMarketAdapter } from "./adapters";
 import React from "react";
 import { observer } from "mobx-react";

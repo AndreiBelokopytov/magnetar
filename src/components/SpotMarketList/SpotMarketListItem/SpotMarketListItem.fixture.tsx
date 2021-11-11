@@ -1,6 +1,6 @@
 import React from "react";
 import { SpotMarketListItem } from "./SpotMarketListItem";
-import { spotMarketListMock } from "../../../mocks";
+import { spotMarketListMock } from "~/mocks";
 import { View, StyleSheet } from "react-native";
 
 const model = spotMarketListMock[0];
