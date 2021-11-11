@@ -11,7 +11,7 @@ type Props = {
 export const SpotMarketList = observer(({ items, loading }: Props) => {
   if (loading) {
     return (
-      <StackView flex justifyContent={"center"} alignItems={"center"} height={"100%"}>
+      <StackView flex justifyContent={"center"} alignItems={"center"}>
         <ActivityIndicator size={"large"} />
       </StackView>
     );
