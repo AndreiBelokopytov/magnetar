@@ -1,3 +1,9 @@
 import { Button } from "./Button";
 
-export default <Button>Click me</Button>;
+const fixtures = {
+  default: <Button>Click me</Button>,
+  disabled: <Button disabled>Click me</Button>,
+  loading: <Button loading>Click me</Button>,
+};
+
+export default fixtures;
