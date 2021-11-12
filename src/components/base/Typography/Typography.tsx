@@ -1,4 +1,4 @@
-import { TypographyVariant } from "./Typography.types";
+import { TypographyVariant } from "~/components";
 import { Text, TextProps, StyleSheet } from "react-native";
 
 type Props = {

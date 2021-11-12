@@ -1,4 +1,4 @@
-import { SpotMarketListItemVM } from "../components";
+import { SpotMarketListItemVM } from "~/components";
 
 export const spotMarketListMock: SpotMarketListItemVM[] = [
   {

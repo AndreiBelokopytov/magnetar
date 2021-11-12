@@ -1,5 +1,4 @@
-import { Typography } from "./Typography";
-import { TypographyVariant } from "./Typography.types";
+import { TypographyVariant, Typography } from "~/components";
 
 const fixtures: Record<TypographyVariant, React.ReactNode> = {
   h1: <Typography variant={"h1"}>Title 1</Typography>,
