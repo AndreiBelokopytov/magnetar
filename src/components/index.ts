@@ -6,3 +6,4 @@ export * from "./SpotMarketList";
 export * from "./Spacer";
 export * from "./StackView";
 export * from "./Typography";
+export * from "./WalletSelectionModal";
