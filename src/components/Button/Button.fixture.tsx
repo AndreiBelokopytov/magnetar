@@ -1,3 +1,3 @@
 import { Button } from "./Button";
 
-export default <Button title={"Click me!"} />;
+export default <Button>Click me</Button>;
