@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
-import { SpotMarketListItem, SpotMarketListItemVM } from "./SpotMarketListItem";
-import { StackView } from "../StackView";
 import { ActivityIndicator } from "react-native";
+import { SpotMarketListItemVM, StackView } from "~/components";
+import { SpotMarketListItem } from "./SpotMarketListItem";
 
 type Props = {
   items: SpotMarketListItemVM[];
