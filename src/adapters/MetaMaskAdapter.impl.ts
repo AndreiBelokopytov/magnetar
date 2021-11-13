@@ -3,7 +3,7 @@ import { inject, injectable } from "inversify";
 import { MetaMaskAdapter } from "./MetaMaskAdapter";
 import { MetaMaskOnBoardingProvider } from "./MetaMaskOnBoardingProvider";
 import { Disposer, EthAccount } from "~/utils";
-import { EthAccountInfoVMImpl } from "~/pages/_models";
+import { EthAccountInfoVMImpl } from "~/models";
 
 @injectable()
 export class MetaMaskAdapterImpl implements MetaMaskAdapter {

@@ -1,4 +1,4 @@
-import { AccountInfoVM } from "~/components/AccountInfo";
+import { AccountInfoVM } from "~/components";
 import { EthAccount } from "~/utils";
 
 export class EthAccountInfoVMImpl implements AccountInfoVM {

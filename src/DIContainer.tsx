@@ -1,12 +1,12 @@
 import { Container } from "inversify";
-import { settingsModule } from "./settings";
-import { storesModule } from "./stores";
-import { pagesModule } from "./pages";
+import { settingsModule } from "~/settings";
+import { storesModule } from "~/stores";
+import { adapterModule } from "~/adapters";
 import React from "react";
 import { interfaces } from "inversify/lib/interfaces/interfaces";
 
 const container = new Container();
-container.load(settingsModule, storesModule, pagesModule);
+container.load(settingsModule, storesModule, adapterModule);
 
 const Context = React.createContext(container);
 

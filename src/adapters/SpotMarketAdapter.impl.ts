@@ -3,7 +3,7 @@ import { computed, makeObservable, observable, runInAction } from "mobx";
 import { injectable, inject } from "inversify";
 import { SpotMarketListItemVM } from "~/components";
 import { SpotMarketStore } from "~/stores";
-import { SpotMarketListItemVMImpl } from "../_models";
+import { SpotMarketListItemVMImpl } from "~/models";
 
 @injectable()
 export class SpotMarketAdapterImpl implements SpotMarketAdapter {

@@ -1,6 +1,6 @@
 import { PageHeader } from "~/components";
 import { useDependency } from "~/DIContainer";
-import { MetaMaskAdapter } from "~/pages/_adapters";
+import { MetaMaskAdapter } from "~/adapters";
 import { useEffect } from "react";
 import { observer } from "mobx-react";
 

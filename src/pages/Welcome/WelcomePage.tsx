@@ -1,6 +1,6 @@
 import { SpotMarketList, StackView } from "~/components";
 import { useDependency } from "~/DIContainer";
-import { SpotMarketAdapter } from "../_adapters";
+import { SpotMarketAdapter } from "~/adapters";
 import { PageHeaderContainer as PageHeader } from "../_containers";
 import React from "react";
 import { observer } from "mobx-react";

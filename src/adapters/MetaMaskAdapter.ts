@@ -1,5 +1,5 @@
 import { Disposable } from "~/utils";
-import { AccountInfoVM } from "~/components/AccountInfo";
+import { AccountInfoVM } from "~/components";
 
 export interface MetaMaskAdapter extends Disposable {
   connect(): void;
