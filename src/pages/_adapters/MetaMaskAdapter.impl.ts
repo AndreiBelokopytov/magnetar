@@ -49,7 +49,6 @@ export class MetaMaskAdapterImpl implements MetaMaskAdapter {
     if (this.isWalletConnected) {
       return;
     }
-    this.isConnecting = true;
     if (!this._isMetaMaskInstalled) {
       this._onBoarding.startOnboarding();
     } else {
@@ -82,7 +81,9 @@ export class MetaMaskAdapterImpl implements MetaMaskAdapter {
     this.disposers.forEach((d) => d());
   }
 
+  @action.bound
   private async _requestAccounts() {
+    this.isConnecting = true;
     try {
       const accounts = await this._provider!.request({ method: "eth_requestAccounts" });
       this._updateAccounts(accounts);
