@@ -1,16 +1,19 @@
-import { SpotMarketList, StackView, PageHeader } from "~/components";
+import { SpotMarketList, StackView } from "~/components";
 import { useDependency } from "~/DIContainer";
-import { SpotMarketAdapter } from "./adapters";
+import { SpotMarketAdapter } from "../_adapters";
+import { PageHeaderContainer as PageHeader } from "../_containers";
 import React from "react";
 import { observer } from "mobx-react";
 import { ScrollView, StyleSheet } from "react-native";
 
 export const WelcomePage = observer(() => {
-  const adapter = useDependency<SpotMarketAdapter>(SpotMarketAdapter);
+  const spotMarketAdapter = useDependency<SpotMarketAdapter>(SpotMarketAdapter);
 
   React.useEffect(() => {
-    adapter?.refresh();
-  }, [adapter]);
+    spotMarketAdapter?.refresh();
+  }, [spotMarketAdapter]);
+
+  React.useEffect(() => {});
 
   return (
     <StackView flex>
@@ -19,7 +22,7 @@ export const WelcomePage = observer(() => {
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <StackView flex alignItems={"center"}>
             <StackView flex width={600}>
-              <SpotMarketList loading={adapter?.isLoading} items={adapter?.marketListItems ?? []} />
+              <SpotMarketList loading={spotMarketAdapter?.isLoading} items={spotMarketAdapter?.marketListItems ?? []} />
             </StackView>
           </StackView>
         </ScrollView>

@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { Spacer, StackView, Typography, Button, WalletSelectionModal } from "~/components";
+import { AccountInfo, AccountInfoVM } from "~/components/AccountInfo";
 
-export const PageHeader = () => {
+type Props = {
+  accountInfo?: AccountInfoVM;
+  connectMetaMask(): void;
+  isMetaMaskConnecting?: boolean;
+  isWalletConnected?: boolean;
+};
+
+export const PageHeader = ({ accountInfo, connectMetaMask, isWalletConnected, isMetaMaskConnecting }: Props) => {
   const [isWalletSelectionOpen, setIsWalletSelectionOpen] = useState(false);
 
   const openWalletModal = () => setIsWalletSelectionOpen(true);
@@ -20,9 +28,15 @@ export const PageHeader = () => {
       >
         <Typography variant={"h3"}>Magnetar</Typography>
         <Spacer />
-        <Button onPress={openWalletModal}>Connect wallet</Button>
+        {accountInfo ? <AccountInfo model={accountInfo} /> : <Button onPress={openWalletModal}>Connect wallet</Button>}
       </StackView>
-      <WalletSelectionModal open={isWalletSelectionOpen} onClose={closeWalletModal} />
+      <WalletSelectionModal
+        isMetaMaskConnecting={isMetaMaskConnecting}
+        isWalletConnected={isWalletConnected}
+        connectMetaMask={connectMetaMask}
+        open={isWalletSelectionOpen}
+        onClose={closeWalletModal}
+      />
     </>
   );
 };
