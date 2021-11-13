@@ -3,10 +3,11 @@ import { Text, TextProps, StyleSheet } from "react-native";
 
 type Props = {
   variant?: TypographyVariant;
+  overflowHidden?: boolean;
 } & TextProps;
 
-export const Typography = ({ variant = "body", style, ...rest }: Props) => {
-  return <Text {...rest} style={[style, styles[variant]]} />;
+export const Typography = ({ variant = "body", overflowHidden, style, ...rest }: Props) => {
+  return <Text {...rest} style={[style, styles[variant], overflowHidden ? styles.overflow : undefined]} />;
 };
 
 const styles = StyleSheet.create({
@@ -30,5 +31,10 @@ const styles = StyleSheet.create({
   },
   h3: {
     fontSize: 22,
+  },
+  overflow: {
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
 });
