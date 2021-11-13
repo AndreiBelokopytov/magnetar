@@ -10,8 +10,8 @@ import {
 
 export const pagesModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<SpotMarketAdapter>(SpotMarketAdapter).to(SpotMarketAdapterImpl);
-  bind<MetaMaskOnBoardingProvider>(MetaMaskOnBoardingProvider).toFactory(
-    () => () => new MetaMaskOnBoardingProviderImpl()
+  bind<MetaMaskOnBoardingProvider>(MetaMaskOnBoardingProvider).toDynamicValue(
+    () => new MetaMaskOnBoardingProviderImpl()
   );
   bind<MetaMaskAdapter>(MetaMaskAdapter).to(MetaMaskAdapterImpl);
 });
