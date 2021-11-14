@@ -1,5 +1,6 @@
 import { TypographyVariant } from "~/components";
 import { Text, TextProps, StyleSheet } from "react-native";
+import * as theme from "~/theme";
 
 type Props = {
   variant?: TypographyVariant;
@@ -7,12 +8,14 @@ type Props = {
 } & TextProps;
 
 export const Typography = ({ variant = "body", overflowHidden, style, ...rest }: Props) => {
-  return <Text {...rest} style={[style, styles[variant], overflowHidden ? styles.overflow : undefined]} />;
+  return (
+    <Text {...rest} style={[style, styles.typography, styles[variant], overflowHidden ? styles.overflow : undefined]} />
+  );
 };
 
 const styles = StyleSheet.create({
   typography: {
-    // base style for Typography
+    fontFamily: theme.typography.fontFamily,
   },
   body: {
     fontSize: 17,
