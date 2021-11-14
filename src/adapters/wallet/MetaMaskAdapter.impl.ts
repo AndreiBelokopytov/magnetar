@@ -2,7 +2,7 @@ import { action, computed, makeObservable, observable, reaction } from "mobx";
 import { inject, injectable } from "inversify";
 import { MetaMaskOnBoardingProvider } from "./MetaMaskOnBoardingProvider";
 import { Disposer, EthAccount } from "~/utils";
-import { EthAccountInfoVMImpl } from "~/models";
+import { AccountInfoVMImpl } from "~/adapters/_models";
 import { WalletAdapter, WalletType } from "~/adapters";
 
 @injectable()
@@ -20,7 +20,7 @@ export class MetaMaskAdapterImpl implements WalletAdapter {
   @computed
   get accountInfo() {
     if (this._activeAccount) {
-      return new EthAccountInfoVMImpl(this._activeAccount);
+      return new AccountInfoVMImpl(this._activeAccount);
     }
   }
 

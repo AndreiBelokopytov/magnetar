@@ -3,8 +3,8 @@ import { MetaMaskOnBoardingProvider } from "./wallet/MetaMaskOnBoardingProvider"
 import { MetaMaskOnBoardingProviderImpl } from "./wallet/MetaMaskOnBoardingProvider.impl";
 import { SpotMarketAdapter } from "./injective/SpotMarketAdapter";
 import { SpotMarketAdapterImpl } from "./injective/SpotMarketAdapter.impl";
-import { WalletAdapter, WalletAdapterFactory, WalletType } from "~/adapters/wallet";
-import { MetaMaskAdapterImpl } from "~/adapters/wallet/MetaMaskAdapter.impl";
+import { WalletAdapter, WalletAdapterFactory, WalletType } from "./wallet";
+import { MetaMaskAdapterImpl } from "./wallet/MetaMaskAdapter.impl";
 
 export const adapterModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<SpotMarketAdapter>(SpotMarketAdapter).to(SpotMarketAdapterImpl);
