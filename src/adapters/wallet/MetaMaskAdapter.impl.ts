@@ -1,7 +1,7 @@
 import { action, computed, makeObservable, observable, reaction } from "mobx";
 import { inject, injectable } from "inversify";
 import { MetaMaskOnBoardingProvider } from "~/api";
-import { Disposer, EthAccount } from "~/utils";
+import { Disposer, EthAddress } from "~/utils";
 import { AccountInfoVMImpl } from "~/adapters/_models";
 import { WalletAdapter } from "~/adapters";
 import { WalletType } from "~/domain";
@@ -47,7 +47,7 @@ export class MetaMaskAdapterImpl implements WalletAdapter {
   private disposers: Disposer[] = [];
 
   @observable
-  private _accounts: EthAccount[] = [];
+  private _accounts: EthAddress[] = [];
 
   constructor(
     @inject(MetaMaskOnBoardingProvider) private _onBoarding: MetaMaskOnBoardingProvider,
@@ -104,7 +104,7 @@ export class MetaMaskAdapterImpl implements WalletAdapter {
   }
 
   @action.bound
-  private _updateAccounts(accounts: EthAccount[]) {
+  private _updateAccounts(accounts: EthAddress[]) {
     this._accounts = accounts;
   }
 
