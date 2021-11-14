@@ -1,12 +1,14 @@
 import { action, computed, makeObservable, observable, reaction } from "mobx";
 import { inject, injectable } from "inversify";
-import { MetaMaskAdapter } from "./MetaMaskAdapter";
 import { MetaMaskOnBoardingProvider } from "./MetaMaskOnBoardingProvider";
 import { Disposer, EthAccount } from "~/utils";
 import { EthAccountInfoVMImpl } from "~/models";
+import { WalletAdapter, WalletType } from "~/adapters";
 
 @injectable()
-export class MetaMaskAdapterImpl implements MetaMaskAdapter {
+export class MetaMaskAdapterImpl implements WalletAdapter {
+  readonly type = WalletType.metaMask;
+
   @observable
   isConnecting = false;
 
@@ -73,8 +75,6 @@ export class MetaMaskAdapterImpl implements MetaMaskAdapter {
         }
       )
     );
-
-    this._requestAccounts();
   }
 
   dispose() {

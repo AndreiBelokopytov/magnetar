@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import { observer } from "mobx-react";
 
 type Props = {
-  connectMetaMask(): void;
+  connectMetaMask?(): void;
   isMetaMaskConnecting?: boolean;
   isWalletConnected?: boolean;
   open?: boolean;
@@ -14,6 +14,7 @@ type Props = {
 export const WalletSelectionModal = observer(
   ({ connectMetaMask, isMetaMaskConnecting, isWalletConnected, open, onClose }: Props) => {
     const handleClose = () => onClose?.();
+    const handleConnectMetaMask = () => connectMetaMask?.();
 
     React.useEffect(() => {
       if (isWalletConnected) {
@@ -24,7 +25,7 @@ export const WalletSelectionModal = observer(
     return (
       <Modal visible={open} onClose={handleClose} contentStyle={styles.walletModalContent}>
         <StackView alignItems={"center"} justifyContent={"center"} bgColor={"white"}>
-          <Button loading={isMetaMaskConnecting} onPress={connectMetaMask}>
+          <Button loading={isMetaMaskConnecting} onPress={handleConnectMetaMask}>
             Connect MetaMask
           </Button>
         </StackView>

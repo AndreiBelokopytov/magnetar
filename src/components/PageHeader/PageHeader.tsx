@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Spacer, StackView, Typography, Button, WalletSelectionModal } from "~/components";
-import { AccountInfo, AccountInfoVM } from "~/components/AccountInfo";
+import { Spacer, StackView, Typography, Button, WalletSelectionModal, AccountInfo, AccountInfoVM } from "~/components";
 
 type Props = {
   accountInfo?: AccountInfoVM;
-  connectMetaMask(): void;
+  connectMetaMask?(): void;
   isMetaMaskConnecting?: boolean;
   isWalletConnected?: boolean;
 };

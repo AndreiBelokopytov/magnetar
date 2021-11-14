@@ -1,27 +1,23 @@
 import { PageHeader } from "~/components";
-import { useDependency } from "~/DIContainer";
-import { MetaMaskAdapter } from "~/adapters";
-import { useEffect } from "react";
 import { observer } from "mobx-react";
+import { useWalletAdapter } from "~/hooks";
+import { useEffect } from "react";
+import { WalletType } from "~/adapters";
 
 export const PageHeaderContainer = observer(() => {
-  const metaMaskAdapter = useDependency<MetaMaskAdapter>(MetaMaskAdapter);
+  const currentWalletAdapter = useWalletAdapter();
+  const metaMaskWalletAdapter = useWalletAdapter(WalletType.metaMask);
 
   useEffect(() => {
-    metaMaskAdapter?.init();
-    return () => metaMaskAdapter?.dispose();
-  }, [metaMaskAdapter]);
-
-  if (!metaMaskAdapter) {
-    return null;
-  }
+    currentWalletAdapter?.connect();
+  }, [currentWalletAdapter]);
 
   return (
     <PageHeader
-      accountInfo={metaMaskAdapter.accountInfo}
-      connectMetaMask={metaMaskAdapter.connect}
-      isMetaMaskConnecting={metaMaskAdapter.isConnecting}
-      isWalletConnected={metaMaskAdapter.isWalletConnected}
+      accountInfo={currentWalletAdapter?.accountInfo}
+      connectMetaMask={metaMaskWalletAdapter?.connect}
+      isMetaMaskConnecting={metaMaskWalletAdapter?.isConnecting}
+      isWalletConnected={metaMaskWalletAdapter?.isWalletConnected}
     />
   );
 });

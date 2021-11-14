@@ -1,5 +1,5 @@
 import { SpotMarketList, StackView } from "~/components";
-import { useDependency } from "~/DIContainer";
+import { useInstanceOf } from "~/DIContainer";
 import { SpotMarketAdapter } from "~/adapters";
 import { PageHeaderContainer as PageHeader } from "../_containers";
 import React from "react";
@@ -7,7 +7,7 @@ import { observer } from "mobx-react";
 import { ScrollView, StyleSheet } from "react-native";
 
 export const WelcomePage = observer(() => {
-  const spotMarketAdapter = useDependency<SpotMarketAdapter>(SpotMarketAdapter);
+  const spotMarketAdapter = useInstanceOf<SpotMarketAdapter>(SpotMarketAdapter);
 
   React.useEffect(() => {
     spotMarketAdapter?.refresh();

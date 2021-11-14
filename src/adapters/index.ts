@@ -1,4 +1,3 @@
-export * from "./SpotMarketAdapter";
-export * from "./MetaMaskAdapter";
-export * from "./MetaMaskOnBoardingProvider";
+export * from "./injective";
+export * from "./wallet";
 export * from "./adapter.module";
