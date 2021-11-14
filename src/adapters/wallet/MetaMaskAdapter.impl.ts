@@ -1,16 +1,18 @@
 import { action, computed, makeObservable, observable, reaction } from "mobx";
 import { inject, injectable } from "inversify";
-import { MetaMaskOnBoardingProvider } from "./MetaMaskOnBoardingProvider";
+import { MetaMaskOnBoardingProvider } from "~/api";
 import { Disposer, EthAccount } from "~/utils";
 import { AccountInfoVMImpl } from "~/adapters/_models";
-import { WalletAdapter, WalletType } from "~/adapters";
+import { WalletAdapter } from "~/adapters";
+import { WalletType } from "~/domain";
+import { WalletAdapterDelegate } from "./WalletAdapterDelegate";
 
 @injectable()
 export class MetaMaskAdapterImpl implements WalletAdapter {
-  readonly type = WalletType.metaMask;
-
   @observable
   isConnecting = false;
+
+  readonly walletType: WalletType = WalletType.metaMask;
 
   @computed
   get isWalletConnected() {
@@ -22,6 +24,11 @@ export class MetaMaskAdapterImpl implements WalletAdapter {
     if (this._activeAccount) {
       return new AccountInfoVMImpl(this._activeAccount);
     }
+  }
+
+  @computed
+  get isActive(): boolean {
+    return this._walletAdapterDelegate.activeWalletType === this.walletType;
   }
 
   @computed
@@ -42,7 +49,10 @@ export class MetaMaskAdapterImpl implements WalletAdapter {
   @observable
   private _accounts: EthAccount[] = [];
 
-  constructor(@inject(MetaMaskOnBoardingProvider) private _onBoarding: MetaMaskOnBoardingProvider) {
+  constructor(
+    @inject(MetaMaskOnBoardingProvider) private _onBoarding: MetaMaskOnBoardingProvider,
+    @inject(WalletAdapterDelegate) private _walletAdapterDelegate: WalletAdapterDelegate
+  ) {
     makeObservable(this);
   }
 
@@ -66,10 +76,11 @@ export class MetaMaskAdapterImpl implements WalletAdapter {
     this._provider!.on("accountsChanged", this._updateAccounts);
     this.disposers.push(() => this._provider!.off("accountsChanged", this._updateAccounts));
 
-    this.disposers.push(() =>
+    this.disposers.push(
       reaction(
-        () => this._accounts.length > 0,
+        () => this.isWalletConnected,
         () => this._onWalletConnected(),
+
         {
           fireImmediately: true,
         }
@@ -101,5 +112,6 @@ export class MetaMaskAdapterImpl implements WalletAdapter {
   private _onWalletConnected() {
     this.isConnecting = false;
     this._onBoarding.stopOnboarding();
+    this._walletAdapterDelegate.onWalletConnected(this);
   }
 }

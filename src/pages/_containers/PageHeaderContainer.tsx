@@ -2,22 +2,23 @@ import { PageHeader } from "~/components";
 import { observer } from "mobx-react";
 import { useWalletAdapter } from "~/hooks";
 import { useEffect } from "react";
-import { WalletType } from "~/adapters";
+import { WalletType } from "~/domain";
 
 export const PageHeaderContainer = observer(() => {
-  const currentWalletAdapter = useWalletAdapter();
   const metaMaskWalletAdapter = useWalletAdapter(WalletType.metaMask);
 
+  const activeWallet = metaMaskWalletAdapter?.isActive ? metaMaskWalletAdapter : undefined;
+
   useEffect(() => {
-    currentWalletAdapter?.connect();
-  }, [currentWalletAdapter]);
+    activeWallet?.connect();
+  }, [activeWallet]);
 
   return (
     <PageHeader
-      accountInfo={currentWalletAdapter?.accountInfo}
+      accountInfo={activeWallet?.accountInfo}
+      isWalletConnected={activeWallet?.isWalletConnected}
       connectMetaMask={metaMaskWalletAdapter?.connect}
       isMetaMaskConnecting={metaMaskWalletAdapter?.isConnecting}
-      isWalletConnected={metaMaskWalletAdapter?.isWalletConnected}
     />
   );
 });

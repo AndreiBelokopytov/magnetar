@@ -1,14 +1,15 @@
 import { AccountInfoVM } from "~/components";
-import { WalletType } from "~/adapters";
 import { Disposable } from "~/utils";
+import { WalletType } from "~/domain";
 
 export interface WalletAdapter extends Disposable {
-  readonly type: WalletType;
   connect(): void;
   init(): void;
-  accountInfo?: AccountInfoVM;
-  isConnecting: boolean;
-  isWalletConnected: boolean;
+  readonly accountInfo?: AccountInfoVM;
+  readonly walletType: WalletType;
+  readonly isActive: boolean;
+  readonly isConnecting: boolean;
+  readonly isWalletConnected: boolean;
 }
 
 export const WalletAdapter = Symbol("WalletAdapter");

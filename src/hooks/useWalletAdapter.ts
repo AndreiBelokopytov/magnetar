@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
-import { WalletAdapter, WalletAdapterFactory, WalletType } from "~/adapters";
+import { WalletAdapter, WalletAdapterFactory } from "~/adapters";
 import { useFactory } from "~/DIContainer";
+import { WalletType } from "~/domain";
 
-export function useWalletAdapter(walletType: WalletType = WalletType.unknown) {
+export function useWalletAdapter(walletType: WalletType) {
   const walletAdapter = useRef<WalletAdapter | undefined>(undefined);
   const walletAdapterFactory = useFactory<WalletAdapter, [WalletType]>(WalletAdapterFactory);
 
@@ -14,7 +15,7 @@ export function useWalletAdapter(walletType: WalletType = WalletType.unknown) {
     walletAdapter.current?.init();
 
     return () => walletAdapter.current?.dispose();
-  }, [walletAdapter]);
+  }, [walletAdapter.current]);
 
   return walletAdapter.current;
 }

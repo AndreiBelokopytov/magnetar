@@ -2,10 +2,11 @@ import { Container, interfaces } from "inversify";
 import { settingsModule } from "~/settings";
 import { storesModule } from "~/stores";
 import { adapterModule } from "~/adapters";
+import { apiModule } from "~/api";
 import React from "react";
 
 const container = new Container();
-container.load(settingsModule, storesModule, adapterModule);
+container.load(settingsModule, apiModule, storesModule, adapterModule);
 
 const Context = React.createContext(container);
 
