@@ -10,8 +10,9 @@ const APP_STRUCTURE = {
 module.exports = {
   entry: path.join(APP_STRUCTURE.src, "App.tsx"),
   output: {
-    path: APP_STRUCTURE.src,
-    filename: "bundle.js",
+    path: APP_STRUCTURE.dist,
+    filename: "[name].bundle.js",
+    clean: true,
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
