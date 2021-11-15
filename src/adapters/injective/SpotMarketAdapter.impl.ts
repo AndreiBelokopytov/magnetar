@@ -18,18 +18,26 @@ export class SpotMarketAdapterImpl implements SpotMarketAdapter {
     });
   }
 
-  constructor(@inject(SpotMarketStore.TYPE) private _spotMarketStore: SpotMarketStore) {
+  constructor(@inject(SpotMarketStore) private _spotMarketStore: SpotMarketStore) {
     makeObservable(this);
   }
 
   async refresh(): Promise<void> {
     this.isLoading = true;
     try {
-      await this._spotMarketStore.refresh();
+      await this._spotMarketStore.refreshMarkets();
     } catch (e) {
       console.log("Error loading spot markets:", e);
     } finally {
       runInAction(() => (this.isLoading = false));
+    }
+  }
+
+  async refreshSummary(): Promise<void> {
+    try {
+      await this._spotMarketStore.refreshSummary();
+    } catch (e) {
+      console.log("Error loading spot markets summary:", e);
     }
   }
 }

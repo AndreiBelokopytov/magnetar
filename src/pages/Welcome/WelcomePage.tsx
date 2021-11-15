@@ -5,15 +5,20 @@ import { PageHeaderContainer as PageHeader } from "../_containers";
 import React from "react";
 import { observer } from "mobx-react";
 import { ScrollView, StyleSheet } from "react-native";
+import { useIntervalRefresh } from "~/hooks";
+import { Disposer } from "~/utils";
 
 export const WelcomePage = observer(() => {
   const spotMarketAdapter = useInstanceOf<SpotMarketAdapter>(SpotMarketAdapter);
 
   React.useEffect(() => {
     spotMarketAdapter?.refresh();
+    let dispose: Disposer | undefined = undefined;
+    if (spotMarketAdapter) {
+      dispose = useIntervalRefresh(() => spotMarketAdapter?.refreshSummary(), 3000);
+    }
+    return () => dispose?.();
   }, [spotMarketAdapter]);
-
-  React.useEffect(() => {});
 
   return (
     <StackView flex>
