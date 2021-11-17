@@ -1,12 +1,12 @@
 import { SpotMarketList, StackView } from "~/components";
 import { useInstanceOf } from "~/DIContainer";
 import { SpotMarketAdapter } from "~/adapters";
-import { PageHeaderContainer as PageHeader } from "../_containers";
 import React from "react";
 import { observer } from "mobx-react";
 import { ScrollView, StyleSheet } from "react-native";
 import { useIntervalRefresh } from "~/hooks";
 import { Disposer } from "~/utils";
+import { PageLayout } from "~/pages/_containers";
 
 export const WelcomePage = observer(() => {
   const spotMarketAdapter = useInstanceOf<SpotMarketAdapter>(SpotMarketAdapter);
@@ -21,8 +21,7 @@ export const WelcomePage = observer(() => {
   }, [spotMarketAdapter]);
 
   return (
-    <StackView flex>
-      <PageHeader />
+    <PageLayout>
       <StackView flex>
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <StackView flex alignItems={"center"}>
@@ -32,7 +31,7 @@ export const WelcomePage = observer(() => {
           </StackView>
         </ScrollView>
       </StackView>
-    </StackView>
+    </PageLayout>
   );
 });
 

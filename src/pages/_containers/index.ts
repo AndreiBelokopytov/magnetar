@@ -1,1 +1,1 @@
-export { PageHeaderContainer } from "./PageHeaderContainer";
+export { PageLayout } from "./PageLayout";
