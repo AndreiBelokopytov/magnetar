@@ -16,6 +16,7 @@ export class MetaMaskAdapterImpl implements WalletAdapter {
 
   @computed
   get isWalletConnected() {
+    console.log("account", this._accounts);
     return this._accounts.length > 0;
   }
 
@@ -79,7 +80,11 @@ export class MetaMaskAdapterImpl implements WalletAdapter {
     this.disposers.push(
       reaction(
         () => this.isWalletConnected,
-        () => this._onWalletConnected(),
+        () => {
+          if (this.isWalletConnected) {
+            this._onWalletConnected();
+          }
+        },
 
         {
           fireImmediately: true,
