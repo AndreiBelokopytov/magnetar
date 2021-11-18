@@ -14,25 +14,15 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const useInstanceOf = <T,>(identifier: interfaces.ServiceIdentifier<T>): T | undefined => {
+export const useInstanceOf = <T,>(identifier: interfaces.ServiceIdentifier<T>): T => {
   const context = React.useContext(Context);
-  const dependency = React.useRef<T | undefined>(undefined);
-  if (!dependency.current) {
-    dependency.current = context.get<T>(identifier);
-  }
+  const dependency = React.useRef<T>(context.get<T>(identifier));
 
   return dependency.current;
 };
 
 export const useFactory = <T, U extends unknown[], P = interfaces.SimpleFactory<T, U>>(
   identifier: interfaces.ServiceIdentifier<P>
-): P | undefined => {
-  const context = React.useContext(Context);
-  const dependency = React.useRef<P | undefined>(undefined);
-  if (!dependency.current) {
-    dependency.current = context.get<P>(identifier);
-  }
-  return dependency.current;
-};
+): P => useInstanceOf(identifier);
 
 export const DIContainer = ({ children }: Props) => <Context.Provider value={container}>{children}</Context.Provider>;
