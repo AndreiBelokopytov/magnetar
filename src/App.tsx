@@ -2,7 +2,7 @@ import React from "react";
 import "reflect-metadata";
 import { AppRegistry } from "react-native";
 import { DIContainer } from "./DIContainer";
-import { WelcomePage } from "./pages";
+import { MarketsPage } from "./pages";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 class App extends React.Component {
@@ -15,11 +15,11 @@ class App extends React.Component {
               <Redirect to={"markets"} />
             </Route>
             <Route path={"/markets"}>
-              <WelcomePage />
+              <MarketsPage />
             </Route>
           </Switch>
         </Router>
-        <WelcomePage />
+        <MarketsPage />
       </DIContainer>
     );
   }

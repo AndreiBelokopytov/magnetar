@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 import { ScrollView, StyleSheet } from "react-native";
 import { PageLayout, SportMarketListContainer as SpotMarketList } from "~/pages/_containers";
 
-export const WelcomePage = observer(() => {
+export const MarketsPage = observer(() => {
   return (
     <PageLayout>
       <StackView flex>
