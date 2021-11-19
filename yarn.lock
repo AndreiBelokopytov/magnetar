@@ -1018,6 +1018,22 @@
     "@improbable-eng/grpc-web" "^0.13.0"
     google-protobuf "^3.13.0"
 
+"@injectivelabs/derivatives-consumer@^0.0.69":
+  version "0.0.69"
+  resolved "https://registry.yarnpkg.com/@injectivelabs/derivatives-consumer/-/derivatives-consumer-0.0.69.tgz#aefad026d5f720497d7a8a383909049bed2585e6"
+  integrity sha512-znF05bPaFzGU6AyQeeqNmA5xXhCHkOlVkqN8QCBCzi7C90YaU2mUiB+wNOF5OhiRi7If3TARsYeXIFZeYOG9Dw==
+  dependencies:
+    "@improbable-eng/grpc-web" "^0.14.0"
+    "@improbable-eng/grpc-web-node-http-transport" "^0.14.0"
+    "@injectivelabs/chain-api" "^1.6.2"
+    "@injectivelabs/exceptions" "^0.0.26"
+    "@injectivelabs/exchange-api" "^2.2.28"
+    "@injectivelabs/ts-types" "^0.0.25"
+    "@injectivelabs/utils" "^0.0.38"
+    link-module-alias "^1.2.0"
+    shx "^0.3.2"
+    snakecase-keys "^4.0.1"
+
 "@injectivelabs/exceptions@^0.0.26":
   version "0.0.26"
   resolved "https://registry.yarnpkg.com/@injectivelabs/exceptions/-/exceptions-0.0.26.tgz#128ac7f3ab8c2de8030c6bb9ad07246de768c230"
@@ -1040,6 +1056,14 @@
   version "2.2.27"
   resolved "https://registry.yarnpkg.com/@injectivelabs/exchange-api/-/exchange-api-2.2.27.tgz#5fbe071b45a16db7e357f2ff534e662a2457d44f"
   integrity sha512-lUkKiuFyz4ah6zzvFODOQDnLV/FmZ3qqHz2IJX8oIEcrobWbLUlCK5Y9Q3Tv/7OexbApMb/cQABtm37vO1Lr7w==
+  dependencies:
+    "@improbable-eng/grpc-web" "^0.14.0"
+    google-protobuf "^3.14.0"
+
+"@injectivelabs/exchange-api@^2.2.28":
+  version "2.2.28"
+  resolved "https://registry.yarnpkg.com/@injectivelabs/exchange-api/-/exchange-api-2.2.28.tgz#d970a09cee02cb7b24c3ecaf553a1b07b8feae7f"
+  integrity sha512-5ncQN9s5KFjjYyRuKULrh5lbQLQDxnqMWYlfXOLyyC+ApXWo6hWecnP0u9NA3pqhpj4xg0ahckIJQENfgtga5g==
   dependencies:
     "@improbable-eng/grpc-web" "^0.14.0"
     google-protobuf "^3.14.0"
@@ -4713,6 +4737,14 @@ slash@^3.0.0:
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
 
+snake-case@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/snake-case/-/snake-case-3.0.4.tgz#4f2bbd568e9935abdfd593f34c691dadb49c452c"
+  integrity sha512-LAOh4z89bGQvl9pFfNF8V146i7o7/CqFPbqzYgP+yYzDIDeS9HaNFtXABamRW+AQzEVODcvE79ljJ+8a9YSdMg==
+  dependencies:
+    dot-case "^3.0.4"
+    tslib "^2.0.3"
+
 snakecase-keys@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/snakecase-keys/-/snakecase-keys-3.2.1.tgz#ce5d1a2de8a93c939d7992f76f2743aa59f3d5ad"
@@ -4720,6 +4752,14 @@ snakecase-keys@^3.2.1:
   dependencies:
     map-obj "^4.1.0"
     to-snake-case "^1.0.0"
+
+snakecase-keys@^4.0.1:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/snakecase-keys/-/snakecase-keys-4.0.2.tgz#72e28112b77753a68a4eeb110efec05ab391e190"
+  integrity sha512-ZFCo3zZtNN43cy2j4fQDHPxS557Uuzn887FBmDdaSB41D8l/MayuvaSrIlCXGFhZ8sXwrHiNaZiIPpKzi88gog==
+  dependencies:
+    map-obj "^4.1.0"
+    snake-case "^3.0.4"
 
 socket.io-adapter@~1.1.0:
   version "1.1.2"

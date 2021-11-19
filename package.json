@@ -13,6 +13,7 @@
   "dependencies": {
     "@injectivelabs/networks": "^0.0.49",
     "@injectivelabs/spot-consumer": "^0.0.79",
+    "@injectivelabs/derivatives-consumer": "^0.0.69",
     "@metamask/onboarding": "^1.0.1",
     "inversify": "^6.0.1",
     "lodash": "^4.17.21",
