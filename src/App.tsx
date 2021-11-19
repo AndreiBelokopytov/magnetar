@@ -2,8 +2,8 @@ import React from "react";
 import "reflect-metadata";
 import { AppRegistry } from "react-native";
 import { DIContainer } from "./DIContainer";
-import { MarketsPage } from "./pages";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { MarketDetailPage, MarketsPage } from "./pages";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 class App extends React.Component {
   render() {
@@ -11,15 +11,14 @@ class App extends React.Component {
       <DIContainer>
         <Router>
           <Switch>
-            <Route path={"/"}>
-              <Redirect to={"markets"} />
-            </Route>
-            <Route path={"/markets"}>
+            <Route exact path={"/"}>
               <MarketsPage />
+            </Route>
+            <Route path={`/:id`}>
+              <MarketDetailPage />
             </Route>
           </Switch>
         </Router>
-        <MarketsPage />
       </DIContainer>
     );
   }
