@@ -4,13 +4,16 @@ import { StackView, Logo, Typography, SpotMarketListItemVM } from "~/components"
 
 type Props = {
   model: SpotMarketListItemVM;
+  onPress?: (item: SpotMarketListItemVM) => void;
 };
 
 const IMAGE_SIZE = 64;
 
-export const SpotMarketListItem = observer(({ model }: Props) => {
+export const SpotMarketListItem = observer(({ model, onPress }: Props) => {
+  const handlePress = () => onPress?.(model);
+
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={handlePress}>
       <StackView direction={"row"} alignItems={"center"} pt={8} pb={8}>
         <StackView mr={24}>
           <Logo size={IMAGE_SIZE} sourceUri={model.imageUrl} />
