@@ -1,4 +1,5 @@
-export interface MarketDetailHeaderVM {
+export interface MarketDetailVM {
+  id: string;
   baseToken: string;
   quoteToken: string;
   currentPrice: string;

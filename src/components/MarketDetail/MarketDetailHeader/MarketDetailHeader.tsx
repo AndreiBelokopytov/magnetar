@@ -1,7 +1,7 @@
-import { FallGrowthIndicator, MarketDetailHeaderVM, StackView, Typography } from "~/components";
+import { FallGrowthIndicator, MarketDetailVM, StackView, Typography } from "~/components";
 
 type Props = {
-  model: MarketDetailHeaderVM;
+  model: MarketDetailVM;
 };
 
 export const MarketDetailHeader = ({ model }: Props) => {
