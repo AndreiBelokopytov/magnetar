@@ -1,19 +1,31 @@
-import { Dictionary, keyBy } from "lodash";
+import { keyBy, values } from "lodash";
 
 type Data<T> = T[] | undefined;
 
 export class IndexedArray<T> {
   static empty<T>() {
-    return new IndexedArray<T>([], () => 0);
+    return new IndexedArray<T>([], () => "0");
   }
-
-  readonly index: Dictionary<T>;
 
   get items() {
-    return this._data ?? [];
+    return values(this._index);
   }
 
-  constructor(private _data: Data<T>, public readonly iteratee: (item: T) => string | number) {
-    this.index = keyBy(this.items, this.iteratee);
+  private readonly _index: Record<string, T>;
+
+  constructor(data: Data<T>, public readonly iteratee: (item: T) => string) {
+    this._index = keyBy(data, this.iteratee);
+  }
+
+  getItem(key: string): T | undefined {
+    return this._index[key];
+  }
+
+  setItem(item: T) {
+    this._index[this.iteratee(item)] = item;
+  }
+
+  deleteItem(item: T) {
+    delete this._index[this.iteratee(item)];
   }
 }

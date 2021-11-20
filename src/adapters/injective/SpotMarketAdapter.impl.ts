@@ -13,7 +13,7 @@ export class SpotMarketAdapterImpl implements SpotMarketAdapter {
   @computed
   get marketListItems(): SpotMarketListItemVM[] {
     return this._spotMarketStore.activeMarkets.map((market) => {
-      const marketSummary = this._spotMarketStore.marketSummaries.index[market.marketId];
+      const marketSummary = this._spotMarketStore.marketSummaries.getItem(market.marketId);
       return new SpotMarketListItemVMImpl(market, marketSummary);
     });
   }
