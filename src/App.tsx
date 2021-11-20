@@ -14,7 +14,7 @@ class App extends React.Component {
             <Route exact path={"/"}>
               <MarketsPage />
             </Route>
-            <Route path={`/:id`}>
+            <Route path={`/:market/:id`}>
               <MarketDetailPage />
             </Route>
           </Switch>

@@ -1,6 +1,7 @@
 import { AllChronosSpotMarketSummary, SpotMarket } from "@injectivelabs/spot-consumer";
 import { computed, makeObservable } from "mobx";
 import { SpotMarketListItemVM } from "~/components";
+import { MarketType } from "~/domain";
 
 export class SpotMarketListItemVMImpl implements SpotMarketListItemVM {
   @computed
@@ -37,6 +38,11 @@ export class SpotMarketListItemVMImpl implements SpotMarketListItemVM {
       return `${this._marketSummary?.change.toFixed(2)}%`;
     }
     return "no data";
+  }
+
+  @computed
+  get detailPageUrl() {
+    return `/${MarketType.spot}/${this.id}`;
   }
 
   constructor(private _spotMarket: SpotMarket, private _marketSummary?: AllChronosSpotMarketSummary) {

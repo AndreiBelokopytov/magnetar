@@ -5,4 +5,5 @@ export interface SpotMarketListItemVM {
   pair: string;
   lastPrice: string;
   change: string;
+  detailPageUrl: string;
 }

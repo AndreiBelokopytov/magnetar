@@ -12,7 +12,7 @@ type Props = {
 export const SpotMarketList = observer(({ items, loading }: Props) => {
   const history = useHistory();
 
-  const handleItemPress = (item: SpotMarketListItemVM) => history.push(`/${item.id}`);
+  const handleItemPress = (item: SpotMarketListItemVM) => history.push(item.detailPageUrl);
 
   if (loading) {
     return (
