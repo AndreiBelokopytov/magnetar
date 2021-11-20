@@ -19,6 +19,7 @@ module.exports = {
     alias: {
       "react-native": "react-native-web",
       "@improbable-eng/grpc-web-node-http-transport": "@improbable-eng/grpc-web",
+      "react-native-svg": "react-native-svg-web",
     },
     plugins: [new TsconfigPathsPlugin()],
   },
