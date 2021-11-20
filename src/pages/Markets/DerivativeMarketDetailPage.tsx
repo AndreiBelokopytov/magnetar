@@ -1,7 +1,7 @@
 import { StackView } from "~/components";
 import { PageLayout } from "../_containers";
 
-export const MarketDetailPage = () => {
+export const DerivativeMarketDetailPage = () => {
   return (
     <PageLayout>
       <StackView flex />

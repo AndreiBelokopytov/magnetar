@@ -1,2 +1,3 @@
 export * from "./MarketsPage";
-export * from "./MarketDetailPage";
+export * from "./DerivativeMarketDetailPage";
+export * from "./SpotMarketDetailPage";
