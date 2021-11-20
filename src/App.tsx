@@ -3,7 +3,7 @@ import "reflect-metadata";
 import { AppRegistry } from "react-native";
 import { DIContainer } from "./DIContainer";
 import { SpotMarketDetailPage, MarketsPage, DerivativeMarketDetailPage } from "./pages";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import { MarketType } from "~/domain";
 
 class App extends React.Component {
