@@ -7,7 +7,7 @@ import { DerivativesMarketStore } from "./DerivativesMarketStore";
 import { DerivativesMarketStoreImpl } from "./DerivativesMarketStore.impl";
 
 export const storesModule = new ContainerModule((bind: interfaces.Bind) => {
-  bind<SpotMarketStore>(SpotMarketStore).to(SpotMarketStoreImpl);
-  bind<DerivativesMarketStore>(DerivativesMarketStore).to(DerivativesMarketStoreImpl);
-  bind<WalletSettingsStore>(WalletSettingsStore).to(WalletSettingsStoreImpl);
+  bind<SpotMarketStore>(SpotMarketStore).to(SpotMarketStoreImpl).inSingletonScope();
+  bind<DerivativesMarketStore>(DerivativesMarketStore).to(DerivativesMarketStoreImpl).inSingletonScope();
+  bind<WalletSettingsStore>(WalletSettingsStore).to(WalletSettingsStoreImpl).inSingletonScope();
 });

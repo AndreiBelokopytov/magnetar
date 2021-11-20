@@ -15,11 +15,11 @@ import { SpotMarketStore } from "~/stores";
 export class SpotMarketStoreImpl implements SpotMarketStore {
   @observable marketSummaries = IndexedArray.empty<AllChronosSpotMarketSummary>();
 
-  @observable markets: SpotMarket[] = [];
+  @observable markets = IndexedArray.empty<SpotMarket>();
 
   @computed
   get activeMarkets() {
-    return this.markets.filter((el) => el.marketStatus === "active");
+    return this.markets.items.filter((el) => el.marketStatus === "active");
   }
 
   private _spotMarketChronosConsumer: SpotMarketChronosConsumer;
@@ -35,7 +35,8 @@ export class SpotMarketStoreImpl implements SpotMarketStore {
   async refreshMarkets(): Promise<void> {
     const allSpotMarketInfo = await this._spotMarketConsumer.fetchMarkets();
     runInAction(() => {
-      this.markets = SpotTransformer.grpcMarketsToMarkets(allSpotMarketInfo);
+      const markets = SpotTransformer.grpcMarketsToMarkets(allSpotMarketInfo);
+      this.markets = new IndexedArray<SpotMarket>(markets, (el) => el.marketId);
     });
   }
 
@@ -43,6 +44,14 @@ export class SpotMarketStoreImpl implements SpotMarketStore {
     const marketSummaries = await this._spotMarketChronosConsumer.fetchSpotMarketsSummary();
     runInAction(() => {
       this.marketSummaries = new IndexedArray<AllChronosSpotMarketSummary>(marketSummaries, (el) => el.marketId);
+    });
+  }
+
+  async fetchMarket(id: string): Promise<void> {
+    const marketInfo = await this._spotMarketConsumer.fetchMarket(id);
+    runInAction(() => {
+      const market = SpotTransformer.grpcMarketToMarket(marketInfo);
+      this.markets.setItem(market);
     });
   }
 }
