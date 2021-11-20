@@ -5,7 +5,7 @@ import {
   SpotMarketConsumer,
   SpotTransformer,
 } from "@injectivelabs/spot-consumer";
-import { computed, makeObservable, observable, runInAction } from "mobx";
+import { action, computed, makeObservable, observable, runInAction } from "mobx";
 import { inject, injectable } from "inversify";
 import { Settings } from "~/settings";
 import { IndexedArray } from "~/utils";
@@ -22,6 +22,13 @@ export class SpotMarketStoreImpl implements SpotMarketStore {
     return this.markets.items.filter((el) => el.marketStatus === "active");
   }
 
+  @computed
+  get refreshedMarketId() {
+    return this._refreshedMarketId;
+  }
+
+  @observable
+  private _refreshedMarketId?: string;
   private _spotMarketChronosConsumer: SpotMarketChronosConsumer;
   private _spotMarketConsumer: SpotMarketConsumer;
 
@@ -32,6 +39,7 @@ export class SpotMarketStoreImpl implements SpotMarketStore {
     makeObservable(this);
   }
 
+  @action
   async refreshMarkets(): Promise<void> {
     const allSpotMarketInfo = await this._spotMarketConsumer.fetchMarkets();
     runInAction(() => {
@@ -40,6 +48,7 @@ export class SpotMarketStoreImpl implements SpotMarketStore {
     });
   }
 
+  @action
   async refreshSummary(): Promise<void> {
     const marketSummaries = await this._spotMarketChronosConsumer.fetchSpotMarketsSummary();
     runInAction(() => {
@@ -47,11 +56,24 @@ export class SpotMarketStoreImpl implements SpotMarketStore {
     });
   }
 
-  async fetchMarket(id: string): Promise<void> {
+  @action
+  async refreshSingleMarket(id: string): Promise<void> {
+    this._refreshedMarketId = id;
     const marketInfo = await this._spotMarketConsumer.fetchMarket(id);
     runInAction(() => {
       const market = SpotTransformer.grpcMarketToMarket(marketInfo);
-      this.markets.setItem(market);
+      this.markets.index.set(market.marketId, market);
+    });
+  }
+
+  @action
+  async refreshSingleSummary(marketId: string): Promise<void> {
+    const marketSummary = await this._spotMarketChronosConsumer.fetchSpotMarketSummary(marketId);
+    runInAction(() => {
+      this.marketSummaries.index.set(marketId, {
+        ...marketSummary,
+        marketId,
+      });
     });
   }
 }

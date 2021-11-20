@@ -11,10 +11,10 @@ export const SportMarketListContainer = observer(() => {
   const spotMarketAdapter = useInstanceOf<SpotMarketAdapter>(SpotMarketAdapter);
 
   React.useEffect(() => {
-    spotMarketAdapter.refresh();
+    spotMarketAdapter.refreshAll();
   }, [spotMarketAdapter]);
 
-  useIntervalRefresh(() => spotMarketAdapter.refreshSummary(), REFRESH_INTERVAL);
+  useIntervalRefresh(() => spotMarketAdapter.refreshAllSummary(), REFRESH_INTERVAL);
 
   return <SpotMarketList loading={spotMarketAdapter.isLoading} items={spotMarketAdapter.marketListItems} />;
 });

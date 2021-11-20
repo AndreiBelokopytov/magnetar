@@ -1,31 +1,22 @@
-import { keyBy, values } from "lodash";
+import { computed, makeObservable, observable } from "mobx";
 
-type Data<T> = T[] | undefined;
+type Data<T> = T[];
 
 export class IndexedArray<T> {
   static empty<T>() {
     return new IndexedArray<T>([], () => "0");
   }
 
+  @computed
   get items() {
-    return values(this._index);
+    return [...this.index.values()];
   }
 
-  private readonly _index: Record<string, T>;
+  @observable
+  readonly index: Map<string, T>;
 
   constructor(data: Data<T>, public readonly iteratee: (item: T) => string) {
-    this._index = keyBy(data, this.iteratee);
-  }
-
-  getItem(key: string): T | undefined {
-    return this._index[key];
-  }
-
-  setItem(item: T) {
-    this._index[this.iteratee(item)] = item;
-  }
-
-  deleteItem(item: T) {
-    delete this._index[this.iteratee(item)];
+    this.index = new Map<string, T>(data.map((item) => [iteratee(item), item]));
+    makeObservable(this);
   }
 }
