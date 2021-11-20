@@ -9,11 +9,7 @@ export const MarketsPage = observer(() => {
     <PageLayout>
       <StackView flex>
         <ScrollView contentContainerStyle={styles.scrollContent}>
-          <StackView flex alignItems={"center"}>
-            <StackView flex width={600}>
-              <SpotMarketList />
-            </StackView>
-          </StackView>
+          <SpotMarketList />
         </ScrollView>
       </StackView>
     </PageLayout>

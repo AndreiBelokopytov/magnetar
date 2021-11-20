@@ -25,6 +25,8 @@ type Props = {
   height?: FlexStyle["height"];
   bgColor?: ViewStyle["backgroundColor"];
   borderRadius?: ViewStyle["borderRadius"];
+  maxWidth?: ViewStyle["maxWidth"];
+  maxHeight?: ViewStyle["maxHeight"];
 } & ViewProps;
 
 export const StackView = ({
@@ -52,6 +54,8 @@ export const StackView = ({
   ml,
   mb,
   borderRadius,
+  maxWidth,
+  maxHeight,
   ...rest
 }: Props) => {
   const computedStyle: FlexStyle & ViewStyle = {
@@ -76,6 +80,8 @@ export const StackView = ({
     height,
     backgroundColor: bgColor,
     borderRadius,
+    maxWidth,
+    maxHeight,
   };
 
   return <View {...rest} style={StyleSheet.compose(computedStyle, style)} />;
