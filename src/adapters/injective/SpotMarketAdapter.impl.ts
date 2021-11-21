@@ -35,7 +35,7 @@ export class SpotMarketAdapterImpl implements SpotMarketAdapter {
     makeObservable(this);
   }
 
-  @action
+  @action.bound
   async refreshAll(): Promise<void> {
     this.isLoading = true;
     try {
@@ -47,7 +47,7 @@ export class SpotMarketAdapterImpl implements SpotMarketAdapter {
     }
   }
 
-  @action
+  @action.bound
   async refreshAllSummary(): Promise<void> {
     try {
       await this._spotMarketStore.refreshSummary();
@@ -56,7 +56,7 @@ export class SpotMarketAdapterImpl implements SpotMarketAdapter {
     }
   }
 
-  @action
+  @action.bound
   async refreshSingle(marketId: string): Promise<void> {
     this.isLoading = true;
     try {
@@ -68,7 +68,7 @@ export class SpotMarketAdapterImpl implements SpotMarketAdapter {
     }
   }
 
-  @action
+  @action.bound
   async refreshSingleSummary(marketId: string): Promise<void> {
     try {
       await this._spotMarketStore.refreshSingleSummary(marketId);

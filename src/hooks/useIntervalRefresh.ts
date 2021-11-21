@@ -15,9 +15,5 @@ export function useIntervalRefresh(callback: () => Promise<void>, time: number) 
     );
 
   const observable = React.useRef(makeObservable());
-
-  React.useEffect(() => {
-    const subscription = observable.current.subscribe();
-    return () => subscription.unsubscribe();
-  }, [observable]);
+  return observable.current;
 }

@@ -7,6 +7,7 @@ import { useIntervalRefresh } from "~/hooks";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MarketsStackParams } from "~/Routing.types";
 import { MarketType } from "~/domain";
+import { useFocusEffect } from "@react-navigation/native";
 
 type Props = NativeStackScreenProps<MarketsStackParams, typeof MarketType.spot>;
 
@@ -16,11 +17,21 @@ export const SpotMarketDetailPage = observer(({ route }: Props) => {
   const spotMarketAdapter = useInstanceOf<SpotMarketAdapter>(SpotMarketAdapter);
   const marketId = route.params.marketId;
 
-  React.useEffect(() => {
-    spotMarketAdapter.refreshSingle(marketId);
-  }, [spotMarketAdapter, marketId]);
+  const refreshByInterval = useIntervalRefresh(
+    () => spotMarketAdapter.refreshSingleSummary(marketId),
+    REFRESH_INTERVAL
+  );
 
-  useIntervalRefresh(() => spotMarketAdapter.refreshSingleSummary(marketId), REFRESH_INTERVAL);
+  useFocusEffect(
+    React.useCallback(() => {
+      spotMarketAdapter.refreshSingle(marketId);
+      const subscription = refreshByInterval.subscribe();
+
+      return () => {
+        subscription.unsubscribe();
+      };
+    }, [spotMarketAdapter, refreshByInterval])
+  );
 
   if (!spotMarketAdapter.marketDetail || spotMarketAdapter.marketDetail.id !== marketId) {
     return null;
