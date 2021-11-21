@@ -10,7 +10,7 @@ import { WalletAdapterDelegate } from "./wallet/WalletAdapterDelegate";
 export const adapterModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<SpotMarketAdapter>(SpotMarketAdapter).to(SpotMarketAdapterImpl);
   bind<WalletAdapterDelegate>(WalletAdapterDelegate).to(WalletAdapterDelegateImpl);
-  bind<WalletAdapter>(WalletAdapter).to(MetaMaskAdapterImpl).whenTargetNamed(WalletType.metaMask);
+  bind<WalletAdapter>(WalletAdapter).to(MetaMaskAdapterImpl).inSingletonScope().whenTargetNamed(WalletType.metaMask);
   bind<interfaces.Factory<WalletAdapter>>(WalletAdapterFactory).toFactory<WalletAdapter | undefined, [WalletType]>(
     (context: interfaces.Context) => (type: WalletType) => {
       switch (type) {

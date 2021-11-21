@@ -2,7 +2,7 @@ import { observer } from "mobx-react";
 import { ActivityIndicator } from "react-native";
 import { SpotMarketListItemVM, StackView } from "~/components";
 import { SpotMarketListItem } from "./SpotMarketListItem";
-import { useHistory } from "react-router-dom";
+import { useNavigation } from "@react-navigation/native";
 
 type Props = {
   items: SpotMarketListItemVM[];
@@ -10,9 +10,13 @@ type Props = {
 };
 
 export const SpotMarketList = observer(({ items, loading }: Props) => {
-  const history = useHistory();
+  const navigation = useNavigation();
 
-  const handleItemPress = (item: SpotMarketListItemVM) => history.push(item.detailPageUrl);
+  const handleItemPress = (item: SpotMarketListItemVM) =>
+    // @ts-ignore
+    navigation.navigate(item.detailPageUrl, {
+      marketId: item.id,
+    });
 
   if (loading) {
     return (

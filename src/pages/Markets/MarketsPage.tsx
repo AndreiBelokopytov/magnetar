@@ -1,12 +1,12 @@
-import { StackView } from "~/components";
+import { PageLayout, StackView } from "~/components";
 import React from "react";
 import { observer } from "mobx-react";
 import { ScrollView, StyleSheet } from "react-native";
-import { PageLayout, SportMarketListContainer as SpotMarketList } from "~/pages/_containers";
+import { SportMarketListContainer as SpotMarketList } from "~/pages/_containers";
 
 export const MarketsPage = observer(() => {
   return (
-    <PageLayout>
+    <PageLayout noPadding>
       <StackView flex>
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <SpotMarketList />

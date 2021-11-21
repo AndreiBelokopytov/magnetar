@@ -7,15 +7,15 @@ type Props = {
   onPress?: (item: SpotMarketListItemVM) => void;
 };
 
-const IMAGE_SIZE = 64;
+const IMAGE_SIZE = 48;
 
 export const SpotMarketListItem = observer(({ model, onPress }: Props) => {
   const handlePress = () => onPress?.(model);
 
   return (
     <TouchableOpacity onPress={handlePress}>
-      <StackView direction={"row"} alignItems={"center"} pt={8} pb={8}>
-        <StackView mr={24}>
+      <StackView direction={"row"} alignItems={"center"} pt={8} pb={8} pl={16} pr={16}>
+        <StackView mr={16}>
           <Logo size={IMAGE_SIZE} sourceUri={model.imageUrl} />
         </StackView>
         <StackView flex>
@@ -23,7 +23,7 @@ export const SpotMarketListItem = observer(({ model, onPress }: Props) => {
             <Typography>{model.pair}</Typography>
             <Typography>{model.lastPrice}</Typography>
           </StackView>
-          <StackView direction={"row"} justifyContent={"space-between"} pt={8}>
+          <StackView direction={"row"} justifyContent={"space-between"}>
             <Typography variant={"subhead"}>{model.ticker}</Typography>
             <Typography variant={"subhead"}>{model.change}</Typography>
           </StackView>

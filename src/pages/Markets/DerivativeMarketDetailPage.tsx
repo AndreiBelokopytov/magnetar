@@ -1,5 +1,4 @@
-import { StackView } from "~/components";
-import { PageLayout } from "../_containers";
+import { PageLayout, StackView } from "~/components";
 
 export const DerivativeMarketDetailPage = () => {
   return (

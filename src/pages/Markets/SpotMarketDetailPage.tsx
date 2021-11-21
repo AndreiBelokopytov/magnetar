@@ -1,22 +1,20 @@
-import { MarketDetailHeader, StackView } from "~/components";
-import { PageLayout } from "../_containers";
+import { MarketDetailHeader, PageLayout, StackView } from "~/components";
 import { useInstanceOf } from "~/DIContainer";
 import { SpotMarketAdapter } from "~/adapters";
 import React from "react";
-import { useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 import { useIntervalRefresh } from "~/hooks";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { MarketsStackParams } from "~/Routing.types";
+import { MarketType } from "~/domain";
 
-type Params = {
-  id: string;
-};
+type Props = NativeStackScreenProps<MarketsStackParams, typeof MarketType.spot>;
 
 const REFRESH_INTERVAL = 3000;
 
-export const SpotMarketDetailPage = observer(() => {
+export const SpotMarketDetailPage = observer(({ route }: Props) => {
   const spotMarketAdapter = useInstanceOf<SpotMarketAdapter>(SpotMarketAdapter);
-
-  const { id: marketId } = useParams<Params>();
+  const marketId = route.params.marketId;
 
   React.useEffect(() => {
     spotMarketAdapter.refreshSingle(marketId);
