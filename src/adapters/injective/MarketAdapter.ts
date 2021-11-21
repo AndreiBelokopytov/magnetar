@@ -4,6 +4,7 @@ export interface MarketAdapter {
   marketListItems: MarketListItemVM[];
   marketDetail?: MarketDetailVM;
   isLoading?: boolean;
+  isReady?: boolean;
 
   refreshAll(): Promise<void>;
   refreshAllSummary(): Promise<void>;

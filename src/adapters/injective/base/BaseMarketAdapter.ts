@@ -1,5 +1,5 @@
 import { MarketAdapter } from "~/adapters";
-import { action, makeObservable, observable, runInAction } from "mobx";
+import { action, computed, makeObservable, observable, runInAction } from "mobx";
 import { MarketDetailVM, MarketListItemVM } from "~/components";
 import { MarketStore } from "~/stores";
 import { injectable } from "inversify";
@@ -8,6 +8,11 @@ import { injectable } from "inversify";
 export abstract class BaseMarketAdapter<T, P> implements MarketAdapter {
   @observable
   isLoading = false;
+
+  @computed
+  get isReady() {
+    return !(this.marketListItems.length === 0 && this.isLoading);
+  }
 
   abstract readonly marketListItems: MarketListItemVM[];
   abstract readonly marketDetail: MarketDetailVM | undefined;
