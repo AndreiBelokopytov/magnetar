@@ -1,15 +1,15 @@
 import { observer } from "mobx-react";
 import { TouchableOpacity } from "react-native";
-import { StackView, Logo, Typography, SpotMarketListItemVM, FallGrowthIndicator } from "~/components";
+import { StackView, Logo, Typography, MarketListItemVM, FallGrowthIndicator } from "~/components";
 
 type Props = {
-  model: SpotMarketListItemVM;
-  onPress?: (item: SpotMarketListItemVM) => void;
+  model: MarketListItemVM;
+  onPress?: (item: MarketListItemVM) => void;
 };
 
 const IMAGE_SIZE = 48;
 
-export const SpotMarketListItem = observer(({ model, onPress }: Props) => {
+export const MarketListItem = observer(({ model, onPress }: Props) => {
   const handlePress = () => onPress?.(model);
 
   return (

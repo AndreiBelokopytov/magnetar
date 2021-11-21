@@ -1,9 +1,9 @@
 import React from "react";
-import { SpotMarketListItem } from "./SpotMarketListItem";
-import { spotMarketListMock } from "~/components/_mocks";
+import { MarketListItem } from "./MarketListItem";
+import { marketListMock } from "~/components/_mocks";
 import { View, StyleSheet } from "react-native";
 
-const model = spotMarketListMock[0];
+const model = marketListMock[0];
 
 const styles = StyleSheet.create({
   root: {
@@ -13,6 +13,6 @@ const styles = StyleSheet.create({
 
 export default (
   <View style={styles.root}>
-    <SpotMarketListItem model={model} />
+    <MarketListItem model={model} />
   </View>
 );

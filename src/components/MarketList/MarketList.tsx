@@ -1,18 +1,20 @@
 import { observer } from "mobx-react";
 import { ActivityIndicator } from "react-native";
-import { SpotMarketListItemVM, StackView } from "~/components";
-import { SpotMarketListItem } from "./SpotMarketListItem";
+import { MarketListItemVM, StackView, Typography } from "~/components";
+import { MarketListItem } from "./MarketListItem";
 import { useNavigation } from "@react-navigation/native";
+import React from "react";
 
 type Props = {
-  items: SpotMarketListItemVM[];
+  items: MarketListItemVM[];
+  title: string;
   loading?: boolean;
 };
 
-export const SpotMarketList = observer(({ items, loading }: Props) => {
+export const MarketList = observer(({ items, title, loading }: Props) => {
   const navigation = useNavigation();
 
-  const handleItemPress = (item: SpotMarketListItemVM) =>
+  const handleItemPress = (item: MarketListItemVM) =>
     // @ts-ignore
     navigation.navigate(item.detailPageUrl, {
       marketId: item.id,
@@ -26,10 +28,13 @@ export const SpotMarketList = observer(({ items, loading }: Props) => {
     );
   }
   return (
-    <>
+    <StackView>
+      <StackView pl={16} pr={16} mt={8}>
+        <Typography variant={"h3"}>{title}</Typography>
+      </StackView>
       {items.map((item) => (
-        <SpotMarketListItem model={item} key={item.pair} onPress={handleItemPress} />
+        <MarketListItem model={item} key={item.pair} onPress={handleItemPress} />
       ))}
-    </>
+    </StackView>
   );
 });

@@ -1,7 +1,7 @@
 import { SpotMarketAdapter } from "./SpotMarketAdapter";
 import { action, computed, makeObservable, observable, runInAction } from "mobx";
 import { injectable, inject } from "inversify";
-import { MarketDetailVM, SpotMarketListItemVM } from "~/components";
+import { MarketDetailVM, MarketListItemVM } from "~/components";
 import { SpotMarketStore } from "~/stores";
 import { MarketDetailVMImpl, SpotMarketListItemVMImpl } from "~/adapters/_models";
 
@@ -11,7 +11,7 @@ export class SpotMarketAdapterImpl implements SpotMarketAdapter {
   isLoading = false;
 
   @computed
-  get marketListItems(): SpotMarketListItemVM[] {
+  get marketListItems(): MarketListItemVM[] {
     return this._spotMarketStore.activeMarkets.map((market) => {
       const marketSummary = this._spotMarketStore.marketSummaries.index.get(market.marketId);
       return new SpotMarketListItemVMImpl(market, marketSummary);

@@ -1,7 +1,7 @@
-import { MarketDetailVM, SpotMarketListItemVM } from "~/components";
+import { MarketDetailVM, MarketListItemVM } from "~/components";
 
 export interface SpotMarketAdapter {
-  marketListItems: SpotMarketListItemVM[];
+  marketListItems: MarketListItemVM[];
   marketDetail?: MarketDetailVM;
   isLoading?: boolean;
 

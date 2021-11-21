@@ -1,6 +1,6 @@
-import { SpotMarketListItemVM } from "~/components";
+import { MarketListItemVM } from "~/components";
 
-export const spotMarketListMock: SpotMarketListItemVM[] = [
+export const marketListMock: MarketListItemVM[] = [
   {
     id: "1",
     ticker: "Bitcoin",

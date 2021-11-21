@@ -1,4 +1,4 @@
-export interface SpotMarketListItemVM {
+export interface MarketListItemVM {
   id: string;
   imageUrl?: string;
   ticker: string;

@@ -1,8 +1,8 @@
 import { AllChronosSpotMarketSummary, SpotMarket } from "@injectivelabs/spot-consumer";
-import { SpotMarketListItemVM } from "~/components";
+import { MarketListItemVM } from "~/components";
 import { MarketType } from "~/domain";
 
-export class SpotMarketListItemVMImpl implements SpotMarketListItemVM {
+export class SpotMarketListItemVMImpl implements MarketListItemVM {
   get id() {
     return this._spotMarket.marketId;
   }
