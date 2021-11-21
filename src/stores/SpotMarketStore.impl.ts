@@ -19,7 +19,11 @@ export class SpotMarketStoreImpl implements SpotMarketStore {
 
   @computed
   get activeMarkets() {
-    return this.markets.items.filter((el) => el.marketStatus === "active");
+    return this.markets.items.filter((el) => {
+      const isActive = el.marketStatus === "active";
+      const marketSummary = this.marketSummaries.index.get(el.marketId);
+      return !!(isActive && marketSummary && marketSummary?.price > 0);
+    });
   }
 
   @computed
