@@ -1,1 +1,1 @@
-export { SportMarketListContainer } from "./SportMarketListContainer";
+export { MarketListContainer } from "./MarketListContainer";

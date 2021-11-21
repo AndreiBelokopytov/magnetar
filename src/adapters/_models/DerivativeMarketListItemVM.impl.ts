@@ -1,22 +1,22 @@
-import { AllChronosSpotMarketSummary, SpotMarket } from "@injectivelabs/spot-consumer";
 import { MarketListItemVM } from "~/components";
 import { MarketType } from "~/domain";
+import { AllChronosDerivativeMarketSummary, DerivativeMarket } from "@injectivelabs/derivatives-consumer";
 
-export class SpotMarketListItemVMImpl implements MarketListItemVM {
+export class DerivativeMarketListItemVMImpl implements MarketListItemVM {
   get id() {
     return this._market.marketId;
   }
 
   get ticker() {
-    return this._market.baseToken?.name ?? "";
+    return this._market.ticker;
   }
 
   get imageUrl() {
-    return this._market.baseToken?.logo;
+    return this._market.quoteToken?.logo;
   }
 
   get pair() {
-    return this._market.ticker;
+    return this._market.quoteToken?.symbol ?? "";
   }
 
   get lastPrice() {
@@ -34,8 +34,11 @@ export class SpotMarketListItemVMImpl implements MarketListItemVM {
   }
 
   get detailPageUrl() {
-    return MarketType.spot;
+    return MarketType.derivative;
   }
 
-  constructor(private readonly _market: SpotMarket, private readonly _marketSummary?: AllChronosSpotMarketSummary) {}
+  constructor(
+    private readonly _market: DerivativeMarket,
+    private readonly _marketSummary?: AllChronosDerivativeMarketSummary
+  ) {}
 }

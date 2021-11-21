@@ -1,18 +1,19 @@
 import { MarketDetailVM } from "~/components";
-import { AllChronosSpotMarketSummary, SpotMarket } from "@injectivelabs/spot-consumer";
+import { AllChronosSpotMarketSummary } from "@injectivelabs/spot-consumer";
 import { NumberFormatter } from "~/utils";
+import { DerivativeMarket } from "@injectivelabs/derivatives-consumer";
 
-export class MarketDetailVMImpl implements MarketDetailVM {
+export class DerivativeMarketDetailVMImpl implements MarketDetailVM {
   get id() {
-    return this._spotMarket.marketId;
+    return this._market.marketId;
   }
 
   get baseToken(): string {
-    return this._spotMarket.baseToken?.symbol ?? "";
+    return "";
   }
 
   get quoteToken(): string {
-    return this._spotMarket.quoteToken?.symbol ?? "";
+    return this._market.quoteToken?.symbol ?? "";
   }
 
   get change(): string {
@@ -40,5 +41,8 @@ export class MarketDetailVMImpl implements MarketDetailVM {
 
   private readonly _percentFormatter = NumberFormatter.percent();
 
-  constructor(private readonly _spotMarket: SpotMarket, private readonly _marketSummary: AllChronosSpotMarketSummary) {}
+  constructor(
+    private readonly _market: DerivativeMarket,
+    private readonly _marketSummary: AllChronosSpotMarketSummary
+  ) {}
 }

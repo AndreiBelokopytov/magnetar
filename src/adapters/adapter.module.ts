@@ -1,14 +1,26 @@
 import { ContainerModule, interfaces } from "inversify";
-import { SpotMarketAdapter } from "./injective/SpotMarketAdapter";
-import { SpotMarketAdapterImpl } from "./injective/SpotMarketAdapter.impl";
+import { MarketAdapter, MarketAdapterFactory } from "./injective";
 import { WalletAdapter, WalletAdapterFactory } from "./wallet";
 import { MetaMaskAdapterImpl } from "./wallet/MetaMaskAdapter.impl";
-import { WalletType } from "~/domain";
+import { MarketType, WalletType } from "~/domain";
 import { WalletAdapterDelegateImpl } from "./wallet/WalletAdapterDelegate.impl";
 import { WalletAdapterDelegate } from "./wallet/WalletAdapterDelegate";
+import { SpotMarketAdapterImpl } from "./injective/SpotMarketAdapter.impl";
+import { DerivativeMarketAdapterImpl } from "./injective/DerivativeMarketAdapter.impl";
 
 export const adapterModule = new ContainerModule((bind: interfaces.Bind) => {
-  bind<SpotMarketAdapter>(SpotMarketAdapter).to(SpotMarketAdapterImpl);
+  bind<MarketAdapter>(MarketAdapter).to(SpotMarketAdapterImpl).whenTargetNamed(MarketType.spot);
+  bind<MarketAdapter>(MarketAdapter).to(DerivativeMarketAdapterImpl).whenTargetNamed(MarketType.derivative);
+  bind<interfaces.Factory<MarketAdapter>>(MarketAdapterFactory).toFactory<MarketAdapter, [MarketType]>(
+    (context: interfaces.Context) => (type: MarketType) => {
+      switch (type) {
+        case MarketType.spot:
+          return context.container.getNamed<MarketAdapter>(MarketAdapter, MarketType.spot);
+        case MarketType.derivative:
+          return context.container.getNamed<MarketAdapter>(MarketAdapter, MarketType.derivative);
+      }
+    }
+  );
   bind<WalletAdapterDelegate>(WalletAdapterDelegate).to(WalletAdapterDelegateImpl);
   bind<WalletAdapter>(WalletAdapter).to(MetaMaskAdapterImpl).inSingletonScope().whenTargetNamed(WalletType.metaMask);
   bind<interfaces.Factory<WalletAdapter>>(WalletAdapterFactory).toFactory<WalletAdapter | undefined, [WalletType]>(

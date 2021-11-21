@@ -1,1 +1,1 @@
-export * from "./SpotMarketAdapter";
+export * from "./MarketAdapter";

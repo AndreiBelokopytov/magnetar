@@ -1,19 +1,19 @@
-import { useInstanceOf } from "~/DIContainer";
-import { SpotMarketAdapter } from "~/adapters";
 import React from "react";
 import { MarketList } from "~/components";
-import { useIntervalRefresh } from "~/hooks";
+import { useIntervalRefresh, userMarketAdapter } from "~/hooks";
 import { observer } from "mobx-react";
 import { useFocusEffect } from "@react-navigation/native";
+import { MarketType } from "~/domain";
 
 const REFRESH_INTERVAL = 3000;
 
 type Props = {
   title: string;
+  marketType: MarketType;
 };
 
-export const SportMarketListContainer = observer(({ title }: Props) => {
-  const spotMarketAdapter = useInstanceOf<SpotMarketAdapter>(SpotMarketAdapter);
+export const MarketListContainer = observer(({ title, marketType }: Props) => {
+  const spotMarketAdapter = userMarketAdapter(marketType);
   const refreshByInterval = useIntervalRefresh(spotMarketAdapter.refreshAllSummary, REFRESH_INTERVAL);
 
   useFocusEffect(

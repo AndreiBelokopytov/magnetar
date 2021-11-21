@@ -1,6 +1,6 @@
 import { MarketDetailVM, MarketListItemVM } from "~/components";
 
-export interface SpotMarketAdapter {
+export interface MarketAdapter {
   marketListItems: MarketListItemVM[];
   marketDetail?: MarketDetailVM;
   isLoading?: boolean;
@@ -11,4 +11,6 @@ export interface SpotMarketAdapter {
   refreshSingleSummary(marketId: string): Promise<void>;
 }
 
-export const SpotMarketAdapter = Symbol("SpotMarketAdapter");
+export const MarketAdapter = Symbol("MarketAdapter");
+
+export const MarketAdapterFactory = Symbol("MarketAdapterFactory");
