@@ -1,6 +1,6 @@
 import { observer } from "mobx-react";
 import { TouchableOpacity } from "react-native";
-import { StackView, Logo, Typography, SpotMarketListItemVM } from "~/components";
+import { StackView, Logo, Typography, SpotMarketListItemVM, FallGrowthIndicator } from "~/components";
 
 type Props = {
   model: SpotMarketListItemVM;
@@ -25,7 +25,7 @@ export const SpotMarketListItem = observer(({ model, onPress }: Props) => {
           </StackView>
           <StackView direction={"row"} justifyContent={"space-between"}>
             <Typography variant={"subhead"}>{model.ticker}</Typography>
-            <Typography variant={"subhead"}>{model.change}</Typography>
+            <FallGrowthIndicator variant={"subhead"}>{model.change}</FallGrowthIndicator>
           </StackView>
         </StackView>
       </StackView>
