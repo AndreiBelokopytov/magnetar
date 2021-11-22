@@ -11,6 +11,8 @@ import { AppLayout } from "~/AppLayout";
 import { MarketType } from "~/domain";
 import { MarketsStackParams } from "~/Routing.types";
 
+global.Buffer = global.Buffer || require("buffer").Buffer;
+
 class App extends React.Component {
   render() {
     const Tab = createBottomTabNavigator();

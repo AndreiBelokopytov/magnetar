@@ -1,8 +1,16 @@
 import React, { useState } from "react";
-import { Spacer, StackView, Typography, Button, WalletSelectionModal, AccountInfo, AccountInfoVM } from "~/components";
+import {
+  Spacer,
+  StackView,
+  Typography,
+  Button,
+  WalletSelectionModal,
+  AccountInfoPanel,
+  AccountInfoPanelVM,
+} from "~/components";
 
 type Props = {
-  accountInfo?: AccountInfoVM;
+  accountInfo?: AccountInfoPanelVM;
   connectMetaMask?(): void;
   isMetaMaskConnecting?: boolean;
   isWalletConnected?: boolean;
@@ -27,7 +35,11 @@ export const PageHeader = ({ accountInfo, connectMetaMask, isWalletConnected, is
       >
         <Typography variant={"h3"}>Magnetar</Typography>
         <Spacer />
-        {accountInfo ? <AccountInfo model={accountInfo} /> : <Button onPress={openWalletModal}>Connect wallet</Button>}
+        {accountInfo ? (
+          <AccountInfoPanel model={accountInfo} />
+        ) : (
+          <Button onPress={openWalletModal}>Connect wallet</Button>
+        )}
       </StackView>
       <WalletSelectionModal
         isMetaMaskConnecting={isMetaMaskConnecting}

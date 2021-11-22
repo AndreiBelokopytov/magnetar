@@ -1,12 +1,13 @@
 import { ContainerModule, interfaces } from "inversify";
 import { MarketAdapter, MarketAdapterFactory } from "./injective";
-import { WalletAdapter, WalletAdapterFactory } from "./wallet";
+import { AccountInfoAdapter, WalletAdapter, WalletAdapterFactory } from "./wallet";
 import { MetaMaskAdapterImpl } from "./wallet/MetaMaskAdapter.impl";
 import { MarketType, WalletType } from "~/domain";
 import { WalletAdapterDelegateImpl } from "./wallet/WalletAdapterDelegate.impl";
 import { WalletAdapterDelegate } from "./wallet/WalletAdapterDelegate";
 import { SpotMarketAdapterImpl } from "./injective/SpotMarketAdapter.impl";
 import { DerivativeMarketAdapterImpl } from "./injective/DerivativeMarketAdapter.impl";
+import { AccountInfoAdapterImpl } from "~/adapters/AccountInfoAdapter.impl";
 
 export const adapterModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<MarketAdapter>(MarketAdapter).to(SpotMarketAdapterImpl).whenTargetNamed(MarketType.spot);
@@ -33,4 +34,5 @@ export const adapterModule = new ContainerModule((bind: interfaces.Bind) => {
       }
     }
   );
+  bind<AccountInfoAdapter>(AccountInfoAdapter).to(AccountInfoAdapterImpl);
 });

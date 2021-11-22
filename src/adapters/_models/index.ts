@@ -1,4 +1,4 @@
-export * from "./AccountInfoVM.impl";
+export * from "./AccountInfoPanelVM.impl";
 export * from "./SpotMarketDetailVM.impl";
 export * from "./SpotMarketListItemVM.impl";
 export * from "./DerivativeMarketDetailVM.impl";

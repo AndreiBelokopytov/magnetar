@@ -1,5 +1,5 @@
 export * from "./MarketStore";
 export * from "./DerivativeMarketStore";
 export * from "./SportMarketStore";
-export * from "./WalletSettingsStore";
+export * from "./AccountInfoStore";
 export * from "./stores.module";

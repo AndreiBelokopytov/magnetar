@@ -1,4 +1,4 @@
-import { WalletSettingsStore } from "~/stores";
+import { AccountInfoStore } from "~/stores";
 import { inject, injectable } from "inversify";
 import { WalletAdapter } from "~/adapters";
 import { WalletAdapterDelegate } from "./WalletAdapterDelegate";
@@ -8,14 +8,16 @@ import { computed, makeObservable } from "mobx";
 export class WalletAdapterDelegateImpl implements WalletAdapterDelegate {
   @computed
   get activeWalletType() {
-    return this._walletSettingsStore.settings.walletType;
+    return this._accountInfoStore.accountInfo?.walletType;
   }
 
-  constructor(@inject(WalletSettingsStore) private _walletSettingsStore: WalletSettingsStore) {
+  constructor(@inject(AccountInfoStore) private _accountInfoStore: AccountInfoStore) {
     makeObservable(this);
   }
 
   onWalletConnected(walletAdapter: WalletAdapter) {
-    this._walletSettingsStore.setWalletType(walletAdapter.walletType);
+    if (walletAdapter.activeAccount) {
+      this._accountInfoStore.setAccountInfo(walletAdapter.walletType, walletAdapter.activeAccount);
+    }
   }
 }

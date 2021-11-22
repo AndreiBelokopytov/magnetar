@@ -2,7 +2,6 @@ import { action, computed, makeObservable, observable, reaction } from "mobx";
 import { inject, injectable } from "inversify";
 import { MetaMaskOnBoardingProvider } from "~/api";
 import { Disposer, EthAddress } from "~/utils";
-import { AccountInfoVMImpl } from "~/adapters/_models";
 import { WalletAdapter } from "~/adapters";
 import { WalletType } from "~/domain";
 import { WalletAdapterDelegate } from "./WalletAdapterDelegate";
@@ -15,16 +14,8 @@ export class MetaMaskAdapterImpl implements WalletAdapter {
   readonly walletType: WalletType = WalletType.metaMask;
 
   @computed
-  get isWalletConnected() {
-    console.log("account", this._accounts);
+  get isWalletConnected(): boolean {
     return this._accounts.length > 0;
-  }
-
-  @computed
-  get accountInfo() {
-    if (this._activeAccount) {
-      return new AccountInfoVMImpl(this._activeAccount);
-    }
   }
 
   @computed
@@ -33,7 +24,7 @@ export class MetaMaskAdapterImpl implements WalletAdapter {
   }
 
   @computed
-  private get _activeAccount() {
+  get activeAccount(): EthAddress | undefined {
     return this._accounts.length > 0 ? this._accounts[0] : undefined;
   }
 
@@ -41,7 +32,7 @@ export class MetaMaskAdapterImpl implements WalletAdapter {
     return this._provider && this._provider.isMetaMask;
   }
 
-  private get _provider() {
+  private get _provider(): EthereumProvider | undefined {
     return window.ethereum;
   }
 

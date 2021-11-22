@@ -1,5 +1,5 @@
 export * from "./base";
-export * from "./AccountInfo";
+export * from "./AccountInfoPanel";
 export * from "./PageHeader";
 export * from "./MarketDetail";
 export * from "./MarketList";

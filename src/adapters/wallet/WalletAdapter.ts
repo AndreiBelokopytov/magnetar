@@ -1,12 +1,11 @@
-import { AccountInfoVM } from "~/components";
-import { Disposable } from "~/utils";
+import { Disposable, EthAddress } from "~/utils";
 import { WalletType } from "~/domain";
 
 export interface WalletAdapter extends Disposable {
   connect(): void;
   init(): void;
-  readonly accountInfo?: AccountInfoVM;
   readonly walletType: WalletType;
+  readonly activeAccount?: EthAddress;
   readonly isActive: boolean;
   readonly isConnecting: boolean;
   readonly isWalletConnected: boolean;
