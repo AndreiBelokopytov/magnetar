@@ -1,4 +1,9 @@
 import { MarketDetailHeader } from "~/components";
 import { marketDetailHeaderMock } from "~/components/_mocks";
+import { Fixture } from "~/components/_utils";
 
-export default <MarketDetailHeader model={marketDetailHeaderMock} />;
+export default (
+  <Fixture>
+    <MarketDetailHeader model={marketDetailHeaderMock} />
+  </Fixture>
+);

@@ -1,5 +1,6 @@
 import { WalletSelectionModal } from "~/components";
 import { useState } from "react";
+import { Fixture } from "~/components/_utils";
 
 export default () => {
   const [state, setState] = useState({
@@ -38,12 +39,14 @@ export default () => {
   };
 
   return (
-    <WalletSelectionModal
-      open={state.isModalOpen}
-      connectMetaMask={connectMetaMask}
-      isWalletConnected={state.isWalletConnected}
-      isMetaMaskConnecting={state.isMetaMaskConnecting}
-      onClose={handleClose}
-    />
+    <Fixture>
+      <WalletSelectionModal
+        open={state.isModalOpen}
+        connectMetaMask={connectMetaMask}
+        isWalletConnected={state.isWalletConnected}
+        isMetaMaskConnecting={state.isMetaMaskConnecting}
+        onClose={handleClose}
+      />
+    </Fixture>
   );
 };
