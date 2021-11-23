@@ -1,6 +1,7 @@
 import { MarketListItemVM } from "~/components";
 import { MarketType } from "~/domain";
 import { AllChronosDerivativeMarketSummary, DerivativeMarket } from "@injectivelabs/derivatives-consumer";
+import { NumberFormatter } from "~/utils";
 
 export class DerivativeMarketListItemVMImpl implements MarketListItemVM {
   get id() {
@@ -12,25 +13,34 @@ export class DerivativeMarketListItemVMImpl implements MarketListItemVM {
   }
 
   get imageUrl() {
-    return this._market.quoteToken?.logo;
+    return "";
   }
 
-  get pair() {
+  get quoteSymbol() {
     return this._market.quoteToken?.symbol ?? "";
   }
 
+  get volume() {
+    const formatter = new NumberFormatter({
+      precision: 2,
+    });
+    return formatter.format(this._marketSummary?.volume ?? 0);
+  }
+
   get lastPrice() {
-    if (this._marketSummary) {
-      return `${this._marketSummary.price.toFixed(2)} ${this._market.quoteToken?.symbol}`;
-    }
-    return "no data";
+    const formatter = new NumberFormatter({
+      precision: 6,
+    });
+    return formatter.format(this._marketSummary?.price ?? 0);
   }
 
   get change() {
-    if (this._marketSummary) {
-      return `${this._marketSummary?.change.toFixed(2)}%`;
-    }
-    return "no data";
+    const formatter = new NumberFormatter({
+      precision: 2,
+      addSign: true,
+      symbol: "%",
+    });
+    return formatter.format(this._marketSummary?.change ?? 0);
   }
 
   get detailPageUrl() {

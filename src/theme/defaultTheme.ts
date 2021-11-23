@@ -1,4 +1,6 @@
 import { ThemeType } from "grommet";
+import { css } from "styled-components";
+import { normalizeColor } from "grommet/utils";
 
 export const defaultTheme: ThemeType = {
   global: {
@@ -11,6 +13,7 @@ export const defaultTheme: ThemeType = {
       "accent-2": "#22B07D",
       "dark-1": "#131720",
       "dark-2": "#202632",
+      "dark-3": "#2B3444",
       "light-1": "#E7E8E9",
       "light-2": "#BCBEC1",
       "light-3": "#8F9399",
@@ -41,6 +44,10 @@ export const defaultTheme: ThemeType = {
     },
   },
   heading: {
+    // @ts-ignore
+    extend: () => ({
+      margin: "0",
+    }),
     level: {
       1: {
         font: {
@@ -140,6 +147,21 @@ export const defaultTheme: ThemeType = {
       active: {
         color: "accent-1",
       },
+    },
+  },
+  card: {
+    container: {
+      // @ts-ignore
+      extend: ({ theme }) => css`
+        background: ${normalizeColor("dark-2", theme)};
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow: 0 0 16px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease-out;
+        &:hover {
+          background: ${normalizeColor("dark-3", theme)};
+        }
+      `,
     },
   },
 };

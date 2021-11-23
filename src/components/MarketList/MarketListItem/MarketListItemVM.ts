@@ -2,8 +2,9 @@ export interface MarketListItemVM {
   id: string;
   imageUrl?: string;
   ticker: string;
-  pair: string;
+  quoteSymbol: string;
   lastPrice: string;
   change: string;
+  volume: string;
   detailPageUrl: string;
 }

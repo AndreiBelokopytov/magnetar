@@ -8,8 +8,10 @@ type Props = {
 
 export const Fixture = ({ children }: Props) => {
   return (
-    <Grommet theme={defaultTheme}>
-      <Box background={"dark-1"}>{children}</Box>
+    <Grommet theme={defaultTheme} full>
+      <Box background={"dark-1"} fill>
+        {children}
+      </Box>
     </Grommet>
   );
 };

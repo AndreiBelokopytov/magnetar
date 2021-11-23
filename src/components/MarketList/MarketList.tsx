@@ -1,9 +1,9 @@
 import { observer } from "mobx-react";
 import { MarketListItemVM } from "~/components";
 import { MarketListItem } from "./MarketListItem";
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router";
-import { Box, Spinner } from "grommet";
+import { Box, Grid, ResponsiveContext, Spinner } from "grommet";
 
 type Props = {
   items: MarketListItemVM[];
@@ -12,6 +12,7 @@ type Props = {
 
 export const MarketList = observer(({ items, loading }: Props) => {
   const history = useHistory();
+  const size = useContext(ResponsiveContext);
 
   const handleItemPress = (item: MarketListItemVM) => history.push(item.detailPageUrl);
 
@@ -23,10 +24,10 @@ export const MarketList = observer(({ items, loading }: Props) => {
     );
   }
   return (
-    <Box>
+    <Grid columns={size !== "small" ? "280px" : "100%"} gap="medium">
       {items.map((item) => (
-        <MarketListItem model={item} key={item.pair} onClick={handleItemPress} />
+        <MarketListItem model={item} key={item.id} onClick={handleItemPress} />
       ))}
-    </Box>
+    </Grid>
   );
 });

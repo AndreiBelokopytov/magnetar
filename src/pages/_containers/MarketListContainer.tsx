@@ -11,17 +11,17 @@ type Props = {
 };
 
 export const MarketListContainer = observer(({ marketType }: Props) => {
-  const spotMarketAdapter = userMarketAdapter(marketType);
-  const refreshByInterval = useIntervalRefresh(spotMarketAdapter.refreshAllSummary, REFRESH_INTERVAL);
+  const marketAdapter = userMarketAdapter(marketType);
+  const refreshByInterval = useIntervalRefresh(marketAdapter.refreshAllSummary, REFRESH_INTERVAL);
 
   React.useEffect(() => {
-    spotMarketAdapter.refreshAll();
+    marketAdapter.refreshAll();
     const subscription = refreshByInterval.subscribe();
 
     return () => {
       subscription.unsubscribe();
     };
-  }, [spotMarketAdapter, refreshByInterval]);
+  }, [marketAdapter, refreshByInterval]);
 
-  return <MarketList loading={!spotMarketAdapter?.isReady} items={spotMarketAdapter.marketListItems} />;
+  return <MarketList loading={!marketAdapter?.isReady} items={marketAdapter.marketListItems} />;
 });
