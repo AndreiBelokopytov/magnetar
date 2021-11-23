@@ -1,7 +1,5 @@
-import { StackView } from "~/components";
 import React from "react";
-import { StyleSheet } from "react-native";
-import { colors } from "~/theme";
+import { Box } from "grommet";
 
 type Props = {
   children: React.ReactNode;
@@ -10,21 +8,13 @@ type Props = {
 };
 
 export const PageLayout = ({ children, header, noPadding }: Props) => {
+  const padding = { vertical: "8px", horizontal: "16px" };
   return (
-    <StackView flex bgColor={colors.background}>
+    <Box flex background={"white"}>
       {header}
-      <StackView flex style={noPadding ? undefined : styles.padding}>
+      <Box flex pad={noPadding ? "none" : padding}>
         {children}
-      </StackView>
-    </StackView>
+      </Box>
+    </Box>
   );
 };
-
-const styles = StyleSheet.create({
-  padding: {
-    top: 8,
-    right: 16,
-    bottom: 8,
-    left: 16,
-  },
-});

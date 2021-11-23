@@ -1,18 +1,12 @@
 import React from "react";
 import { MarketListItem } from "./MarketListItem";
 import { marketListMock } from "~/components/_mocks";
-import { View, StyleSheet } from "react-native";
+import { Box } from "grommet";
 
 const model = marketListMock[0];
 
-const styles = StyleSheet.create({
-  root: {
-    width: 480,
-  },
-});
-
 export default (
-  <View style={styles.root}>
+  <Box>
     <MarketListItem model={model} />
-  </View>
+  </Box>
 );

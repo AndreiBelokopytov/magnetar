@@ -1,11 +1,12 @@
-import { PageLayout, StackView } from "~/components";
+import { PageLayout } from "~/components";
 import { PageHeaderContainer } from "~/pages/_containers";
 import React from "react";
+import { Box } from "grommet";
 
 export const DerivativeMarketDetailPage = () => {
   return (
     <PageLayout header={<PageHeaderContainer />}>
-      <StackView flex />
+      <Box flex />
     </PageLayout>
   );
 };

@@ -1,20 +1,17 @@
 import React from "react";
-import { Typography } from "~/components";
-import { StyleSheet } from "react-native";
-import { colors } from "~/theme";
+import { Text } from "grommet";
 
 type Props = {
   children: React.ReactChild;
-} & React.ComponentProps<typeof Typography>;
+} & React.ComponentProps<typeof Text>;
 
 export const FallGrowthIndicator = ({ children, ...rest }: Props) => {
   const isFall = checkIfFall(children);
-  const style = isFall != null ? (isFall ? styles.fall : styles.growth) : undefined;
 
   return (
-    <Typography {...rest} style={style}>
+    <Text {...rest} color={isFall ? "status-error" : "status-ok"}>
       {children}
-    </Typography>
+    </Text>
   );
 };
 
@@ -33,12 +30,3 @@ const checkIfFall = (children: React.ReactChild): boolean | null => {
   }
   return checkIfFall(child.props.children);
 };
-
-const styles = StyleSheet.create({
-  fall: {
-    color: colors.negative,
-  },
-  growth: {
-    color: colors.positive,
-  },
-});

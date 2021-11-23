@@ -1,9 +1,9 @@
 import { observer } from "mobx-react";
-import { ActivityIndicator } from "react-native";
-import { MarketListItemVM, StackView, Typography } from "~/components";
+import { MarketListItemVM } from "~/components";
 import { MarketListItem } from "./MarketListItem";
 import React from "react";
 import { useHistory } from "react-router";
+import { Box, Heading, Spinner } from "grommet";
 
 type Props = {
   items: MarketListItemVM[];
@@ -18,19 +18,19 @@ export const MarketList = observer(({ items, title, loading }: Props) => {
 
   if (loading) {
     return (
-      <StackView flex justifyContent={"center"} alignItems={"center"}>
-        <ActivityIndicator size={"large"} />
-      </StackView>
+      <Box flex justify={"center"} align={"center"}>
+        <Spinner />
+      </Box>
     );
   }
   return (
-    <StackView>
-      <StackView pl={16} pr={16} mt={8}>
-        <Typography variant={"h3"}>{title}</Typography>
-      </StackView>
+    <Box>
+      <Box pad={{ left: "16px", right: "16px", top: "8px" }}>
+        <Heading level={3}>{title}</Heading>
+      </Box>
       {items.map((item) => (
-        <MarketListItem model={item} key={item.pair} onPress={handleItemPress} />
+        <MarketListItem model={item} key={item.pair} onClick={handleItemPress} />
       ))}
-    </StackView>
+    </Box>
   );
 });

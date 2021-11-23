@@ -1,34 +1,36 @@
 import { observer } from "mobx-react";
-import { TouchableOpacity } from "react-native";
-import { StackView, Logo, Typography, MarketListItemVM, FallGrowthIndicator } from "~/components";
+import { MarketListItemVM, FallGrowthIndicator } from "~/components";
+import { Avatar, Box, Text } from "grommet";
 
 type Props = {
   model: MarketListItemVM;
-  onPress?: (item: MarketListItemVM) => void;
+  onClick?: (item: MarketListItemVM) => void;
 };
 
-const IMAGE_SIZE = 48;
-
-export const MarketListItem = observer(({ model, onPress }: Props) => {
-  const handlePress = () => onPress?.(model);
+export const MarketListItem = observer(({ model, onClick }: Props) => {
+  const handleClick = () => onClick?.(model);
 
   return (
-    <TouchableOpacity onPress={handlePress}>
-      <StackView direction={"row"} alignItems={"center"} pt={8} pb={8} pl={16} pr={16}>
-        <StackView mr={16}>
-          <Logo size={IMAGE_SIZE} sourceUri={model.imageUrl} />
-        </StackView>
-        <StackView flex>
-          <StackView direction={"row"} justifyContent={"space-between"}>
-            <Typography>{model.pair}</Typography>
-            <Typography>{model.lastPrice}</Typography>
-          </StackView>
-          <StackView direction={"row"} justifyContent={"space-between"}>
-            <Typography variant={"subhead"}>{model.ticker}</Typography>
-            <FallGrowthIndicator variant={"subhead"}>{model.change}</FallGrowthIndicator>
-          </StackView>
-        </StackView>
-      </StackView>
-    </TouchableOpacity>
+    <Box onClick={handleClick}>
+      <Box direction={"row"} align={"center"} pad={{ horizontal: "16px", vertical: "8px" }}>
+        <Box margin={{ right: "16px" }}>
+          {model.imageUrl ? (
+            <Avatar size={"medium"} src={model.imageUrl} background={"light-3"} />
+          ) : (
+            <Avatar size={"medium"} background={"light-3"} />
+          )}
+        </Box>
+        <Box flex>
+          <Box direction={"row"} justify={"between"}>
+            <Text>{model.pair}</Text>
+            <Text>{model.lastPrice}</Text>
+          </Box>
+          <Box direction={"row"} justify={"between"}>
+            <Text size={"small"}>{model.ticker}</Text>
+            <FallGrowthIndicator size={"small"}>{model.change}</FallGrowthIndicator>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 });

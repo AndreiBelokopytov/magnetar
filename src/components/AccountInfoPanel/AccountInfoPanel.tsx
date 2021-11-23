@@ -1,5 +1,5 @@
-import { StackView, Typography, AccountInfoPanelVM } from "~/components";
-import { StyleSheet } from "react-native";
+import { AccountInfoPanelVM } from "~/components";
+import { Box, Text } from "grommet";
 
 type Props = {
   model: AccountInfoPanelVM;
@@ -7,29 +7,19 @@ type Props = {
 
 export const AccountInfoPanel = ({ model }: Props) => {
   return (
-    <StackView>
-      <StackView>
-        <Typography variant={"footnote"}>Ethereum address</Typography>
-        <StackView direction={"row"} alignItems={"center"}>
-          <Typography style={styles.address} overflowHidden>
-            {model.ethereumAddress}
-          </Typography>
-        </StackView>
-      </StackView>
-      <StackView mt={16}>
-        <Typography variant={"footnote"}>Injective address</Typography>
-        <StackView direction={"row"} alignItems={"center"}>
-          <Typography style={styles.address} overflowHidden>
-            {model.injectiveAddress}
-          </Typography>
-        </StackView>
-      </StackView>
-    </StackView>
+    <Box>
+      <Box>
+        <Text size={"small"}>Ethereum address</Text>
+        <Box direction={"row"} align={"center"}>
+          <Text>{model.ethereumAddress}</Text>
+        </Box>
+      </Box>
+      <Box margin={{ bottom: "16px" }}>
+        <Text size={"small"}>Injective address</Text>
+        <Box direction={"row"} align={"center"}>
+          <Text>{model.injectiveAddress}</Text>
+        </Box>
+      </Box>
+    </Box>
   );
 };
-
-const styles = StyleSheet.create({
-  address: {
-    letterSpacing: 1.4,
-  },
-});

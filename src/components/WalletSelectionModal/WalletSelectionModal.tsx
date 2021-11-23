@@ -1,7 +1,7 @@
-import { Button, Modal, StackView } from "~/components";
 import React from "react";
-import { StyleSheet } from "react-native";
 import { observer } from "mobx-react";
+import { Box, Button } from "grommet";
+import { Modal } from "~/components";
 
 type Props = {
   connectMetaMask?(): void;
@@ -23,20 +23,13 @@ export const WalletSelectionModal = observer(
     }, [isWalletConnected, onClose]);
 
     return (
-      <Modal visible={open} onClose={handleClose} contentStyle={styles.walletModalContent}>
-        <StackView alignItems={"center"} justifyContent={"center"} bgColor={"white"}>
-          <Button loading={isMetaMaskConnecting} onPress={handleConnectMetaMask}>
+      <Modal open={open} onClose={handleClose}>
+        <Box align={"center"} justify={"center"} width={"480px"} height={"320px"}>
+          <Button disabled={isMetaMaskConnecting} onClick={handleConnectMetaMask}>
             Connect MetaMask
           </Button>
-        </StackView>
+        </Box>
       </Modal>
     );
   }
 );
-
-const styles = StyleSheet.create({
-  walletModalContent: {
-    width: 480,
-    height: 320,
-  },
-});

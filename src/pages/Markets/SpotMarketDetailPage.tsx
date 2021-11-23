@@ -1,10 +1,11 @@
-import { MarketDetailHeader, PageLayout, StackView } from "~/components";
+import { MarketDetailHeader, PageLayout } from "~/components";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 import { useIntervalRefresh, userMarketAdapter } from "~/hooks";
 import { MarketType } from "~/domain";
 import { PageHeaderContainer } from "~/pages/_containers";
+import { Box } from "grommet";
 
 type Params = {
   id: string;
@@ -33,9 +34,9 @@ export const SpotMarketDetailPage = observer(() => {
 
   return (
     <PageLayout header={<PageHeaderContainer />}>
-      <StackView flex>
+      <Box flex>
         <MarketDetailHeader model={spotMarketAdapter.marketDetail} />
-      </StackView>
+      </Box>
     </PageLayout>
   );
 });

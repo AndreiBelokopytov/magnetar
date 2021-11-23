@@ -1,13 +1,6 @@
 import React, { useState } from "react";
-import {
-  Spacer,
-  StackView,
-  Typography,
-  Button,
-  WalletSelectionModal,
-  AccountInfoPanel,
-  AccountInfoPanelVM,
-} from "~/components";
+import { WalletSelectionModal, AccountInfoPanel, AccountInfoPanelVM } from "~/components";
+import { Box, Button, Heading } from "grommet";
 
 type Props = {
   accountInfo?: AccountInfoPanelVM;
@@ -24,23 +17,22 @@ export const PageHeader = ({ accountInfo, connectMetaMask, isWalletConnected, is
 
   return (
     <>
-      <StackView
+      <Box
         direction={"row"}
         width={"100%"}
-        height={60}
-        alignItems={"center"}
-        pl={32}
-        pr={32}
-        bgColor={"ghostwhite"}
+        height={"60px"}
+        align={"center"}
+        pad={{ horizontal: "32px" }}
+        background={"accent-1"}
       >
-        <Typography variant={"h3"}>Magnetar</Typography>
-        <Spacer />
+        <Heading level={3}>Magnetar</Heading>
+        <Box flex />
         {accountInfo ? (
           <AccountInfoPanel model={accountInfo} />
         ) : (
-          <Button onPress={openWalletModal}>Connect wallet</Button>
+          <Button onClick={openWalletModal}>Connect wallet</Button>
         )}
-      </StackView>
+      </Box>
       <WalletSelectionModal
         isMetaMaskConnecting={isMetaMaskConnecting}
         isWalletConnected={isWalletConnected}

@@ -1,4 +1,5 @@
-import { FallGrowthIndicator, MarketDetailVM, StackView, Typography } from "~/components";
+import { FallGrowthIndicator, MarketDetailVM } from "~/components";
+import { Box, Heading, Text } from "grommet";
 
 type Props = {
   model: MarketDetailVM;
@@ -6,15 +7,15 @@ type Props = {
 
 export const MarketDetailHeader = ({ model }: Props) => {
   return (
-    <StackView>
-      <Typography variant={"h3"}>{`${model.quoteToken}/${model.baseToken}`}</Typography>
-      <Typography variant={"h1"}>{model.currentPrice}</Typography>
-      <StackView direction={"row"}>
+    <Box>
+      <Heading level={3}>{`${model.quoteToken}/${model.baseToken}`}</Heading>
+      <Heading level={1}>{model.currentPrice}</Heading>
+      <Box direction={"row"}>
         <FallGrowthIndicator>{`${model.change} (${model.percentChange})`}</FallGrowthIndicator>
-        <StackView ml={12}>
-          <Typography>{model.changePeriod}</Typography>
-        </StackView>
-      </StackView>
-    </StackView>
+        <Box margin={{ left: "12px" }}>
+          <Text>{model.changePeriod}</Text>
+        </Box>
+      </Box>
+    </Box>
   );
 };

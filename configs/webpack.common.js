@@ -18,9 +18,7 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
     alias: {
-      "react-native": "react-native-web",
       "@improbable-eng/grpc-web-node-http-transport": "@improbable-eng/grpc-web",
-      "react-native-svg": "react-native-svg-web",
     },
     plugins: [new TsconfigPathsPlugin()],
     fallback: {
@@ -38,7 +36,6 @@ module.exports = {
           loader: "babel-loader",
         },
       },
-
       {
         test: /\.(png|jpeg|jpg|gif)/,
         type: "asset/resource",

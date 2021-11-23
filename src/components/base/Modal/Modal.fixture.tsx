@@ -1,5 +1,6 @@
-import { Button, Modal, StackView, Typography } from "~/components";
+import { Modal } from "~/components";
 import { useState } from "react";
+import { Box, Button, Text } from "grommet";
 
 export default () => {
   const [modalIsOpen, setModalIsOpen] = useState(true);
@@ -11,11 +12,11 @@ export default () => {
   };
 
   return (
-    <Modal visible={modalIsOpen} onClose={hideModal} onRequestClose={hideModal}>
-      <Typography>Modal</Typography>
-      <StackView mt={16}>
-        <Button onPress={hideModal}>Close modal</Button>
-      </StackView>
+    <Modal open={modalIsOpen} onClose={hideModal} onClickOutside={hideModal}>
+      <Text>Modal</Text>
+      <Box margin={{ top: "16px" }}>
+        <Button onClick={hideModal}>Close modal</Button>
+      </Box>
     </Modal>
   );
 };
