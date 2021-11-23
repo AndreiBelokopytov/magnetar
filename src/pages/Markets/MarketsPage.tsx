@@ -12,12 +12,12 @@ export const MarketsPage = observer(() => {
         <Tabs justify={"start"}>
           <Tab title="Spot">
             <Box pad={{ vertical: "24px" }}>
-              <MarketList marketType={MarketType.spot} />
+              <MarketList key={MarketType.spot} marketType={MarketType.spot} />
             </Box>
           </Tab>
           <Tab title="Derivative">
             <Box pad={{ vertical: "24px" }}>
-              <MarketList marketType={MarketType.derivative} />
+              <MarketList key={MarketType.derivative} marketType={MarketType.derivative} />
             </Box>
           </Tab>
         </Tabs>
