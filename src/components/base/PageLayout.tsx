@@ -1,20 +1,30 @@
 import React from "react";
-import { Box } from "grommet";
+import { Box, Grid } from "grommet";
 
 type Props = {
   children: React.ReactNode;
   header?: JSX.Element | React.ReactNode;
-  noPadding?: boolean;
 };
 
-export const PageLayout = ({ children, header, noPadding }: Props) => {
-  const padding = { vertical: "8px", horizontal: "16px" };
+export const PageLayout = ({ children, header }: Props) => {
   return (
-    <Box flex background={"white"}>
-      {header}
-      <Box flex pad={noPadding ? "none" : padding}>
-        {children}
-      </Box>
+    <Box height={"100%"} background={"dark-1"}>
+      <Grid
+        fill
+        columns={["flex", "xlarge", "flex"]}
+        rows={["56px", "flex"]}
+        areas={[
+          { name: "header", start: [1, 0], end: [1, 0] },
+          { name: "main", start: [1, 1], end: [1, 1] },
+        ]}
+        gap={"none"}
+      >
+        <Box gridArea={"header"}>{header}</Box>
+
+        <Box flex gridArea={"main"}>
+          {children}
+        </Box>
+      </Grid>
     </Box>
   );
 };
