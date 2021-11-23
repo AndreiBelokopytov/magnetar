@@ -1,5 +1,6 @@
 {
   "webpack": {
     "configPath": "configs/webpack.dev.js"
-  }
+  },
+  "globalImports": ["reflect-metadata"]
 }
