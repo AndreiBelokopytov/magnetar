@@ -34,7 +34,7 @@ export class SpotMarketListItemVMImpl implements MarketListItemVM {
   }
 
   get detailPageUrl() {
-    return MarketType.spot;
+    return `/${MarketType.spot}/${this.id}`;
   }
 
   constructor(private readonly _market: SpotMarket, private readonly _marketSummary?: AllChronosSpotMarketSummary) {}

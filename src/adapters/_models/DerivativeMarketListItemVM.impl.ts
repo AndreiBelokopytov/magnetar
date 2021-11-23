@@ -34,7 +34,7 @@ export class DerivativeMarketListItemVMImpl implements MarketListItemVM {
   }
 
   get detailPageUrl() {
-    return MarketType.derivative;
+    return `/${MarketType.derivative}/${this.id}`;
   }
 
   constructor(

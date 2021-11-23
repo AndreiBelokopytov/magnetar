@@ -1,42 +1,38 @@
 import { MarketDetailHeader, PageLayout, StackView } from "~/components";
 import React from "react";
+import { useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 import { useIntervalRefresh, userMarketAdapter } from "~/hooks";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { MarketsStackParams } from "~/Routing.types";
 import { MarketType } from "~/domain";
-import { useFocusEffect } from "@react-navigation/native";
+import { PageHeaderContainer } from "~/pages/_containers";
 
-type Props = NativeStackScreenProps<MarketsStackParams, typeof MarketType.spot>;
+type Params = {
+  id: string;
+};
 
 const REFRESH_INTERVAL = 3000;
 
-export const SpotMarketDetailPage = observer(({ route }: Props) => {
+export const SpotMarketDetailPage = observer(() => {
   const spotMarketAdapter = userMarketAdapter(MarketType.spot);
-  const marketId = route.params.marketId;
-
   const refreshByInterval = useIntervalRefresh(
     () => spotMarketAdapter.refreshSingleSummary(marketId),
     REFRESH_INTERVAL
   );
 
-  useFocusEffect(
-    React.useCallback(() => {
-      spotMarketAdapter.refreshSingle(marketId);
-      const subscription = refreshByInterval.subscribe();
+  const { id: marketId } = useParams<Params>();
 
-      return () => {
-        subscription.unsubscribe();
-      };
-    }, [spotMarketAdapter, refreshByInterval])
-  );
+  React.useEffect(() => {
+    spotMarketAdapter.refreshSingle(marketId);
+    const subscription = refreshByInterval.subscribe();
+    return () => subscription.unsubscribe();
+  }, [spotMarketAdapter, marketId]);
 
   if (!spotMarketAdapter.marketDetail || spotMarketAdapter.marketDetail.id !== marketId) {
     return null;
   }
 
   return (
-    <PageLayout>
+    <PageLayout header={<PageHeaderContainer />}>
       <StackView flex>
         <MarketDetailHeader model={spotMarketAdapter.marketDetail} />
       </StackView>

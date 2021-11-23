@@ -60,6 +60,7 @@ export class MetaMaskAdapterImpl implements WalletAdapter {
     }
   }
 
+  @action.bound
   async init() {
     if (!this._isMetaMaskInstalled) {
       return;
@@ -84,6 +85,7 @@ export class MetaMaskAdapterImpl implements WalletAdapter {
     );
   }
 
+  @action.bound
   dispose() {
     this.disposers.forEach((d) => d());
   }

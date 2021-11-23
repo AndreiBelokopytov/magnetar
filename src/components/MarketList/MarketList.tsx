@@ -2,8 +2,8 @@ import { observer } from "mobx-react";
 import { ActivityIndicator } from "react-native";
 import { MarketListItemVM, StackView, Typography } from "~/components";
 import { MarketListItem } from "./MarketListItem";
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
+import { useHistory } from "react-router";
 
 type Props = {
   items: MarketListItemVM[];
@@ -12,13 +12,9 @@ type Props = {
 };
 
 export const MarketList = observer(({ items, title, loading }: Props) => {
-  const navigation = useNavigation();
+  const history = useHistory();
 
-  const handleItemPress = (item: MarketListItemVM) =>
-    // @ts-ignore
-    navigation.navigate(item.detailPageUrl, {
-      marketId: item.id,
-    });
+  const handleItemPress = (item: MarketListItemVM) => history.push(item.detailPageUrl);
 
   if (loading) {
     return (

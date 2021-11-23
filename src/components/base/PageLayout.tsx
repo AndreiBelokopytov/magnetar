@@ -5,12 +5,14 @@ import { colors } from "~/theme";
 
 type Props = {
   children: React.ReactNode;
+  header?: JSX.Element | React.ReactNode;
   noPadding?: boolean;
 };
 
-export const PageLayout = ({ children, noPadding }: Props) => {
+export const PageLayout = ({ children, header, noPadding }: Props) => {
   return (
     <StackView flex bgColor={colors.background}>
+      {header}
       <StackView flex style={noPadding ? undefined : styles.padding}>
         {children}
       </StackView>
