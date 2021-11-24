@@ -20,6 +20,9 @@ export const defaultTheme: ThemeType = {
       "status-warning": "#FFAA15",
       "status-ok": "#22B07D",
       "status-error": "#DE5454",
+      get ["brand"]() {
+        return this["accent-1"];
+      },
       get ["background-back"]() {
         return this["dark-2"];
       },
