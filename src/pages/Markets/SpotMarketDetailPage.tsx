@@ -34,7 +34,7 @@ export const SpotMarketDetailPage = observer(() => {
 
   return (
     <PageLayout header={<PageHeaderContainer />}>
-      <Box flex>
+      <Box flex margin={{ top: "40px" }}>
         <MarketDetailHeader model={spotMarketAdapter.marketDetail} />
       </Box>
     </PageLayout>
