@@ -1,5 +1,5 @@
 import { Box, Button, Layer, LayerProps, Stack } from "grommet";
-import { Close } from "grommet-icons";
+import { XLg } from "react-bootstrap-icons";
 import React from "react";
 
 type Props = LayerProps & {
@@ -18,7 +18,7 @@ export const Modal = ({ children, open, onClose, ...rest }: Props) => {
           {children}
         </Box>
         <Box margin={{ top: "8px", right: "8px" }}>
-          <Button icon={<Close />} onClick={handleClose} />
+          <Button icon={<XLg />} onClick={handleClose} />
         </Box>
       </Stack>
     </Layer>
