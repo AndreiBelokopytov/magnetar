@@ -1,3 +1,8 @@
 import { BackButton } from "~/components";
+import { Fixture } from "~/components/_utils";
 
-export default <BackButton title={"Back"} />;
+export default (
+  <Fixture>
+    <BackButton title={"Back"} />
+  </Fixture>
+);

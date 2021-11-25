@@ -4,12 +4,12 @@ import React from "react";
 
 type Props = {
   children: React.ReactNode | React.ReactNode[];
-};
+} & React.ComponentProps<typeof Box>;
 
-export const Fixture = ({ children }: Props) => {
+export const Fixture = ({ children, ...rest }: Props) => {
   return (
     <Grommet theme={defaultTheme} full>
-      <Box background={"dark-1"} fill>
+      <Box pad={"24px"} background={"dark-1"} fill {...rest}>
         {children}
       </Box>
     </Grommet>
