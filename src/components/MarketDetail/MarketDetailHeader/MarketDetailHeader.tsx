@@ -7,7 +7,7 @@ type Props = {
 
 export const MarketDetailHeader = ({ model }: Props) => {
   return (
-    <Box>
+    <Box align-items={"flex-start"}>
       <Box margin={{ bottom: "16px" }}>
         <BackButton title={"Back"} />
       </Box>

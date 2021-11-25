@@ -13,25 +13,25 @@ export const BackButton = ({ title }: Props) => {
   const history = useHistory();
 
   return (
-    <BackButtonContainer onClick={history.goBack}>
-      <Box margin={{ right: "8px" }}>
-        <ArrowLeft width={24} height={24} />
+    <BackButtonContainer onClick={history?.goBack}>
+      <Box direction={"row"} align={"center"}>
+        <Box margin={{ right: "8px" }}>
+          <ArrowLeft width={24} height={24} />
+        </Box>
+        <Text>{title}</Text>
       </Box>
-      <Text>{title}</Text>
     </BackButtonContainer>
   );
 };
 
 const BackButtonContainer = styled.div`
   ${({ theme }) => css`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    display: inline-block;
     color: ${normalizeColor("light-3", theme)};
     cursor: pointer;
+    transition: all 0.2s ease-out;
     &:hover {
       color: ${normalizeColor("brand", theme)};
-    },
-    transition: all 0.2s ease-out;
+    }
   `}
 `;
