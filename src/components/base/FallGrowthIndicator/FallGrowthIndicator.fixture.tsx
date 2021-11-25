@@ -17,4 +17,14 @@ export default {
       <FallGrowthIndicator>0.00</FallGrowthIndicator>
     </Fixture>
   ),
+  iconUp: (
+    <Fixture>
+      <FallGrowthIndicator showIcon>159.9</FallGrowthIndicator>
+    </Fixture>
+  ),
+  iconDown: (
+    <Fixture>
+      <FallGrowthIndicator showIcon>-0.0071</FallGrowthIndicator>
+    </Fixture>
+  ),
 };
