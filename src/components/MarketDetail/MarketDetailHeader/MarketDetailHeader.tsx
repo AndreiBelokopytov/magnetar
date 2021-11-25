@@ -16,7 +16,7 @@ export const MarketDetailHeader = ({ model }: Props) => {
         <Heading level={1}>{model.currentPrice}</Heading>
       </Box>
       <Box direction={"row"} margin={{ top: "8px" }}>
-        <FallGrowthIndicator>{`${model.change} (${model.percentChange})`}</FallGrowthIndicator>
+        <FallGrowthIndicator showIcon>{`${model.change} (${model.percentChange})`}</FallGrowthIndicator>
         <Box margin={{ left: "8px" }}>
           <Text color={"light-3"}>{model.changePeriod}</Text>
         </Box>
