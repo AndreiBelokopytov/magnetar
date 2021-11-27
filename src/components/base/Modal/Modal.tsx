@@ -1,11 +1,13 @@
 import { Box, Button, Layer, LayerProps, Stack } from "grommet";
 import { XLg } from "react-bootstrap-icons";
 import React from "react";
+import { CSSProperties } from "styled-components";
 
 type Props = LayerProps & {
   open?: boolean;
   children: React.ReactNode | React.ReactNode[];
   onClose?: () => void;
+  style?: CSSProperties;
 };
 
 export const Modal = ({ children, open, onClose, ...rest }: Props) => {
