@@ -35,10 +35,8 @@ export class DerivativeMarketStoreImpl implements DerivativeMarketStore {
   private readonly _derivativesMarketChronosConsumer: DerivativeMarketChronosConsumer;
 
   constructor(@inject(Settings) private _settings: Settings) {
-    this._derivativesMarketConsumer = new DerivativeMarketConsumer(this._settings.appUrlEndpoint.baseUrl);
-    this._derivativesMarketChronosConsumer = new DerivativeMarketChronosConsumer(
-      this._settings.appUrlEndpoint.exchangeUrl
-    );
+    this._derivativesMarketConsumer = new DerivativeMarketConsumer(this._settings.appUrlEndpoint.exchangeUrl);
+    this._derivativesMarketChronosConsumer = new DerivativeMarketChronosConsumer(this._settings.appUrlEndpoint.baseUrl);
 
     makeObservable(this);
   }
