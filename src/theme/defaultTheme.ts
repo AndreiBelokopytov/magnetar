@@ -87,6 +87,23 @@ export const defaultTheme: ThemeType = {
     },
   },
   button: {
+    primary: {
+      // @ts-ignore
+      extend: () => {
+        return {
+          "&:not([disabled=\"disabled\"])": {
+            backgroundColor: "#29CD92",
+            border: 0,
+            boxShadow: "0px 2px 12px rgba(101, 224, 166, 0.3)",
+            "&:hover": {
+              backgroundColor: "#6FEBB0",
+              border: 0,
+              boxShadow: "0px 2px 12px rgba(101, 224, 166, 0.3)"
+            }
+          }
+        }
+      }
+    },
     // @ts-ignore
     extend: () => {
       return {

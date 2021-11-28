@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { WalletSelectionModal, AccountInfoPanel, AccountInfoPanelVM, MagnetarIcon } from "~/components";
-import { Box, Text } from "grommet";
-import { Button } from "~/components";
+import { Box, Text, Button } from "grommet";
 
 type Props = {
   accountInfo?: AccountInfoPanelVM;
