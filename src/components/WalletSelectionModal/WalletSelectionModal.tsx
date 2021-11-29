@@ -29,30 +29,27 @@ export const WalletSelectionModal = observer(
       <Modal
         open={open}
         onClose={handleClose}
-        style={
-          {
-            backgroundColor: normalizeColor("dark-2", theme),
-            borderRadius: "8px"
-          }
-        }
       >
-        <Box direction={"column"} align={"center"} justify={"start"}>
-          <Text weight={600} margin={"-24px 0 24px 0"} style={{fontSize: "20px"}}>
+        <Box direction={"column"} align={"center"} justify={"start"} pad={"24px 16px"}>
+          <Text weight={600} size={"large"}>
             Connect wallet
           </Text>
-          <Box align={"center"} justify={"center"} width={"400px"} margin={"0 0 -24px 0"}>
-            <Card style={{width: "100%", backgroundColor: normalizeColor("dark-1", theme)}} onClick={!isMetaMaskConnecting ? handleConnectMetaMask : undefined}>
+          <Box align={"center"} justify={"center"} width={"400px"} margin={"16px 0 0 0"}>
+            <Card
+              width={"100%"}
+              pad={"8px 16px"}
+              style={{
+                backgroundColor: normalizeColor("dark-1", theme),
+                
+              }}
+              onClick={!isMetaMaskConnecting ? handleConnectMetaMask : undefined}
+            >
               <Box
                 align={"center"}
                 justify={"start"}
                 direction={"row"}
-                pad={"8px 16px"}
                 gap={"16px"}
-                style={
-                  {
-                    borderRadius: "16px"
-                  }
-                }
+                round={"16px"}
               >
                 <MetamaskIcon width={43} height={40} />
                 <Box
@@ -65,11 +62,7 @@ export const WalletSelectionModal = observer(
                   </Text>
                   <Text
                     size={"xsmall"}
-                    style={
-                      {
-                        color: normalizeColor("light-2", theme)
-                      }
-                    }
+                    color={normalizeColor("light-2", theme)}
                   >
                     Connect using browser wallet
                   </Text>

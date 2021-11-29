@@ -16,7 +16,7 @@ export const Modal = ({ children, open, onClose, ...rest }: Props) => {
   return open ? (
     <Layer {...rest}>
       <Stack anchor={"top-right"}>
-        <Box align="center" justify="center" gap="small" direction="row" alignSelf="center" pad="large">
+        <Box align="center" justify="center" gap="small" direction="row" alignSelf="center">
           {children}
         </Box>
         <Box margin={{ top: "8px", right: "8px" }}>
