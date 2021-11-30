@@ -1,13 +1,17 @@
 import { computed, makeObservable } from "mobx";
-import { injectable, inject } from "inversify";
+import { inject, injectable } from "inversify";
 import { MarketDetailVM, MarketListItemVM } from "~/components";
-import { SpotMarketStore } from "~/stores";
+import { MarketHistoryStore, SpotMarketHistoryQuery, SpotMarketStore } from "~/stores";
 import { SpotMarketDetailVMImpl, SpotMarketListItemVMImpl } from "~/adapters/_models";
 import { BaseMarketAdapter } from "~/adapters/injective/base";
 import { AllChronosSpotMarketSummary, SpotMarket } from "@injectivelabs/spot-consumer";
+import { MarketHistoryQuery } from "~/stores/MarketHistoryQuery";
+import { MarketType } from "~/domain";
 
 @injectable()
 export class SpotMarketAdapterImpl extends BaseMarketAdapter<SpotMarket, AllChronosSpotMarketSummary> {
+  readonly marketType = MarketType.spot;
+
   @computed
   get marketListItems(): MarketListItemVM[] {
     return this._marketStore.activeMarkets.map((market) => {
@@ -18,18 +22,26 @@ export class SpotMarketAdapterImpl extends BaseMarketAdapter<SpotMarket, AllChro
 
   @computed
   get marketDetail(): MarketDetailVM | undefined {
-    if (!this._marketStore.refreshedMarketId) {
-      return;
-    }
-    const marketId = this._marketStore.refreshedMarketId;
-    const market = this._marketStore.markets.index.get(marketId);
-    const marketSummary = this._marketStore.marketSummaries.index.get(marketId);
-    if (market && marketSummary) {
-      return new SpotMarketDetailVMImpl(market, marketSummary);
+    if (this._marketStore.currentMarket && this._marketStore.currentMarketSummary) {
+      return new SpotMarketDetailVMImpl(this._marketStore.currentMarket, this._marketStore.currentMarketSummary);
     }
   }
 
-  constructor(@inject(SpotMarketStore) protected _marketStore: SpotMarketStore) {
+  @computed
+  protected get _marketHistoryQuery(): MarketHistoryQuery | undefined {
+    if (this._marketStore.currentMarket) {
+      return new SpotMarketHistoryQuery(
+        this._marketStore.currentMarket,
+        this.defaultMarketHistoryResolution,
+        this.defaultMarketHistoryPeriod
+      );
+    }
+  }
+
+  constructor(
+    @inject(SpotMarketStore) protected _marketStore: SpotMarketStore,
+    @inject(MarketHistoryStore) protected readonly _marketHistoryStore: MarketHistoryStore
+  ) {
     super();
     makeObservable(this);
   }

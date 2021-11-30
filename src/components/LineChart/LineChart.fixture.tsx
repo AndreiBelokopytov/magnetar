@@ -16,15 +16,6 @@ const points: LineChartPoint[] = [
 
 export default (
   <Fixture pad={"40px"}>
-    <LineChart
-      color={"brand"}
-      width={"600px"}
-      height={"320px"}
-      paddingBottom={50}
-      paddingTop={50}
-      paddingLeft={30}
-      paddingRight={30}
-      points={points}
-    />
+    <LineChart color={"brand"} width={"600px"} height={"320px"} paddingBottom={50} paddingTop={50} points={points} />
   </Fixture>
 );

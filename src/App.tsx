@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "reflect-metadata";
 import { DIContainer } from "./DIContainer";
-import { SpotMarketDetailPage, MarketsPage, DerivativeMarketDetailPage } from "./pages";
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import { MarketDetailPage, MarketsPage } from "./pages";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { MarketType } from "~/domain";
 import { Grommet } from "grommet";
 import { defaultTheme } from "~/theme/defaultTheme";
@@ -21,10 +21,10 @@ class App extends React.Component {
                 <MarketsPage />
               </Route>
               <Route path={`/${MarketType.spot}/:id`}>
-                <SpotMarketDetailPage />
+                <MarketDetailPage marketType={MarketType.spot} />
               </Route>
               <Route path={`/${MarketType.derivative}/:id`}>
-                <DerivativeMarketDetailPage />
+                <MarketDetailPage marketType={MarketType.derivative} />
               </Route>
             </Switch>
           </Router>

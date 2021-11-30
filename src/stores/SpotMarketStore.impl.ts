@@ -22,13 +22,22 @@ export class SpotMarketStoreImpl implements SpotMarketStore {
     return this.markets.items.filter((el) => {
       const isActive = el.marketStatus === "active";
       const marketSummary = this.marketSummaries.index.get(el.marketId);
-      return !!(isActive && marketSummary && marketSummary?.price > 0);
+      return isActive && marketSummary && marketSummary?.price > 0;
     });
   }
 
   @computed
-  get refreshedMarketId() {
-    return this._refreshedMarketId;
+  get currentMarket() {
+    if (this._refreshedMarketId) {
+      return this.markets.index.get(this._refreshedMarketId);
+    }
+  }
+
+  @computed
+  get currentMarketSummary() {
+    if (this._refreshedMarketId) {
+      return this.marketSummaries.index.get(this._refreshedMarketId);
+    }
   }
 
   @observable

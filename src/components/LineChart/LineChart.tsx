@@ -54,7 +54,7 @@ export const LineChart = ({
     [minY, maxY, boundingRect.height, paddingTop, paddingBottom]
   );
 
-  const path = `M${points.map((p, index) => `${xScale(index)},${yScale(p.y)}`).join("L")}`;
+  const path = points.length > 0 ? `M${points.map((p, index) => `${xScale(index)},${yScale(p.y)}`).join("L")}` : "";
   const ticks: JSX.Element[] = [];
   for (let i = 0; i < ticksCount; i++) {
     const isEven = i % 2 === 0;
@@ -62,7 +62,7 @@ export const LineChart = ({
     const pointIndex = isEven ? i / 2 : Math.ceil(i / 2);
 
     ticks.push(
-      <Tick>
+      <Tick key={i}>
         <TickLine
           x={xScale(leftIndex)}
           y={0}

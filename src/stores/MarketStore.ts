@@ -4,7 +4,8 @@ export interface MarketStore<T, P> {
   readonly marketSummaries: IndexedArray<P>;
   readonly markets: IndexedArray<T>;
   readonly activeMarkets: T[];
-  readonly refreshedMarketId?: string;
+  readonly currentMarket?: T;
+  readonly currentMarketSummary?: P;
 
   refreshMarkets(): Promise<void>;
   refreshSummary(): Promise<void>;

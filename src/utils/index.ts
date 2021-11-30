@@ -4,3 +4,4 @@ export * from "./Ethereum";
 export * from "./IndexedArray";
 export * from "./Injective";
 export * from "./NumberFormatter";
+export * from "./Period";

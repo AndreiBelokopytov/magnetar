@@ -25,8 +25,17 @@ export class DerivativeMarketStoreImpl implements DerivativeMarketStore {
   }
 
   @computed
-  get refreshedMarketId() {
-    return this._refreshedMarketId;
+  get currentMarket() {
+    if (this._refreshedMarketId) {
+      return this.markets.index.get(this._refreshedMarketId);
+    }
+  }
+
+  @computed
+  get currentMarketSummary() {
+    if (this._refreshedMarketId) {
+      return this.marketSummaries.index.get(this._refreshedMarketId);
+    }
   }
 
   @observable

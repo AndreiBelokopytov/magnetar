@@ -1,16 +1,20 @@
 import { computed, makeObservable } from "mobx";
-import { injectable, inject } from "inversify";
+import { inject, injectable } from "inversify";
 import { MarketDetailVM, MarketListItemVM } from "~/components";
-import { DerivativeMarketStore } from "~/stores";
+import { DerivativeMarketHistoryQuery, DerivativeMarketStore, MarketHistoryStore } from "~/stores";
 import { DerivativeMarketDetailVMImpl, DerivativeMarketListItemVMImpl } from "~/adapters/_models";
 import { BaseMarketAdapter } from "~/adapters/injective/base";
 import { AllChronosDerivativeMarketSummary, DerivativeMarket } from "@injectivelabs/derivatives-consumer";
+import { MarketHistoryQuery } from "~/stores/MarketHistoryQuery";
+import { MarketType } from "~/domain";
 
 @injectable()
 export class DerivativeMarketAdapterImpl extends BaseMarketAdapter<
   DerivativeMarket,
   AllChronosDerivativeMarketSummary
 > {
+  readonly marketType = MarketType.derivative;
+
   @computed
   get marketListItems(): MarketListItemVM[] {
     return this._marketStore.activeMarkets.map((market) => {
@@ -21,18 +25,26 @@ export class DerivativeMarketAdapterImpl extends BaseMarketAdapter<
 
   @computed
   get marketDetail(): MarketDetailVM | undefined {
-    if (!this._marketStore.refreshedMarketId) {
-      return;
-    }
-    const marketId = this._marketStore.refreshedMarketId;
-    const market = this._marketStore.markets.index.get(marketId);
-    const marketSummary = this._marketStore.marketSummaries.index.get(marketId);
-    if (market && marketSummary) {
-      return new DerivativeMarketDetailVMImpl(market, marketSummary);
+    if (this._marketStore.currentMarket && this._marketStore.currentMarketSummary) {
+      return new DerivativeMarketDetailVMImpl(this._marketStore.currentMarket, this._marketStore.currentMarketSummary);
     }
   }
 
-  constructor(@inject(DerivativeMarketStore) protected _marketStore: DerivativeMarketStore) {
+  @computed
+  protected get _marketHistoryQuery(): MarketHistoryQuery | undefined {
+    if (this._marketStore.currentMarket) {
+      return new DerivativeMarketHistoryQuery(
+        this._marketStore.currentMarket,
+        this.defaultMarketHistoryResolution,
+        this.defaultMarketHistoryPeriod
+      );
+    }
+  }
+
+  constructor(
+    @inject(DerivativeMarketStore) protected readonly _marketStore: DerivativeMarketStore,
+    @inject(MarketHistoryStore) protected readonly _marketHistoryStore: MarketHistoryStore
+  ) {
     super();
     makeObservable(this);
   }

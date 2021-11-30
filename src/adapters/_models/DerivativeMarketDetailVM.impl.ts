@@ -9,7 +9,7 @@ export class DerivativeMarketDetailVMImpl implements MarketDetailVM {
   }
 
   get baseToken(): string {
-    return "";
+    return this._market.oracleBase;
   }
 
   get quoteToken(): string {
