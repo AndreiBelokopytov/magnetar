@@ -1,11 +1,11 @@
 import { Fixture } from "~/components/_utils";
-import { WalletButton } from "./WalletButton";
+import { WalletButton } from "~/components";
 import { Text } from "grommet";
 
 export default (
   <Fixture>
     <WalletButton>
-      <Text>It's a Card</Text>
+      <Text>It's a Button</Text>
     </WalletButton>
   </Fixture>
 );

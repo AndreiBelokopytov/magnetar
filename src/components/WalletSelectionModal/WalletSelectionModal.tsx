@@ -2,8 +2,6 @@ import React from "react";
 import { observer } from "mobx-react";
 import { Box, Text, Heading } from "grommet";
 import { Modal, MetamaskIcon, WalletButton } from "~/components";
-import { useTheme } from "styled-components";
-import { CardVariant } from "../WalletButton";
 
 type Props = {
   connectMetaMask?(): void;
@@ -17,7 +15,6 @@ export const WalletSelectionModal = observer(
   ({ connectMetaMask, isMetaMaskConnecting, isWalletConnected, open, onClose }: Props) => {
     const handleClose = () => onClose?.();
     const handleConnectMetaMask = () => connectMetaMask?.();
-    const theme = useTheme();
 
     React.useEffect(() => {
       if (isWalletConnected) {
@@ -34,10 +31,8 @@ export const WalletSelectionModal = observer(
           <Heading level={3}>
             Connect wallet
           </Heading>
-          <Box align={"center"} justify={"center"} width={"400px"} margin={"16px 0 0 0"}>
+          <Box align={"stretch"} justify={"center"} width={"400px"} margin={"16px 0 0 0"}>
             <WalletButton
-              width={"100%"}
-              variant={CardVariant.Dark}
               onClick={!isMetaMaskConnecting ? handleConnectMetaMask : undefined}
             >
               <Box

@@ -88,7 +88,7 @@ export const defaultTheme: ThemeType = {
     },
   },
   layer: {
-    background: "#202632",
+    background: "dark-2",
     extend: () => css`
       border-radius: 8px;
     `,
