@@ -1,11 +1,13 @@
 import { Box, Button, Layer, LayerProps, Stack } from "grommet";
 import { XLg } from "react-bootstrap-icons";
 import React from "react";
+import { CSSProperties } from "styled-components";
 
 type Props = LayerProps & {
   open?: boolean;
   children: React.ReactNode | React.ReactNode[];
   onClose?: () => void;
+  style?: CSSProperties;
 };
 
 export const Modal = ({ children, open, onClose, ...rest }: Props) => {
@@ -14,7 +16,7 @@ export const Modal = ({ children, open, onClose, ...rest }: Props) => {
   return open ? (
     <Layer {...rest}>
       <Stack anchor={"top-right"}>
-        <Box align="center" justify="center" gap="small" direction="row" alignSelf="center" pad="large">
+        <Box align="center" justify="center" gap="small" direction="row" alignSelf="center">
           {children}
         </Box>
         <Box margin={{ top: "8px", right: "8px" }}>

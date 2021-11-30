@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { WalletSelectionModal, AccountInfoPanel, AccountInfoPanelVM, MagnetarIcon } from "~/components";
-import { Box, Button, Text } from "grommet";
+import { Box, Text, Button } from "grommet";
 
 type Props = {
   accountInfo?: AccountInfoPanelVM;
@@ -31,7 +31,12 @@ export const PageHeader = ({ accountInfo, connectMetaMask, isWalletConnected, is
         {accountInfo ? (
           <AccountInfoPanel model={accountInfo} />
         ) : (
-          <Button primary onClick={openWalletModal} size={"medium"} label={"Connect wallet"} />
+          <Button
+            primary
+            onClick={openWalletModal}
+            size={"medium"}
+            label={"Connect wallet"}
+          />
         )}
       </Box>
       <WalletSelectionModal

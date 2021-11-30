@@ -17,6 +17,7 @@ export const defaultTheme: ThemeType = {
       "light-1": "#E7E8E9",
       "light-2": "#BCBEC1",
       "light-3": "#8F9399",
+      "light-4": "#393F4D",
       "status-warning": "#FFAA15",
       "status-ok": "#22B07D",
       "status-error": "#DE5454",
@@ -85,6 +86,12 @@ export const defaultTheme: ThemeType = {
     size: {
       medium: "48px",
     },
+  },
+  layer: {
+    background: "dark-2",
+    extend: () => css`
+      border-radius: 8px;
+    `,
   },
   button: {
     // @ts-ignore
