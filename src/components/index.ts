@@ -6,3 +6,4 @@ export * from "./MarketDetail";
 export * from "./MarketList";
 export * from "./LineChart";
 export * from "./WalletSelectionModal";
+export * from "./WalletButton";

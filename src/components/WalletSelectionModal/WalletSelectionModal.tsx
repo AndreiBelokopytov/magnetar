@@ -1,9 +1,9 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { Box, Text, Card } from "grommet";
-import { Modal, MetamaskIcon } from "~/components";
-import { normalizeColor } from "grommet/utils";
+import { Box, Text, Heading } from "grommet";
+import { Modal, MetamaskIcon, WalletButton } from "~/components";
 import { useTheme } from "styled-components";
+import { CardVariant } from "../WalletButton";
 
 type Props = {
   connectMetaMask?(): void;
@@ -31,17 +31,13 @@ export const WalletSelectionModal = observer(
         onClose={handleClose}
       >
         <Box direction={"column"} align={"center"} justify={"start"} pad={"24px 16px"}>
-          <Text weight={600} size={"large"}>
+          <Heading level={3}>
             Connect wallet
-          </Text>
+          </Heading>
           <Box align={"center"} justify={"center"} width={"400px"} margin={"16px 0 0 0"}>
-            <Card
+            <WalletButton
               width={"100%"}
-              pad={"8px 16px"}
-              style={{
-                backgroundColor: normalizeColor("dark-1", theme),
-                
-              }}
+              variant={CardVariant.Dark}
               onClick={!isMetaMaskConnecting ? handleConnectMetaMask : undefined}
             >
               <Box
@@ -57,18 +53,15 @@ export const WalletSelectionModal = observer(
                   justify={"stretch"}
                   direction={"column"}
                 >
-                  <Text size={"large"}>
-                    Connect MetaMask
+                  <Text size={"medium"} color={"light-1"}>
+                    Metamask
                   </Text>
-                  <Text
-                    size={"xsmall"}
-                    color={normalizeColor("light-2", theme)}
-                  >
+                  <Text size={"xsmall"} color={"light-3"}>
                     Connect using browser wallet
                   </Text>
                 </Box>
               </Box>
-            </Card>
+            </WalletButton>
           </Box>
         </Box>
       </Modal>
