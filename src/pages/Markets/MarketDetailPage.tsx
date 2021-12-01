@@ -6,9 +6,10 @@ import { useIntervalRefresh, userMarketAdapter } from "~/hooks";
 import { MarketType } from "~/domain";
 import { PageHeaderContainer as PageHeader } from "~/pages/_containers";
 import { Box, Grid } from "grommet";
+import { toStream } from "~/utils/toStream";
 
 const REFRESH_INTERVAL = 3000;
-const HISTORY_REFRESH_INTERVAL = 10000;
+const HISTORY_REFRESH_INTERVAL = 30000;
 
 type Params = {
   id: string;
@@ -22,7 +23,11 @@ export const MarketDetailPage = observer(({ marketType }: Props) => {
   const marketAdapter = userMarketAdapter(marketType);
 
   const refreshMarketSummary = useIntervalRefresh(() => marketAdapter.refreshSingleSummary(marketId), REFRESH_INTERVAL);
-  const refreshMarketHistory = useIntervalRefresh(() => marketAdapter?.refreshHistory(), HISTORY_REFRESH_INTERVAL);
+  const refreshMarketHistory = useIntervalRefresh(
+    () => marketAdapter?.refreshHistory(),
+    HISTORY_REFRESH_INTERVAL,
+    toStream(() => marketAdapter?.isReady)
+  );
 
   const { id: marketId } = useParams<Params>();
 
