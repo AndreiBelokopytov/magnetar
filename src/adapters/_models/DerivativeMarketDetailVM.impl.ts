@@ -21,8 +21,7 @@ export class DerivativeMarketDetailVMImpl implements MarketDetailVM {
       precision: 8,
       symbol: this.quoteToken,
     });
-
-    return formatter.format(this._marketSummary.price * this._marketSummary.change);
+    return formatter.format((this._marketSummary.price * this._marketSummary.change) / 100);
   }
 
   get percentChange(): string {
