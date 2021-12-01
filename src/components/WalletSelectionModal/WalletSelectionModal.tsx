@@ -23,31 +23,18 @@ export const WalletSelectionModal = observer(
     }, [isWalletConnected, onClose]);
 
     return (
-      <Modal
-        open={open}
-        onClose={handleClose}
-      >
+      <Modal open={open} onClose={handleClose}>
         <Box direction={"column"} align={"center"} justify={"start"} pad={"24px 16px"}>
-          <Heading level={3}>
-            Connect wallet
-          </Heading>
+          <Heading level={3}>Connect wallet</Heading>
           <Box align={"stretch"} justify={"center"} width={"400px"} margin={"16px 0 0 0"}>
             <WalletButton
+              loading={isMetaMaskConnecting}
+              disabled={isMetaMaskConnecting}
               onClick={!isMetaMaskConnecting ? handleConnectMetaMask : undefined}
             >
-              <Box
-                align={"center"}
-                justify={"start"}
-                direction={"row"}
-                gap={"16px"}
-                round={"16px"}
-              >
+              <Box align={"center"} justify={"start"} direction={"row"} gap={"16px"} round={"16px"}>
                 <MetamaskIcon width={43} height={40} />
-                <Box
-                  align={"start"}
-                  justify={"stretch"}
-                  direction={"column"}
-                >
+                <Box align={"start"} justify={"stretch"} direction={"column"}>
                   <Text size={"medium"} color={"light-1"}>
                     Metamask
                   </Text>

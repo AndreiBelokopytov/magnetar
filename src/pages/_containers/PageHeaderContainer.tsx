@@ -4,8 +4,9 @@ import { WalletType } from "~/domain";
 import { useInstanceOf } from "~/DIContainer";
 import { AccountInfoAdapter } from "~/adapters";
 import React from "react";
+import { observer } from "mobx-react";
 
-export const PageHeaderContainer = () => {
+export const PageHeaderContainer = observer(() => {
   const accountInfoAdapter = useInstanceOf<AccountInfoAdapter>(AccountInfoAdapter);
   const metaMaskWalletAdapter = useWalletAdapter(WalletType.metaMask);
 
@@ -20,8 +21,8 @@ export const PageHeaderContainer = () => {
     <PageHeader
       accountInfo={accountInfoAdapter.accountInfo}
       isWalletConnected={activeWallet?.isWalletConnected}
-      isMetaMaskConnecting={metaMaskWalletAdapter?.isWalletConnected}
+      isMetaMaskConnecting={metaMaskWalletAdapter?.isConnecting}
       connectMetaMask={metaMaskWalletAdapter?.connect}
     />
   );
-};
+});
