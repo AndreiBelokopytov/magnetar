@@ -1,5 +1,7 @@
 import { AccountInfoPanelVM } from "~/components";
 import { Box, Text } from "grommet";
+import { CopyIcon, EtherIcon, EyeIcon, LogoutIcon, MetamaskIcon } from "../base";
+import { WalletButton } from "../WalletButton";
 
 type Props = {
   model: AccountInfoPanelVM;
@@ -7,18 +9,28 @@ type Props = {
 
 export const AccountInfoPanel = ({ model }: Props) => {
   return (
-    <Box>
-      <Box>
-        <Text size={"small"}>Ethereum address</Text>
-        <Box direction={"row"} align={"center"}>
-          <Text>{model.ethereumAddress}</Text>
-        </Box>
+    <Box direction={"row"}>
+      <Box margin={{right: "8px"}} justify="center">
+        <MetamaskIcon width={22} />
       </Box>
-      <Box margin={{ bottom: "16px" }}>
-        <Text size={"small"}>Injective address</Text>
-        <Box direction={"row"} align={"center"}>
-          <Text>{model.injectiveAddress}</Text>
-        </Box>
+      <Box margin={{right: "8px"}} justify="center">
+        <WalletButton>
+          <Text color="light-3" size="small">
+            {model.ethereumAddress || model.injectiveAddress}
+          </Text>
+        </WalletButton>
+      </Box>
+      <Box margin={{right: "8px"}} justify="center">
+        <EtherIcon width={24} />
+      </Box>
+      <Box margin={{right: "8px"}} justify="center">
+        <CopyIcon width={24} />
+      </Box>
+      <Box margin={{right: "8px"}} justify="center">
+        <EyeIcon width={24} />
+      </Box>
+      <Box margin={{right: "8px"}} justify="center">
+        <LogoutIcon width={24} />
       </Box>
     </Box>
   );
