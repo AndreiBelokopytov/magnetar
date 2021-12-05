@@ -1,5 +1,5 @@
 import { Box, Text } from "grommet";
-import { GradientText } from "../gradientText";
+import { GradientText } from "../GradientText";
 
 export const PageFooter = () => {
     return (
