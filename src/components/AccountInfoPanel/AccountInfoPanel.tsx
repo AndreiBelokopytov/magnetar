@@ -1,7 +1,7 @@
 import React from "react";
 import { AccountInfoPanelVM } from "~/components";
 import { Box, Text } from "grommet";
-import { EtherIcon, InjectiveIcon, LogoutIcon, MetamaskIcon } from "../base";
+import { EtherIcon, IconButton, InjectiveIcon, LogoutIcon, MetamaskIcon } from "../base";
 import { WalletButton } from "../WalletButton";
 
 type Props = {
@@ -9,34 +9,56 @@ type Props = {
 };
 
 const enum AddressType {
-  Ether,
-  Injective
+  ether,
+  injective
 }
 
 export const AccountInfoPanel = ({ model }: Props) => {
-  const [ showedAddress, setShowedAddress ] = React.useState(AddressType.Ether);
-  const isEtherAddress = showedAddress === AddressType.Ether;
+  const [ showedAddress, setShowedAddress ] = React.useState(AddressType.ether);
+  let addressText;
+  
+  switch(showedAddress) {
+    case AddressType.ether:
+      addressText = model.ethereumAddress;
+      break;
+    case AddressType.injective:
+      addressText = model.injectiveAddress;
+      break;
+  }
 
   return (
     <Box direction={"row"}>
       <Box margin={{right: "8px"}} justify="center">
         <MetamaskIcon width={22} />
       </Box>
-      <Box margin={{right: "8px"}} justify="center">
+      <Box justify="center">
         <WalletButton>
           <Text color="light-3" size="small">
-            {isEtherAddress ? model.ethereumAddress : model.injectiveAddress}
+            {addressText}
           </Text>
         </WalletButton>
       </Box>
-      <Box margin={{right: "8px"}} justify="center">
-        <EtherIcon isActive={isEtherAddress} onClick={() => setShowedAddress(AddressType.Ether)} width={24} />
+      <Box justify="center">
+        <IconButton
+          Icon={EtherIcon}
+          isSelected={showedAddress === AddressType.ether}
+          onClick={() => setShowedAddress(AddressType.ether)}
+          size={24}
+        />
       </Box>
-      <Box margin={{right: "8px"}} justify="center">
-        <InjectiveIcon isActive={!isEtherAddress} onClick={() => setShowedAddress(AddressType.Injective)} width={24} />
+      <Box justify="center">
+        <IconButton
+          Icon={InjectiveIcon}
+          isSelected={showedAddress === AddressType.injective}
+          onClick={() => setShowedAddress(AddressType.injective)}
+          size={24}
+        />
       </Box>
-      <Box margin={{right: "8px"}} justify="center">
-        <LogoutIcon width={24} />
+      <Box justify="center">
+        <IconButton
+          Icon={LogoutIcon}
+          size={24}
+        />
       </Box>
     </Box>
   );
