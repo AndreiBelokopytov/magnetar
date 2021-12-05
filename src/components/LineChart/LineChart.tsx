@@ -35,7 +35,7 @@ export const LineChart = ({
   const minY = Math.min.apply(null, values);
   const maxY = Math.max.apply(null, values);
 
-  const textFont = theme.text?.medium;
+  const textFont = theme.text?.xsmall;
   const textHeight = textFont?.height;
   const ticksCount = points.length * 2 - 2;
 
