@@ -11,7 +11,7 @@ export const MarketListItem = observer(({ model, onClick }: Props) => {
   const handleClick = () => onClick?.(model);
 
   return (
-    <Card onClick={handleClick}>
+    <Card pad={"16px"} onClick={handleClick}>
       <Box direction={"row"} justify={"between"} align={"start"}>
         <Box margin={{ right: "40px" }}>
           <Heading level={3}>{model.ticker}</Heading>

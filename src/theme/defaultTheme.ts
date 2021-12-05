@@ -1,4 +1,4 @@
-import { ThemeType } from "grommet";
+import { BoxTypes, ButtonProps, ThemeType } from "grommet";
 import { css } from "styled-components";
 import { normalizeColor } from "grommet/utils";
 
@@ -95,27 +95,19 @@ export const defaultTheme: ThemeType = {
   },
   button: {
     // @ts-ignore
-    extend: () => {
-      return {
-        fontWeight: 500,
-        fontSize: "14px",
-        lineHeight: "24px",
-      };
-    },
-    border: {
-      width: "0",
-    },
-    size: {
-      medium: {
-        border: {
-          radius: "40px",
+    extend: ({ sizeProp }: ButtonProps) => css`
+        border: 0;
+        border-radius: 40px;
+        box-shadow: none;
+        font-weight: 500;
+        font-size: ${sizeProp === "large" ? "16px" : "14px"};
+        line-height: 24px;
+        padding: ${sizeProp === "large" ? "20px 24px" : "8px 24px"};
+        &:hover {
+          border: 0;
+          box-shadow: none
         },
-        pad: {
-          vertical: "8px",
-          horizontal: "24px",
-        },
-      },
-    },
+    `,
   },
   tabs: {
     header: {
@@ -162,14 +154,13 @@ export const defaultTheme: ThemeType = {
   card: {
     container: {
       // @ts-ignore
-      extend: ({ theme }) => css`
+      extend: ({ theme, onClick }: BoxTypes) => css`
         background: ${normalizeColor("dark-2", theme)};
         border-radius: 16px;
-        padding: 16px;
         box-shadow: 0 0 16px rgba(0, 0, 0, 0.08);
         transition: all 0.3s ease-out;
         &:hover {
-          background: ${normalizeColor("dark-3", theme)};
+          background: ${normalizeColor(onClick ? "dark-3" : "dark-2", theme)};
         }
       `,
     },
