@@ -4,18 +4,20 @@ import { Box, Grid } from "grommet";
 type Props = {
   children: React.ReactNode;
   header?: JSX.Element | React.ReactNode;
+  footer?: JSX.Element | React.ReactNode;
 };
 
-export const PageLayout = ({ children, header }: Props) => {
+export const PageLayout = ({ children, header, footer }: Props) => {
   return (
     <Box height={"100%"} background={"dark-1"}>
       <Grid
         fill
         columns={["flex", "xlarge", "flex"]}
-        rows={["56px", "flex"]}
+        rows={["56px", "flex", "56px"]}
         areas={[
           { name: "header", start: [1, 0], end: [1, 0] },
           { name: "main", start: [1, 1], end: [1, 1] },
+          { name: "footer", start: [1, 2], end: [1, 2]}
         ]}
         gap={"none"}
       >
@@ -24,6 +26,7 @@ export const PageLayout = ({ children, header }: Props) => {
         <Box flex gridArea={"main"}>
           {children}
         </Box>
+      <Box gridArea={"footer"}>{footer}</Box>
       </Grid>
     </Box>
   );

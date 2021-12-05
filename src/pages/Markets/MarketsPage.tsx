@@ -1,4 +1,4 @@
-import { PageLayout } from "~/components";
+import { PageLayout, PageFooter } from "~/components";
 import React from "react";
 import { observer } from "mobx-react";
 import { MarketListContainer as MarketList, PageHeaderContainer } from "~/pages/_containers";
@@ -7,7 +7,7 @@ import { Box, Tabs, Tab } from "grommet";
 
 export const MarketsPage = observer(() => {
   return (
-    <PageLayout header={<PageHeaderContainer />}>
+    <PageLayout header={<PageHeaderContainer />} footer={<PageFooter />}>
       <Box margin={{ top: "40px" }}>
         <Tabs justify={"start"}>
           <Tab title="Spot">

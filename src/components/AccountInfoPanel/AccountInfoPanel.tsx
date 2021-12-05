@@ -1,13 +1,22 @@
+import React from "react";
 import { AccountInfoPanelVM } from "~/components";
 import { Box, Text } from "grommet";
-import { CopyIcon, EtherIcon, EyeIcon, LogoutIcon, MetamaskIcon } from "../base";
+import { EtherIcon, InjectiveIcon, LogoutIcon, MetamaskIcon } from "../base";
 import { WalletButton } from "../WalletButton";
 
 type Props = {
   model: AccountInfoPanelVM;
 };
 
+const enum AddressType {
+  Ether,
+  Injective
+}
+
 export const AccountInfoPanel = ({ model }: Props) => {
+  const [ showedAddress, setShowedAddress ] = React.useState(AddressType.Ether);
+  const isEtherAddress = showedAddress === AddressType.Ether;
+
   return (
     <Box direction={"row"}>
       <Box margin={{right: "8px"}} justify="center">
@@ -16,18 +25,15 @@ export const AccountInfoPanel = ({ model }: Props) => {
       <Box margin={{right: "8px"}} justify="center">
         <WalletButton>
           <Text color="light-3" size="small">
-            {model.ethereumAddress || model.injectiveAddress}
+            {isEtherAddress ? model.ethereumAddress : model.injectiveAddress}
           </Text>
         </WalletButton>
       </Box>
       <Box margin={{right: "8px"}} justify="center">
-        <EtherIcon width={24} />
+        <EtherIcon isActive={isEtherAddress} onClick={() => setShowedAddress(AddressType.Ether)} width={24} />
       </Box>
       <Box margin={{right: "8px"}} justify="center">
-        <CopyIcon width={24} />
-      </Box>
-      <Box margin={{right: "8px"}} justify="center">
-        <EyeIcon width={24} />
+        <InjectiveIcon isActive={!isEtherAddress} onClick={() => setShowedAddress(AddressType.Injective)} width={24} />
       </Box>
       <Box margin={{right: "8px"}} justify="center">
         <LogoutIcon width={24} />

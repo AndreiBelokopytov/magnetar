@@ -7,3 +7,5 @@ export * from "./MarketList";
 export * from "./LineChart";
 export * from "./WalletSelectionModal";
 export * from "./WalletButton";
+export * from "./PageFooter";
+export * from "./GradientText";
