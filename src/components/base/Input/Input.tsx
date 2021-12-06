@@ -2,16 +2,17 @@ import styled, { css } from "styled-components";
 import { normalizeColor } from "grommet/utils";
 import React from "react";
 import { Text } from "grommet";
-import { v1 as uuid } from "uuid";
+import { v4 as uuid } from "uuid";
 
 type Props = React.HTMLAttributes<HTMLInputElement> & {
   autoFocus?: boolean;
+  disabled?: boolean;
   labelLeft?: React.ReactChild;
   labelRight?: React.ReactChild;
   addonAfter?: React.ReactChild;
 };
 
-export const Input = ({ autoFocus, labelLeft, labelRight, addonAfter, ...rest }: Props) => {
+export const Input = ({ autoFocus, disabled, labelLeft, labelRight, addonAfter, ...rest }: Props) => {
   const id = React.useMemo(() => uuid(), []);
 
   return (
@@ -20,7 +21,7 @@ export const Input = ({ autoFocus, labelLeft, labelRight, addonAfter, ...rest }:
         {labelLeft && <LabelText>{labelLeft}</LabelText>}
         {labelRight && <LabelText>{labelRight}</LabelText>}
       </Label>
-      <StyledInput {...rest} autoFocus id={id} />
+      <StyledInput {...rest} autoFocus={autoFocus} disabled={disabled} id={id} />
       {addonAfter && <Addon>{addonAfter}</Addon>}
     </Container>
   );

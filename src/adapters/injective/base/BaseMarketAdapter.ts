@@ -1,6 +1,6 @@
 import { MarketAdapter } from "~/adapters";
 import { action, computed, makeObservable, observable, runInAction } from "mobx";
-import { LineChartPoint, MarketDetailVM, MarketListItemVM } from "~/components";
+import { LineChartPoint, MarketVM } from "~/components";
 import { MarketHistoryQuery, MarketHistoryResolution, MarketHistoryStore, MarketStore } from "~/stores";
 import { injectable } from "inversify";
 import { MarketType } from "~/domain";
@@ -26,8 +26,8 @@ export abstract class BaseMarketAdapter<T, P> implements MarketAdapter {
   }
 
   abstract readonly marketType: MarketType;
-  abstract readonly marketListItems: MarketListItemVM[];
-  abstract readonly marketDetail: MarketDetailVM | undefined;
+  abstract readonly marketListItems: MarketVM[];
+  abstract readonly marketDetail?: MarketVM;
 
   protected abstract readonly _marketHistoryQuery?: MarketHistoryQuery;
   protected abstract readonly _marketStore: MarketStore<T, P>;

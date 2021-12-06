@@ -1,4 +1,4 @@
-import { LineChart, MarketDetailHeader, PageLayout } from "~/components";
+import { LineChart, MarketDetailHeader, OrderForm, PageLayout } from "~/components";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { observer } from "mobx-react";
@@ -43,7 +43,7 @@ export const MarketDetailPage = observer(({ marketType }: Props) => {
 
   return (
     <PageLayout header={<PageHeader />}>
-      <Grid columns={["flex", "1/3"]} areas={[["instrumentInfo", "sidebar"]]} gap="small" margin={{ top: "40px" }}>
+      <Grid columns={["flex", "1/3"]} areas={[["instrumentInfo", "sidebar"]]} gap="xlarge" margin={{ top: "40px" }}>
         <Box gridArea={"instrumentInfo"}>
           <MarketDetailHeader model={marketAdapter.marketDetail} />
           <Box margin={{ top: "24px" }}>
@@ -57,6 +57,9 @@ export const MarketDetailPage = observer(({ marketType }: Props) => {
               />
             )}
           </Box>
+        </Box>
+        <Box gridArea={"sidebar"}>
+          <OrderForm market={marketAdapter.marketDetail} />
         </Box>
       </Grid>
     </PageLayout>

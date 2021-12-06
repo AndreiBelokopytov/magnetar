@@ -1,10 +1,10 @@
-import { LineChartPoint, MarketDetailVM, MarketListItemVM } from "~/components";
+import { LineChartPoint, MarketVM } from "~/components";
 import { MarketType } from "~/domain";
 
 export interface MarketAdapter {
   readonly marketType: MarketType;
-  readonly marketListItems: MarketListItemVM[];
-  readonly marketDetail?: MarketDetailVM;
+  readonly marketListItems: MarketVM[];
+  readonly marketDetail?: MarketVM;
   readonly lineChartData: LineChartPoint[];
   readonly isReady?: boolean;
   isLoading?: boolean;

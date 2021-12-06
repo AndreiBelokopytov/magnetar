@@ -9,8 +9,8 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
 
 const DEFAULT_SIZE = 14;
 
-export const IconButton = ({ Icon, size = DEFAULT_SIZE }: Props) => {
-  return <Container>{<Icon width={size} height={size} style={{ verticalAlign: "middle" }} />}</Container>;
+export const IconButton = ({ Icon, size = DEFAULT_SIZE, ...rest }: Props) => {
+  return <Container {...rest}>{<Icon width={size} height={size} style={{ verticalAlign: "middle" }} />}</Container>;
 };
 
 const Container = styled.div`

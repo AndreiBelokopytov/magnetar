@@ -1,10 +1,10 @@
 import { observer } from "mobx-react";
-import { MarketListItemVM, FallGrowthIndicator } from "~/components";
+import { FallGrowthIndicator, MarketVM } from "~/components";
 import { Avatar, Box, Heading, Text, Card } from "grommet";
 
 type Props = {
-  model: MarketListItemVM;
-  onClick?: (item: MarketListItemVM) => void;
+  model: MarketVM;
+  onClick?: (item: MarketVM) => void;
 };
 
 export const MarketListItem = observer(({ model, onClick }: Props) => {
@@ -20,9 +20,9 @@ export const MarketListItem = observer(({ model, onClick }: Props) => {
               Last traded price
             </Text>
             <Box direction={"row"}>
-              <Text color={"light-1"}>{model.lastPrice}</Text>
+              <Text color={"light-1"}>{model.currentPrice}</Text>
               <Box margin={{ left: "8px" }}>
-                <Text color={"light-3"}>{model.quoteSymbol}</Text>
+                <Text color={"light-3"}>{model.quoteToken.symbol}</Text>
               </Box>
             </Box>
             <Box margin={{ top: "4px" }}>
@@ -36,15 +36,15 @@ export const MarketListItem = observer(({ model, onClick }: Props) => {
               <Box direction={"row"} justify={"between"}>
                 <Text color={"light-1"}>{model.volume}</Text>
                 <Box margin={{ left: "8px" }}>
-                  <Text color={"light-3"}>{model.quoteSymbol}</Text>
+                  <Text color={"light-3"}>{model.quoteToken.symbol}</Text>
                 </Box>
               </Box>
             </Box>
           </Box>
         </Box>
         <Box>
-          {model.imageUrl ? (
-            <Avatar size={"medium"} src={model.imageUrl} background={"light-3"} />
+          {model.baseToken.imageUrl ? (
+            <Avatar size={"medium"} src={model.baseToken.imageUrl} background={"light-3"} />
           ) : (
             <Avatar size={"medium"} background={"light-3"} />
           )}

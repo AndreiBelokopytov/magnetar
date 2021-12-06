@@ -1,9 +1,9 @@
 import React from "react";
 import { MarketListItem } from "./MarketListItem";
-import { marketListMock } from "~/components/_mocks";
+import { marketsMock } from "~/components/_mocks";
 import { Fixture } from "~/components/_utils";
 
-const model = marketListMock[0];
+const model = marketsMock[0];
 
 export default (
   <Fixture>
