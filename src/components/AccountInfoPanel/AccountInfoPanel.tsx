@@ -16,21 +16,24 @@ const enum AddressType {
 export const AccountInfoPanel = ({ model }: Props) => {
   const [ showedAddress, setShowedAddress ] = React.useState(AddressType.ether);
   let addressText;
+  let addressIcon;
+  let addressCallback;
   
   switch(showedAddress) {
     case AddressType.ether:
+      addressIcon = EtherIcon;
+      addressCallback = () => setShowedAddress(AddressType.injective);
       addressText = model.ethereumAddress;
       break;
     case AddressType.injective:
+      addressIcon = InjectiveIcon;
+      addressCallback = () => setShowedAddress(AddressType.ether);
       addressText = model.injectiveAddress;
       break;
   }
 
   return (
     <Box direction={"row"}>
-      <Box margin={{right: "8px"}} justify="center">
-        <MetamaskIcon width={22} />
-      </Box>
       <Box justify="center">
         <WalletButton>
           <Text color="light-3" size="small">
@@ -40,17 +43,8 @@ export const AccountInfoPanel = ({ model }: Props) => {
       </Box>
       <Box justify="center">
         <IconButton
-          Icon={EtherIcon}
-          isSelected={showedAddress === AddressType.ether}
-          onClick={() => setShowedAddress(AddressType.ether)}
-          size={24}
-        />
-      </Box>
-      <Box justify="center">
-        <IconButton
-          Icon={InjectiveIcon}
-          isSelected={showedAddress === AddressType.injective}
-          onClick={() => setShowedAddress(AddressType.injective)}
+          Icon={addressIcon}
+          onClick={addressCallback}
           size={24}
         />
       </Box>
