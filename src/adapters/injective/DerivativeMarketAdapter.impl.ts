@@ -1,12 +1,12 @@
 import { computed, makeObservable } from "mobx";
 import { inject, injectable } from "inversify";
-import { MarketDetailVM, MarketListItemVM } from "~/components";
 import { DerivativeMarketHistoryQuery, DerivativeMarketStore, MarketHistoryStore } from "~/stores";
-import { DerivativeMarketDetailVMImpl, DerivativeMarketListItemVMImpl } from "~/adapters/_models";
+import { DerivativeMarketVMImpl } from "~/adapters/_models";
 import { BaseMarketAdapter } from "~/adapters/injective/base";
 import { AllChronosDerivativeMarketSummary, DerivativeMarket } from "@injectivelabs/derivatives-consumer";
 import { MarketHistoryQuery } from "~/stores/MarketHistoryQuery";
 import { MarketType } from "~/domain";
+import { MarketVM } from "~/components";
 
 @injectable()
 export class DerivativeMarketAdapterImpl extends BaseMarketAdapter<
@@ -16,17 +16,17 @@ export class DerivativeMarketAdapterImpl extends BaseMarketAdapter<
   readonly marketType = MarketType.derivative;
 
   @computed
-  get marketListItems(): MarketListItemVM[] {
+  get marketListItems(): MarketVM[] {
     return this._marketStore.activeMarkets.map((market) => {
       const marketSummary = this._marketStore.marketSummaries.index.get(market.marketId);
-      return new DerivativeMarketListItemVMImpl(market, marketSummary);
+      return new DerivativeMarketVMImpl(market, marketSummary);
     });
   }
 
   @computed
-  get marketDetail(): MarketDetailVM | undefined {
+  get marketDetail(): MarketVM | undefined {
     if (this._marketStore.currentMarket && this._marketStore.currentMarketSummary) {
-      return new DerivativeMarketDetailVMImpl(this._marketStore.currentMarket, this._marketStore.currentMarketSummary);
+      return new DerivativeMarketVMImpl(this._marketStore.currentMarket, this._marketStore.currentMarketSummary);
     }
   }
 

@@ -1,8 +1,8 @@
-import { BackButton, FallGrowthIndicator, MarketDetailVM } from "~/components";
+import { BackButton, FallGrowthIndicator, MarketVM } from "~/components";
 import { Box, Heading, Text } from "grommet";
 
 type Props = {
-  model: MarketDetailVM;
+  model: MarketVM;
 };
 
 export const MarketDetailHeader = ({ model }: Props) => {
@@ -11,7 +11,7 @@ export const MarketDetailHeader = ({ model }: Props) => {
       <Box margin={{ bottom: "16px" }}>
         <BackButton title={"Back"} />
       </Box>
-      <Heading level={2}>{`${model.baseToken} / ${model.quoteToken}`}</Heading>
+      <Heading level={2}>{`${model.ticker}`}</Heading>
       <Box margin={{ top: "8px" }}>
         <Heading level={1}>{model.currentPrice}</Heading>
       </Box>

@@ -102,7 +102,9 @@ export const defaultTheme: ThemeType = {
         font-weight: 500;
         font-size: ${sizeProp === "large" ? "16px" : "14px"};
         line-height: 24px;
-        padding: ${sizeProp === "large" ? "20px 24px" : "8px 24px"};
+        &:not([role=tab]) {
+          padding: ${sizeProp === "large" ? "20px 24px" : "8px 24px"};
+        }
         &:hover {
           border: 0;
           box-shadow: none

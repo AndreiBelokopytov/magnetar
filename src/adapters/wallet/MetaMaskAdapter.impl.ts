@@ -67,7 +67,7 @@ export class MetaMaskAdapterImpl implements WalletAdapter {
     }
 
     this._provider!.on("accountsChanged", this._updateAccounts);
-    this.disposers.push(() => this._provider?.off("accountsChanged", this._updateAccounts));
+    this.disposers.push(() => this._provider?.off?.("accountsChanged", this._updateAccounts));
 
     this.disposers.push(
       reaction(

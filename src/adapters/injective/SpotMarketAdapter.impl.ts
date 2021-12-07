@@ -1,29 +1,29 @@
 import { computed, makeObservable } from "mobx";
 import { inject, injectable } from "inversify";
-import { MarketDetailVM, MarketListItemVM } from "~/components";
 import { MarketHistoryStore, SpotMarketHistoryQuery, SpotMarketStore } from "~/stores";
-import { SpotMarketDetailVMImpl, SpotMarketListItemVMImpl } from "~/adapters/_models";
+import { SpotMarketVMImpl } from "~/adapters/_models";
 import { BaseMarketAdapter } from "~/adapters/injective/base";
 import { AllChronosSpotMarketSummary, SpotMarket } from "@injectivelabs/spot-consumer";
 import { MarketHistoryQuery } from "~/stores/MarketHistoryQuery";
 import { MarketType } from "~/domain";
+import { MarketVM } from "~/components";
 
 @injectable()
 export class SpotMarketAdapterImpl extends BaseMarketAdapter<SpotMarket, AllChronosSpotMarketSummary> {
   readonly marketType = MarketType.spot;
 
   @computed
-  get marketListItems(): MarketListItemVM[] {
+  get marketListItems(): MarketVM[] {
     return this._marketStore.activeMarkets.map((market) => {
       const marketSummary = this._marketStore.marketSummaries.index.get(market.marketId);
-      return new SpotMarketListItemVMImpl(market, marketSummary);
+      return new SpotMarketVMImpl(market, marketSummary);
     });
   }
 
   @computed
-  get marketDetail(): MarketDetailVM | undefined {
+  get marketDetail(): MarketVM | undefined {
     if (this._marketStore.currentMarket && this._marketStore.currentMarketSummary) {
-      return new SpotMarketDetailVMImpl(this._marketStore.currentMarket, this._marketStore.currentMarketSummary);
+      return new SpotMarketVMImpl(this._marketStore.currentMarket, this._marketStore.currentMarketSummary);
     }
   }
 
