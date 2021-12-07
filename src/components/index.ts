@@ -3,7 +3,7 @@ export * from "./AccountInfoPanel";
 export * from "./BackButton";
 export * from "./PageHeader";
 export * from "./market";
-export * from "./market/OrderForm";
 export * from "./LineChart";
 export * from "./WalletSelectionModal";
 export * from "./WalletButton";
+export * from "./PageFooter";
