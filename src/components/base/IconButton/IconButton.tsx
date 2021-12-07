@@ -6,21 +6,21 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
   Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   onClick?: () => void;
   size?: number;
-  bordering?: boolean;
+  withoutBorder?: boolean;
 };
 
 type ContainerProps = {
   onClick?: () => void;
-  bordering?: boolean;
+  withoutBorder?: boolean;
 }
 
 const DEFAULT_SIZE = 14;
 
-export const IconButton = ({ Icon, size = DEFAULT_SIZE, onClick, bordering }: Props) => {
+export const IconButton = ({ Icon, size = DEFAULT_SIZE, onClick, withoutBorder }: Props) => {
   return (
     <Container
       onClick={onClick}
-      bordering={bordering}
+      withoutBorder={withoutBorder}
     >
       <Icon
         width={size}
@@ -31,7 +31,7 @@ export const IconButton = ({ Icon, size = DEFAULT_SIZE, onClick, bordering }: Pr
 };
 
 const Container = styled.div<ContainerProps>`
-  ${({ theme, bordering }) => css`
+  ${({ theme, withoutBorder }) => css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -39,7 +39,7 @@ const Container = styled.div<ContainerProps>`
     width: 48px;
     height: 48px;
     border-style: solid;
-    border-width: ${bordering ? "4px" : "0"};
+    border-width: ${!withoutBorder ? "4px" : "0"};
     box-sizing: border-box;
     border-color: ${normalizeColor("dark-1", theme)};
     color: ${normalizeColor("light-3", theme)};

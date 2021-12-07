@@ -46,12 +46,14 @@ export const AccountInfoPanel = ({ model }: Props) => {
           Icon={addressIcon}
           onClick={addressCallback}
           size={24}
+          withoutBorder
         />
       </Box>
       <Box justify="center">
         <IconButton
           Icon={LogoutIcon}
           size={24}
+          withoutBorder
         />
       </Box>
     </Box>
