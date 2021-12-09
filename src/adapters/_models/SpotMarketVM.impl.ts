@@ -47,7 +47,6 @@ export class SpotMarketVMImpl implements MarketVM {
   get currentPrice(): string {
     const formatter = new NumberFormatter({
       precision: 4,
-      symbol: this.quoteToken.symbol,
     });
     return this._marketSummary ? formatter.format(this._marketSummary.price) : "";
   }
@@ -66,16 +65,6 @@ export class SpotMarketVMImpl implements MarketVM {
   readonly changePeriod = "past 24 hours";
 
   private readonly _percentFormatter = NumberFormatter.percent();
-
-  // private readonly _baseTokenBalanceFormatter = new NumberFormatter({
-  //   precision: 8,
-  //   symbol: this.baseToken.symbol,
-  // });
-  //
-  // private readonly _quoteTokenBalanceFormatter = new NumberFormatter({
-  //   precision: 8,
-  //   symbol: this.quoteToken.symbol,
-  // });
 
   constructor(
     private readonly _market: SpotMarket,

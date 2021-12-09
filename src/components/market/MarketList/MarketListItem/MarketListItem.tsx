@@ -33,7 +33,7 @@ export const MarketListItem = observer(({ model, onClick }: Props) => {
               <Text size={"xsmall"} color={"light-3"}>
                 24h volume
               </Text>
-              <Box direction={"row"} justify={"between"}>
+              <Box direction={"row"} justify={"start"}>
                 <Text color={"light-1"}>{model.volume}</Text>
                 <Box margin={{ left: "8px" }}>
                   <Text color={"light-3"}>{model.quoteToken.symbol}</Text>

@@ -43,7 +43,6 @@ export class DerivativeMarketVMImpl implements MarketVM {
   get currentPrice(): string {
     const formatter = new NumberFormatter({
       precision: 4,
-      symbol: this.quoteToken.symbol,
     });
     return this._marketSummary ? formatter.format(this._marketSummary.price) : "";
   }
