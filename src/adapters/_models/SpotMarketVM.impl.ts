@@ -2,6 +2,7 @@ import { MarketVM, TokenVM } from "~/components";
 import { AllChronosSpotMarketSummary, SpotMarket } from "@injectivelabs/spot-consumer";
 import { NumberFormatter } from "~/utils";
 import { MarketType } from "~/domain";
+import { SubaccountBalance } from "@injectivelabs/subaccount-consumer";
 
 export class SpotMarketVMImpl implements MarketVM {
   get id() {
@@ -17,6 +18,7 @@ export class SpotMarketVMImpl implements MarketVM {
       symbol: this._market.baseToken?.symbol ?? "",
       name: this._market.baseToken?.name ?? "",
       imageUrl: this._market.baseToken?.logo,
+      balance: this._baseTokenBalance?.deposit?.availableBalance ?? "",
     };
   }
 
@@ -25,6 +27,7 @@ export class SpotMarketVMImpl implements MarketVM {
       symbol: this._market.quoteToken?.symbol ?? "",
       name: this._market.quoteToken?.name ?? "",
       imageUrl: this._market.quoteToken?.logo,
+      balance: this._quoteTokenBalance?.deposit?.availableBalance ?? "",
     };
   }
 
@@ -64,5 +67,20 @@ export class SpotMarketVMImpl implements MarketVM {
 
   private readonly _percentFormatter = NumberFormatter.percent();
 
-  constructor(private readonly _market: SpotMarket, private readonly _marketSummary?: AllChronosSpotMarketSummary) {}
+  // private readonly _baseTokenBalanceFormatter = new NumberFormatter({
+  //   precision: 8,
+  //   symbol: this.baseToken.symbol,
+  // });
+  //
+  // private readonly _quoteTokenBalanceFormatter = new NumberFormatter({
+  //   precision: 8,
+  //   symbol: this.quoteToken.symbol,
+  // });
+
+  constructor(
+    private readonly _market: SpotMarket,
+    private readonly _marketSummary?: AllChronosSpotMarketSummary,
+    private readonly _baseTokenBalance?: SubaccountBalance,
+    private readonly _quoteTokenBalance?: SubaccountBalance
+  ) {}
 }

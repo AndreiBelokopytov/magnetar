@@ -1,6 +1,12 @@
 import { computed, makeObservable } from "mobx";
 import { inject, injectable } from "inversify";
-import { DerivativeMarketHistoryQuery, DerivativeMarketStore, MarketHistoryStore } from "~/stores";
+import {
+  AccountInfoStore,
+  DerivativeMarketHistoryQuery,
+  DerivativeMarketStore,
+  MarketHistoryStore,
+  SubAccountStore,
+} from "~/stores";
 import { DerivativeMarketVMImpl } from "~/adapters/_models";
 import { BaseMarketAdapter } from "~/adapters/injective/base";
 import { AllChronosDerivativeMarketSummary, DerivativeMarket } from "@injectivelabs/derivatives-consumer";
@@ -42,8 +48,10 @@ export class DerivativeMarketAdapterImpl extends BaseMarketAdapter<
   }
 
   constructor(
+    @inject(AccountInfoStore) protected _accountInfoStore: AccountInfoStore,
     @inject(DerivativeMarketStore) protected readonly _marketStore: DerivativeMarketStore,
-    @inject(MarketHistoryStore) protected readonly _marketHistoryStore: MarketHistoryStore
+    @inject(MarketHistoryStore) protected readonly _marketHistoryStore: MarketHistoryStore,
+    @inject(SubAccountStore) protected readonly _subAccountStore: SubAccountStore
   ) {
     super();
     makeObservable(this);

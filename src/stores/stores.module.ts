@@ -7,10 +7,13 @@ import { DerivativeMarketStoreImpl } from "./DerivativeMarketStore.impl";
 import { SpotMarketStore } from "./SportMarketStore";
 import { MarketHistoryStore } from "./MarketHistoryStore";
 import { MarketHistoryStoreImpl } from "./MarketHistoryStore.impl";
+import { SubAccountStore } from "./SubAccountStore";
+import { SubAccountStoreImpl } from "./SubAccountStore.impl";
 
 export const storesModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<SpotMarketStore>(SpotMarketStore).to(SpotMarketStoreImpl).inSingletonScope();
   bind<DerivativeMarketStore>(DerivativeMarketStore).to(DerivativeMarketStoreImpl).inSingletonScope();
   bind<AccountInfoStore>(AccountInfoStore).to(AccountInfoStoreImpl).inSingletonScope();
   bind<MarketHistoryStore>(MarketHistoryStore).to(MarketHistoryStoreImpl);
+  bind<SubAccountStore>(SubAccountStore).to(SubAccountStoreImpl);
 });

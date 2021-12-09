@@ -1,12 +1,19 @@
 import { computed, makeObservable } from "mobx";
 import { inject, injectable } from "inversify";
-import { MarketHistoryStore, SpotMarketHistoryQuery, SpotMarketStore } from "~/stores";
+import {
+  AccountInfoStore,
+  MarketHistoryStore,
+  SpotMarketHistoryQuery,
+  SpotMarketStore,
+  SubAccountStore,
+} from "~/stores";
 import { SpotMarketVMImpl } from "~/adapters/_models";
 import { BaseMarketAdapter } from "~/adapters/injective/base";
 import { AllChronosSpotMarketSummary, SpotMarket } from "@injectivelabs/spot-consumer";
 import { MarketHistoryQuery } from "~/stores/MarketHistoryQuery";
 import { MarketType } from "~/domain";
 import { MarketVM } from "~/components";
+import { SubaccountBalance } from "@injectivelabs/subaccount-consumer";
 
 @injectable()
 export class SpotMarketAdapterImpl extends BaseMarketAdapter<SpotMarket, AllChronosSpotMarketSummary> {
@@ -23,7 +30,26 @@ export class SpotMarketAdapterImpl extends BaseMarketAdapter<SpotMarket, AllChro
   @computed
   get marketDetail(): MarketVM | undefined {
     if (this._marketStore.currentMarket && this._marketStore.currentMarketSummary) {
-      return new SpotMarketVMImpl(this._marketStore.currentMarket, this._marketStore.currentMarketSummary);
+      return new SpotMarketVMImpl(
+        this._marketStore.currentMarket,
+        this._marketStore.currentMarketSummary,
+        this._baseTokenBalance,
+        this._quoteTokenBalance
+      );
+    }
+  }
+
+  @computed
+  protected get _baseTokenBalance(): SubaccountBalance | undefined {
+    if (this._marketStore.currentMarket) {
+      return this._subAccountStore.balances.index.get(this._marketStore.currentMarket.baseDenom);
+    }
+  }
+
+  @computed
+  protected get _quoteTokenBalance(): SubaccountBalance | undefined {
+    if (this._marketStore.currentMarket) {
+      return this._subAccountStore.balances.index.get(this._marketStore.currentMarket.quoteDenom);
     }
   }
 
@@ -39,8 +65,10 @@ export class SpotMarketAdapterImpl extends BaseMarketAdapter<SpotMarket, AllChro
   }
 
   constructor(
+    @inject(AccountInfoStore) protected _accountInfoStore: AccountInfoStore,
     @inject(SpotMarketStore) protected _marketStore: SpotMarketStore,
-    @inject(MarketHistoryStore) protected readonly _marketHistoryStore: MarketHistoryStore
+    @inject(MarketHistoryStore) protected readonly _marketHistoryStore: MarketHistoryStore,
+    @inject(SubAccountStore) protected readonly _subAccountStore: SubAccountStore
   ) {
     super();
     makeObservable(this);

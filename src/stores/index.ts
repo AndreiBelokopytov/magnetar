@@ -5,5 +5,6 @@ export * from "./SpotMarketHistoryQuery";
 export * from "./DerivativeMarketHistoryQuery";
 export * from "./DerivativeMarketStore";
 export * from "./SportMarketStore";
+export * from "./SubAccountStore";
 export * from "./AccountInfoStore";
 export * from "./stores.module";

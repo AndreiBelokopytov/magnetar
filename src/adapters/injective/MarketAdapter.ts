@@ -11,6 +11,7 @@ export interface MarketAdapter {
   readonly refreshAllSummary$: (interval: number) => Observable<void>;
   readonly refreshSummary$: (marketId: string, interval: number) => Observable<void>;
   readonly refreshHistory$: (interval: number) => Observable<void>;
+  readonly refreshBalances$: Observable<void>;
   isLoading?: boolean;
 
   refreshAllMarkets(): Promise<void>;

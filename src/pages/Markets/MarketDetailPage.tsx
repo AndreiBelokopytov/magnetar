@@ -25,6 +25,7 @@ export const MarketDetailPage = observer(({ marketType }: Props) => {
 
   useObservable(marketAdapter.refreshSummary$(marketId, REFRESH_SUMMARY_INTERVAL));
   useObservable(marketAdapter.refreshHistory$(REFRESH_HISTORY_INTERVAL));
+  useObservable(marketAdapter.refreshBalances$);
 
   React.useEffect(() => {
     marketAdapter.refreshSingleMarket(marketId);

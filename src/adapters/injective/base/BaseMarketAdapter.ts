@@ -1,11 +1,19 @@
 import { MarketAdapter } from "~/adapters";
 import { action, computed, makeObservable, observable, runInAction } from "mobx";
 import { LineChartPoint, MarketVM } from "~/components";
-import { MarketHistoryQuery, MarketHistoryResolution, MarketHistoryStore, MarketStore } from "~/stores";
+import {
+  AccountInfoStore,
+  MarketHistoryQuery,
+  MarketHistoryResolution,
+  MarketHistoryStore,
+  MarketStore,
+  SubAccountStore,
+} from "~/stores";
 import { injectable } from "inversify";
-import { MarketType } from "~/domain";
+import { AccountInfo, MarketType } from "~/domain";
 import { HistoryChartPoint } from "~/adapters/_models";
 import { createIntervalObservable, Period, toStream } from "~/utils";
+import { distinct, filter, switchMap } from "rxjs";
 
 @injectable()
 export abstract class BaseMarketAdapter<T, P> implements MarketAdapter {
@@ -24,6 +32,12 @@ export abstract class BaseMarketAdapter<T, P> implements MarketAdapter {
   readonly refreshSummary$ = (marketId: string, interval: number) =>
     createIntervalObservable(() => this._refreshSingleSummary(marketId), interval);
 
+  readonly refreshBalances$ = toStream(() => this._accountInfoStore.accountInfo).pipe(
+    filter((accountInfo): accountInfo is AccountInfo => accountInfo != null),
+    distinct((accountInfo) => accountInfo.injectiveAddress),
+    switchMap((accountInfo) => this._subAccountStore.fetchAllBalances(accountInfo.injectiveAddress))
+  );
+
   @computed
   get lineChartData(): LineChartPoint[] {
     return this._marketHistoryStore.data.map((el) => new HistoryChartPoint(el));
@@ -41,9 +55,11 @@ export abstract class BaseMarketAdapter<T, P> implements MarketAdapter {
   abstract readonly marketListItems: MarketVM[];
   abstract readonly marketDetail?: MarketVM;
 
+  protected abstract readonly _accountInfoStore: AccountInfoStore;
   protected abstract readonly _marketHistoryQuery?: MarketHistoryQuery;
   protected abstract readonly _marketStore: MarketStore<T, P>;
   protected abstract readonly _marketHistoryStore: MarketHistoryStore;
+  protected abstract readonly _subAccountStore: SubAccountStore;
 
   constructor() {
     makeObservable(this);
