@@ -1,5 +1,6 @@
 import { LineChartPoint, MarketVM } from "~/components";
 import { MarketType } from "~/domain";
+import { Observable } from "rxjs";
 
 export interface MarketAdapter {
   readonly marketType: MarketType;
@@ -7,13 +8,13 @@ export interface MarketAdapter {
   readonly marketDetail?: MarketVM;
   readonly lineChartData: LineChartPoint[];
   readonly isReady?: boolean;
+  readonly refreshAllSummary$: (interval: number) => Observable<void>;
+  readonly refreshSummary$: (marketId: string, interval: number) => Observable<void>;
+  readonly refreshHistory$: (interval: number) => Observable<void>;
   isLoading?: boolean;
 
-  refreshAll(): Promise<void>;
-  refreshAllSummary(): Promise<void>;
-  refreshSingle(marketId: string): Promise<void>;
-  refreshSingleSummary(marketId: string): Promise<void>;
-  refreshHistory(): Promise<void>;
+  refreshAllMarkets(): Promise<void>;
+  refreshSingleMarket(marketId: string): Promise<void>;
 }
 
 export const MarketAdapter = Symbol("MarketAdapter");

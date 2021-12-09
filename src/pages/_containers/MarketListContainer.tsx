@@ -1,6 +1,6 @@
 import React from "react";
 import { MarketList } from "~/components";
-import { useIntervalRefresh, userMarketAdapter } from "~/hooks";
+import { useObservable, userMarketAdapter } from "~/hooks";
 import { observer } from "mobx-react";
 import { MarketType } from "~/domain";
 
@@ -12,16 +12,12 @@ type Props = {
 
 export const MarketListContainer = observer(({ marketType }: Props) => {
   const marketAdapter = userMarketAdapter(marketType);
-  const refreshByInterval = useIntervalRefresh(marketAdapter.refreshAllSummary, REFRESH_INTERVAL);
+
+  useObservable(marketAdapter.refreshAllSummary$(REFRESH_INTERVAL));
 
   React.useEffect(() => {
-    marketAdapter.refreshAll();
-    const subscription = refreshByInterval.subscribe();
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [marketAdapter, refreshByInterval]);
+    marketAdapter.refreshAllMarkets();
+  }, [marketAdapter]);
 
   return <MarketList loading={!marketAdapter?.isReady} items={marketAdapter.marketListItems} />;
 });

@@ -5,3 +5,4 @@ export * from "./IndexedArray";
 export * from "./Injective";
 export * from "./NumberFormatter";
 export * from "./Period";
+export * from "./rx";
