@@ -9,15 +9,15 @@ type Props = {
 
 export const PageLayout = ({ children, header, footer }: Props) => {
   return (
-    <Box height={"100%"} background={"dark-1"}>
+    <Box background={"dark-1"}>
       <Grid
-        fill
+        style={{ minHeight: "100vh" }}
         columns={["flex", "xlarge", "flex"]}
         rows={["56px", "flex", "56px"]}
         areas={[
           { name: "header", start: [1, 0], end: [1, 0] },
           { name: "main", start: [1, 1], end: [1, 1] },
-          { name: "footer", start: [1, 2], end: [1, 2]}
+          { name: "footer", start: [1, 2], end: [1, 2] },
         ]}
         gap={"none"}
       >
@@ -26,7 +26,7 @@ export const PageLayout = ({ children, header, footer }: Props) => {
         <Box flex gridArea={"main"}>
           {children}
         </Box>
-      <Box gridArea={"footer"}>{footer}</Box>
+        <Box gridArea={"footer"}>{footer}</Box>
       </Grid>
     </Box>
   );
