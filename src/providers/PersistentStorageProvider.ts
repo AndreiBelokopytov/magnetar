@@ -1,6 +1,5 @@
-export interface PersistentStorageProvider<Value, DataType, Request = undefined> {
+export interface PersistentStorageProvider<Value> {
     update(value: Value): Promise<void>;
-    fetch(request?: Request): Promise<void>;
+    fetch(): Promise<Value | undefined>;
     clear(): Promise<void>;
-    data: DataType | undefined;
 }

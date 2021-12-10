@@ -5,34 +5,44 @@ import { AccountInfo, WalletType } from "~/domain";
 import { EthAddress } from "~/utils";
 import { Settings } from "~/settings";
 import { AuthConsumer } from "@injectivelabs/chain-consumer";
-import { LocalStorageProvider } from "~/providers";
+import { LocalStorageProvider, LocalStorageProviderImpl } from "~/providers";
+
+type AccountInfoFields = {
+  walletType: WalletType;
+  address: string;
+};
 
 @injectable()
 export class AccountInfoStoreImpl implements AccountInfoStore {
   private readonly _authConsumer: AuthConsumer;
+  
+  @observable
+  accountInfo: AccountInfo;
 
   @observable
-  _addressStorage: LocalStorageProvider<string, AccountInfo>;
-  
-  get accountInfo() {
-    return this._addressStorage.data;
-  }
+  _addressProvider: LocalStorageProviderImpl<AccountInfoFields>;
 
-  constructor(@inject(Settings) private readonly _settings: Settings) {
+  constructor(
+    @inject(Settings) private readonly _settings: Settings,
+    @inject(LocalStorageProvider) _addressProviderFactory: <AccountInfoFields>(key: string) => LocalStorageProviderImpl<AccountInfoFields>
+  ) {
     this._authConsumer = new AuthConsumer(this._settings.appUrlEndpoint.chainHttpUrl);
-    this._addressStorage = new LocalStorageProvider<string, AccountInfo>('AccountInfo', (data) => {
-      const accountInfo = data.split(':');
-
-      return new AccountInfo(accountInfo[1], this._authConsumer.getInjectiveAddress(accountInfo[1]), accountInfo[0] as WalletType);
-    });
+    this._addressProvider = _addressProviderFactory("AccountInfo");
     makeObservable(this);
   }
 
   setAccountInfo(walletType: WalletType, address: EthAddress): void {
-    this._addressStorage.update(`${walletType}:${address}`);
+    this._addressProvider.update({ walletType, address });
+    this.accountInfo = new AccountInfo(address, this._authConsumer.getInjectiveAddress(address), walletType);
   }
 
   async refresh() {
-    return this._addressStorage.fetch();
+    const accountValue = await this._addressProvider.fetch();
+
+    if(accountValue) {
+      const { walletType, address } = accountValue;
+      
+      this.setAccountInfo(walletType as WalletType, address);
+    }
   }
 }

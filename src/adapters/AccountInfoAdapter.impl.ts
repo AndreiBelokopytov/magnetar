@@ -12,5 +12,9 @@ export class AccountInfoAdapterImpl implements AccountInfoAdapter {
     }
   }
 
+  async refresh() {
+    return this._accountInfoStore.refresh();
+  }
+
   constructor(@inject(AccountInfoStore) private readonly _accountInfoStore: AccountInfoStore) {}
 }

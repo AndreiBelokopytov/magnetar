@@ -12,7 +12,6 @@ export class WalletAdapterDelegateImpl implements WalletAdapterDelegate {
   }
 
   constructor(@inject(AccountInfoStore) private _accountInfoStore: AccountInfoStore) {
-    this._accountInfoStore.refresh();
     makeObservable(this);
   }
 
