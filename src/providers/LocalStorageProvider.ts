@@ -8,7 +8,7 @@ interface Stringify {
     toString(): string;
 };
 
-export class LocalStorageProvider<T extends Stringify, R> implements PersistentStorageProvider<T, undefined, R> {
+export class LocalStorageProvider<T extends Stringify, R> implements PersistentStorageProvider<T, R> {
     private _key: string;
 
     @observable
@@ -27,6 +27,11 @@ export class LocalStorageProvider<T extends Stringify, R> implements PersistentS
 
         localStorage.setItem(this._key, data);
         this._data = data;
+    }
+
+    async clear() {
+        localStorage.removeItem(this._key);
+        this._data = undefined;
     }
 
     constructor(key: string, private _factoryFn: (data: string) => R) {
