@@ -9,7 +9,7 @@ import { MarketHistoryStore } from "./MarketHistoryStore";
 import { MarketHistoryStoreImpl } from "./MarketHistoryStore.impl";
 import { SubAccountStore } from "./SubAccountStore";
 import { SubAccountStoreImpl } from "./SubAccountStore.impl";
-import { LocalStorageProvider, LocalStorageProviderImpl, PersistentStorageProvider } from "~/providers";
+import { LocalStorageProviderFactory, LocalStorageProviderImpl, PersistentStorageProvider } from "~/providers";
 
 export const storesModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<SpotMarketStore>(SpotMarketStore).to(SpotMarketStoreImpl).inSingletonScope();
@@ -17,9 +17,12 @@ export const storesModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<AccountInfoStore>(AccountInfoStore).to(AccountInfoStoreImpl).inSingletonScope();
   bind<MarketHistoryStore>(MarketHistoryStore).to(MarketHistoryStoreImpl);
   bind<SubAccountStore>(SubAccountStore).to(SubAccountStoreImpl);
-  bind<PersistentStorageProvider<any>>(LocalStorageProvider).toFactory<LocalStorageProviderImpl<any>>(() => {
-    return <T>(key: string): PersistentStorageProvider<T> => {
-      return new LocalStorageProviderImpl<T>(key);
-    };
-  });
+  bind<interfaces.Factory<PersistentStorageProvider<any>>>(LocalStorageProviderFactory).toFactory<
+    PersistentStorageProvider<any>,
+    [string]
+  >(
+    () =>
+      <T>(key: string): PersistentStorageProvider<T> =>
+        new LocalStorageProviderImpl<T>(key)
+  );
 });
