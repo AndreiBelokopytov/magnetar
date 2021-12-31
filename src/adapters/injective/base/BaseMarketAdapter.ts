@@ -35,7 +35,7 @@ export abstract class BaseMarketAdapter<T, P> implements MarketAdapter {
   readonly refreshBalances$ = toStream(() => this._accountInfoStore.accountInfo).pipe(
     filter((accountInfo): accountInfo is AccountInfo => accountInfo != null),
     distinct((accountInfo) => accountInfo.injectiveAddress),
-    switchMap((accountInfo) => this._subAccountStore.fetchAllBalances(accountInfo.injectiveAddress))
+    switchMap((accountInfo) => this._subAccountStore.fetchAllBalances(accountInfo.injectiveAddress.address))
   );
 
   @computed

@@ -1,11 +1,10 @@
 import { inject, injectable } from "inversify";
 import { AccountInfoStore } from "./AccountInfoStore";
-import { makeObservable, observable } from "mobx";
+import { action, makeObservable, observable, runInAction } from "mobx";
 import { AccountInfo, AccountInfoFields, WalletType } from "~/domain";
-import { EthAddress } from "~/utils";
 import { Settings } from "~/settings";
 import { AuthConsumer } from "@injectivelabs/chain-consumer";
-import { LocalStorageProviderFactory, LocalStorageProviderImpl, PersistentStorageProvider } from "~/providers";
+import { LocalStorageProviderFactory, PersistentStorageProvider } from "~/providers";
 
 @injectable()
 export class AccountInfoStoreImpl implements AccountInfoStore {
@@ -27,7 +26,8 @@ export class AccountInfoStoreImpl implements AccountInfoStore {
     makeObservable(this);
   }
 
-  setAccountInfo(walletType: WalletType, ethereumAddress: EthAddress): void {
+  @action
+  setAccountInfo(walletType: WalletType, ethereumAddress: string): void {
     this.accountInfo = new AccountInfo({
       ethereumAddress,
       injectiveAddress: this._authConsumer.getInjectiveAddress(ethereumAddress),
@@ -36,13 +36,14 @@ export class AccountInfoStoreImpl implements AccountInfoStore {
     this._addressProvider.update(this.accountInfo.toJSON());
   }
 
+  @action
   async refresh() {
-    const accountValue = await this._addressProvider.fetch();
+    const accountInfoFields = await this._addressProvider.fetch();
 
-    if (accountValue) {
-      const { walletType, ethereumAddress } = accountValue;
-
-      this.setAccountInfo(walletType, ethereumAddress);
+    if (accountInfoFields) {
+      runInAction(() => {
+        this.accountInfo = new AccountInfo(accountInfoFields);
+      });
     }
   }
 }

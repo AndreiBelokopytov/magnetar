@@ -1,30 +1,29 @@
-import { EthAddress, InjectiveAddress } from "~/utils";
 import { WalletType } from "~/domain/WalletType";
+import { EthAddress } from "~/domain/EthAddress";
+import { InjectiveAddress } from "~/domain/InjectiveAddress";
 
-export interface AccountInfoFields {
+export type AccountInfoFields = {
   walletType: WalletType;
   ethereumAddress: string;
-}
-
-export type AccountInfoProps = AccountInfoFields & {
   injectiveAddress: string;
 };
 
-export class AccountInfo implements AccountInfoFields {
+export class AccountInfo {
   public readonly ethereumAddress: EthAddress;
   public readonly injectiveAddress: InjectiveAddress;
   public readonly walletType: WalletType;
 
-  constructor({ ethereumAddress, injectiveAddress, walletType }: AccountInfoProps) {
-    this.ethereumAddress = ethereumAddress;
-    this.injectiveAddress = injectiveAddress;
+  constructor({ ethereumAddress, injectiveAddress, walletType }: AccountInfoFields) {
+    this.ethereumAddress = new EthAddress(ethereumAddress);
+    this.injectiveAddress = new InjectiveAddress(injectiveAddress);
     this.walletType = walletType;
   }
 
   toJSON(): AccountInfoFields {
     return {
       walletType: this.walletType,
-      ethereumAddress: this.ethereumAddress,
+      ethereumAddress: this.ethereumAddress.address,
+      injectiveAddress: this.injectiveAddress.address,
     };
   }
 }
